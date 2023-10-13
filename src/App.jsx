@@ -1,17 +1,39 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Home from "./pages/Home";
+
+import GlobalStyles from "./styles/GlobalStyles";
+import AppLayout from "./ui/AppLayout";
+import Home, { loader as HomeLoader } from "./pages/Home";
 import Products from "./pages/Products";
+import ProductDetail from "./pages/ProductDetail";
+import Cart from "./pages/Cart";
+import Login from "./pages/Login";
+import Error from "./pages/Error";
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Home />,
+    element: <AppLayout />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+        loader: HomeLoader,
+      },
+      { path: "/products/:id", element: <Products /> },
+      { path: "/productdetail/:id", element: <ProductDetail /> },
+      { path: "/cart", element: <Cart /> },
+      { path: "/login", element: <Login /> },
+    ],
   },
-  { path: "/products/:id", element: <Products /> },
+  { path: "*", element: <Error /> },
 ]);
 
 function App() {
-  return <RouterProvider router={router}></RouterProvider>;
+  return (
+    <>
+      <GlobalStyles />
+      <RouterProvider router={router}></RouterProvider>
+    </>
+  );
 }
 
 export default App;

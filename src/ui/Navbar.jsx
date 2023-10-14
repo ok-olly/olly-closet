@@ -5,7 +5,7 @@ const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
   padding: 0 4rem;
-  margin-top: 1rem;
+  margin: 1rem 0;
 `;
 
 const Ul = styled.ul`

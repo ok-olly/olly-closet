@@ -14,12 +14,17 @@ const Ul = styled.ul`
   gap: 2rem;
 
   ${(props) =>
+    props.type === "uppercase" &&
+    css`
+      text-transform: uppercase;
+    `}
+
+  ${(props) =>
     props.type === "gray" &&
     css`
-      /* border-top: solid 2px var(--color-neutral-300); */
       color: var(--color-neutral-400);
       font-size: 1.3rem;
-    `}
+    `};
 `;
 
 const Hr = styled.hr`
@@ -31,7 +36,7 @@ function Footer() {
   return (
     <footer>
       <Nav>
-        <Ul>
+        <Ul type="uppercase">
           <li>company</li>
           <li>agreement</li>
           <li>privacy policy</li>

@@ -16,7 +16,7 @@ const StyledSlider = styled.div`
 
 const ImgContainer = styled.div`
   display: flex;
-  transform: translateX(${(props) => -(props.slide * 100) + "%"});
+  transform: translateX(${(props) => -(props.$slide * 100) + "%"});
   transition: all 1s ease;
 `;
 
@@ -68,7 +68,7 @@ function Slider() {
 
   return (
     <StyledSlider>
-      <ImgContainer slide={currentSlide}>
+      <ImgContainer $slide={currentSlide}>
         {images.map((img, i) => (
           <Img src={img} key={i} />
         ))}

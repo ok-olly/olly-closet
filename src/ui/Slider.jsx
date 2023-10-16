@@ -32,6 +32,10 @@ const BtnContainer = styled.div`
   width: 100%;
   justify-content: space-between;
   font-size: 3.5rem;
+
+  div {
+    cursor: pointer;
+  }
 `;
 
 const StyledMdArrowBackIos = styled(MdArrowBackIos)`
@@ -46,6 +50,10 @@ const Progress = styled.div`
   font-size: 1.2rem;
   position: absolute;
   bottom: 1.3rem;
+
+  div {
+    cursor: pointer;
+  }
 `;
 
 const images = [
@@ -61,10 +69,9 @@ function Slider() {
   return (
     <StyledSlider>
       <ImgContainer slide={currentSlide}>
-        <Img src={images[0]} />
-        <Img src={images[1]} />
-        <Img src={images[2]} />
-        <Img src={images[3]} />
+        {images.map((img, i) => (
+          <Img src={img} key={i} />
+        ))}
       </ImgContainer>
 
       <BtnContainer>
@@ -85,10 +92,11 @@ function Slider() {
       </BtnContainer>
 
       <Progress>
-        {currentSlide === 0 ? <MdCircle /> : <MdOutlineCircle />}
-        {currentSlide === 1 ? <MdCircle /> : <MdOutlineCircle />}
-        {currentSlide === 2 ? <MdCircle /> : <MdOutlineCircle />}
-        {currentSlide === 3 ? <MdCircle /> : <MdOutlineCircle />}
+        {images.map((_, i) => (
+          <div onClick={() => setCurrentSlide(i)} key={i}>
+            {i === currentSlide ? <MdCircle /> : <MdOutlineCircle />}
+          </div>
+        ))}
       </Progress>
     </StyledSlider>
   );

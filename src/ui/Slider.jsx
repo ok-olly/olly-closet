@@ -12,6 +12,7 @@ const StyledSlider = styled.div`
   overflow: hidden;
   position: relative;
   color: var(--color-neutral-50);
+  margin-bottom: 10rem;
 `;
 
 const ImgContainer = styled.div`

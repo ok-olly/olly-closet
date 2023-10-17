@@ -7,21 +7,25 @@ const StyledFeaturedProducts = styled.div`
   }
 `;
 
+const H2 = styled.h2`
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+`;
+
 const CardContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: min-content;
-  gap: 1rem;
+  gap: 4rem;
 `;
 
 function FeaturedProducts({ type, products }) {
-  console.log(type, products);
-
   return (
     <StyledFeaturedProducts>
-      {type === "new" && <h2>New Arrivals</h2>}
-      {type === "featured" && <h2>Top Sellers</h2>}
-      {type === "trending" && <h2>Trending Now</h2>}
+      {type === "new" && <H2>New Arrivals</H2>}
+      {type === "featured" && <H2>discover | 이번 시즌 액세서리</H2>}
+      {type === "trending" && <H2>Trending Now</H2>}
 
       <CardContainer>
         {products.map((product) => (

@@ -31,13 +31,13 @@ function Navbar() {
     <Nav>
       <Ul>
         <li>
-          <StyledNavLink to="/products/1">여성</StyledNavLink>
+          <StyledNavLink to="/products/women">여성</StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/products/2">남성</StyledNavLink>
+          <StyledNavLink to="/products/men">남성</StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/products/3">브랜드</StyledNavLink>
+          <StyledNavLink to="/products/brand">브랜드</StyledNavLink>
         </li>
       </Ul>
       <Ul>

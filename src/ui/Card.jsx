@@ -32,6 +32,21 @@ const Img = styled.img`
   }
 `;
 
+const BrandTitle = styled.span`
+  font-weight: 400;
+  text-transform: uppercase;
+`;
+
+const FullPrice = styled.span`
+  text-decoration: line-through;
+  color: var(--color-neutral-400);
+`;
+
+const Percentage = styled.span`
+  margin-left: 1rem;
+  color: var(--color-red-600);
+`;
+
 function Card({ product }) {
   const {
     brand: { title: brandTitle },
@@ -44,6 +59,7 @@ function Card({ product }) {
   } = product;
 
   const price = fullPrice - discount;
+  const percentage = Math.ceil((discount / fullPrice) * 100);
 
   return (
     <Link to={`/productdetail/${id}`}>
@@ -52,27 +68,21 @@ function Card({ product }) {
         <Img src={img2} />
       </ImgContainer>
 
-      <span>{brandTitle}</span>
-      <br />
-      <span>{productTitle}</span>
+      <BrandTitle>{brandTitle}</BrandTitle>
+      <p>{productTitle}</p>
 
       {discount > 0 ? (
-        <p
-          style={{
-            textDecoration: "line-through",
-            color: "var(--color-neutral-400)",
-          }}
-        >
-          {fullPrice.toLocaleString("ko-KR", {
-            style: "currency",
-            currency: "KRW",
-          })}
-        </p>
-      ) : (
         <>
-          <br />
-          <br />
+          <FullPrice>
+            {fullPrice.toLocaleString("ko-KR", {
+              style: "currency",
+              currency: "KRW",
+            })}
+          </FullPrice>
+          <Percentage>{percentage}% OFF</Percentage>
         </>
+      ) : (
+        <br />
       )}
       <p>
         {price.toLocaleString("ko-KR", {

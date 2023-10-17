@@ -10,7 +10,7 @@ const StyledAppLayout = styled.div`
 
 const Main = styled.main`
   padding: 0 10rem;
-  /* min-height: 70vh; */
+  min-height: 70vh;
 `;
 
 function AppLayout() {

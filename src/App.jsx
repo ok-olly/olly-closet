@@ -3,7 +3,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import GlobalStyles from "./styles/GlobalStyles";
 import AppLayout from "./ui/AppLayout";
 import Home, { loader as HomeLoader } from "./pages/Home";
-import Products from "./pages/Products";
+import Products, { loader as ProductsLoader } from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
 import Login from "./pages/Login";
@@ -18,7 +18,11 @@ const router = createBrowserRouter([
         element: <Home />,
         loader: HomeLoader,
       },
-      { path: "/products/:id", element: <Products /> },
+      {
+        path: "/products/:id",
+        element: <Products />,
+        loader: ProductsLoader,
+      },
       { path: "/productdetail/:id", element: <ProductDetail /> },
       { path: "/cart", element: <Cart /> },
       { path: "/login", element: <Login /> },

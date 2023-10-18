@@ -76,3 +76,48 @@ export async function getBrands() {
 
   return data;
 }
+
+export async function getProductsByFilters(filters) {
+  // 브랜드만 필터 걸어서 가져오기
+  /*
+  const { selectedBrand, filteredPrice } = filters;
+  const { data, error } = await supabase
+    .from("product")
+    .select(
+      `
+    *,
+    brand (
+      id, title
+    )
+  `
+    )
+    .in("brandId", selectedBrand);
+  */
+
+  // 필터 통째로
+  const { selectedBrand, selectedPrice } = filters;
+  const filtersString = `and(brandId.in.(${selectedBrand.join(
+    ","
+  )}),price.lte.${selectedPrice})`;
+  console.log("filtersString", filtersString);
+
+  const { data, error } = await supabase
+    .from("product")
+    .select(
+      `
+    *,
+    brand (
+      id, title
+    )
+  `
+    )
+    .or(filtersString);
+
+  if (error) {
+    console.error(error);
+    throw new Error("Products could not be loaded");
+  }
+
+  console.log("data", data);
+  return data;
+}

@@ -95,10 +95,10 @@ export async function getProductsByFilters(filters) {
   */
 
   // 필터 통째로
-  const { selectedBrand, selectedPrice } = filters;
+  const { selectedBrand, selectedPrice, selectedCategory } = filters;
   const filtersString = `and(brandId.in.(${selectedBrand.join(
     ","
-  )}),price.lte.${selectedPrice})`;
+  )}),price.lte.${selectedPrice},categoryId.in.(${selectedCategory}))`;
   console.log("filtersString", filtersString);
 
   const { data, error } = await supabase

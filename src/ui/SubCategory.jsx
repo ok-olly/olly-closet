@@ -13,7 +13,7 @@ const Ul = styled.ul`
 `;
 
 function SubCategory({ categoryId }) {
-  const category = categoryId;
+  // const category = categoryId;
 
   return (
     <Nav>
@@ -24,7 +24,8 @@ function SubCategory({ categoryId }) {
 
         <li>가방</li>
         <li>지갑</li>
-        {category === "women" ? <li>주얼리</li> : <li>워치</li>}
+        {/* {category === "women" ? <li>주얼리</li> : <li>워치</li>} */}
+        {categoryId === "women" ? <li>주얼리</li> : <li>워치</li>}
         <li>액세서리</li>
         <li>세일</li>
       </Ul>

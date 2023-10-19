@@ -1,14 +1,11 @@
 import { useLoaderData, useParams } from "react-router-dom";
 import SubCategory from "../ui/SubCategory";
 import Brand from "../ui/Brand";
-import {
-  getBrands,
-  getProducts,
-  getProductsByFilters,
-} from "../services/apiProducts";
+import { getBrands, getProducts } from "../services/apiProducts";
 import Card from "../ui/Card";
 import styled from "styled-components";
 import { useState } from "react";
+import Filter from "../ui/Filter";
 
 const Container = styled.div`
   display: flex;
@@ -33,98 +30,66 @@ function Products() {
   const { id: categoryId } = useParams();
   const [{ womenItems }, { menItems }, { sortedBrands }] = useLoaderData();
 
-  const maxPrice = womenItems.reduce((acc, item) => {
-    let price = item.fullPrice - item.discount;
-    if (price > acc) acc = price;
-    return acc;
-  }, 0);
-
-  const [selectedBrand, setSelectedBrand] = useState([]);
-  const [selectedPrice, setSelectedPrice] = useState(maxPrice);
-  const filters = { selectedBrand, selectedPrice };
   const [filteredProducts, setFilteredProducts] = useState([]);
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    console.log("selectedBrand", selectedBrand);
-    const filteredData = await getProductsByFilters(filters);
-    setFilteredProducts(filteredData);
+  if (categoryId === "women") {
+    return (
+      <>
+        <SubCategory categoryId={categoryId} />
+        <Container>
+          <LeftSide>
+            <Filter
+              sortedBrands={sortedBrands}
+              products={womenItems}
+              categoryId={categoryId}
+              setFilteredProducts={setFilteredProducts}
+            />
+          </LeftSide>
+          <RightSide>
+            {typeof filteredProducts === "string" ? (
+              <span>{filteredProducts}</span>
+            ) : filteredProducts.length > 0 ? (
+              filteredProducts.map((product) => (
+                <Card product={product} key={product.id} />
+              ))
+            ) : (
+              womenItems.map((item) => <Card product={item} key={item.id} />)
+            )}
+          </RightSide>
+        </Container>
+      </>
+    );
   }
 
-  return (
-    <>
-      {categoryId === "brand" ? (
-        <Brand brands={sortedBrands} />
-      ) : (
+  if (categoryId === "men")
+    return (
+      <>
         <SubCategory categoryId={categoryId} />
-      )}
+        <Container>
+          <LeftSide>
+            <Filter
+              sortedBrands={sortedBrands}
+              products={menItems}
+              categoryId={categoryId}
+              setFilteredProducts={setFilteredProducts}
+            />
+          </LeftSide>
+          <RightSide>
+            {typeof filteredProducts === "string" ? (
+              <span>{filteredProducts}</span>
+            ) : filteredProducts.length > 0 ? (
+              filteredProducts.map((product) => (
+                <Card product={product} key={product.id} />
+              ))
+            ) : (
+              menItems.map((item) => <Card product={item} key={item.id} />)
+            )}
+          </RightSide>
+        </Container>
+      </>
+    );
 
-      <Container>
-        <LeftSide>
-          <form onSubmit={(e) => handleSubmit(e)}>
-            <h3>Filter</h3>
-
-            <div>
-              <h4>by brand</h4>
-              {sortedBrands.map((brand) => (
-                <div key={brand.id}>
-                  <input
-                    type="checkbox"
-                    value={brand.id}
-                    onChange={(e) => {
-                      setSelectedBrand(
-                        e.target.checked
-                          ? [...selectedBrand, e.target.value]
-                          : selectedBrand.filter(
-                              (brand) => brand !== e.target.value
-                            )
-                      );
-                    }}
-                  />
-                  <label>{brand.title}</label>
-                </div>
-              ))}
-            </div>
-
-            <div>
-              <h4>by price</h4>
-              <div>
-                <span>0</span>
-                <input
-                  type="range"
-                  value={selectedPrice}
-                  min={0}
-                  max={maxPrice}
-                  onChange={(e) => setSelectedPrice(e.target.value)}
-                />
-                <span>{selectedPrice}</span>
-              </div>
-            </div>
-
-            <button>apply</button>
-          </form>
-        </LeftSide>
-
-        <RightSide>
-          {categoryId === "women" &&
-            (filteredProducts.length > 0
-              ? filteredProducts.map((product) => (
-                  <Card product={product} key={product.id} />
-                ))
-              : womenItems.map((item) => (
-                  <Card product={item} key={item.id} />
-                )))}
-
-          {categoryId === "men" &&
-            (filteredProducts.length > 0
-              ? filteredProducts.map((product) => (
-                  <Card product={product} key={product.id} />
-                ))
-              : menItems.map((item) => <Card product={item} key={item.id} />))}
-        </RightSide>
-      </Container>
-    </>
-  );
+  if (categoryId === "brand") return <Brand brands={sortedBrands} />;
 }
 
 export async function loader() {

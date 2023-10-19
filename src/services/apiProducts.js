@@ -1,14 +1,9 @@
 import supabase from "./supabase";
 
 export async function getProducts() {
-  const { data, error } = await supabase.from("product").select(
-    `
-  *,
-  brand (
-    id, title
-  )
-`
-  );
+  const { data, error } = await supabase
+    .from("product")
+    .select(`*, brand(id, title)`);
 
   if (error) {
     console.error(error);
@@ -18,35 +13,10 @@ export async function getProducts() {
   return data;
 }
 
-/*
-// 브랜드 불러오기 전
-export async function getProducts(col) {
-  const { data, error } = await supabase
-    .from("product")
-    .select("*")
-    .eq(col, true);
-
-  if (error) {
-    console.error(error);
-    throw new Error("New products could not be loaded");
-  }
-
-  return data;
-}
-*/
-
 export async function getProductsByFeatures(feature) {
-  // 브랜드 나옴 + 필터 잘 됨
   const { data, error } = await supabase
     .from("product")
-    .select(
-      `
-    *,
-    brand (
-      id, title
-    )
-  `
-    )
+    .select(`*, brand(id, title)`)
     .eq(feature, true);
 
   if (error) {
@@ -55,15 +25,6 @@ export async function getProductsByFeatures(feature) {
   }
 
   return data;
-
-  /*
-  let { data, error } = await supabase.from("brand").select(`
-    id, title,
-    product (*)
-  `);
-
-  return data;
-  */
 }
 
 export async function getBrands() {
@@ -77,40 +38,31 @@ export async function getBrands() {
   return data;
 }
 
+export async function getSubCategories() {
+  let { data, error } = await supabase.from("subCategory").select("*");
+
+  if (error) {
+    console.error(error);
+    throw new Error("SubCategories could not be loaded");
+  }
+
+  return data;
+}
+
 export async function getProductsByFilters(filters) {
-  // 브랜드만 필터 걸어서 가져오기
-  /*
-  const { selectedBrand, filteredPrice } = filters;
-  const { data, error } = await supabase
-    .from("product")
-    .select(
-      `
-    *,
-    brand (
-      id, title
-    )
-  `
-    )
-    .in("brandId", selectedBrand);
-  */
+  let { selectedBrand, selectedPrice, selectedCategory, selectedSubCategory } =
+    filters;
 
-  // 필터 통째로
-  const { selectedBrand, selectedPrice, selectedCategory } = filters;
-  const filtersString = `and(brandId.in.(${selectedBrand.join(
-    ","
-  )}),price.lte.${selectedPrice},categoryId.in.(${selectedCategory}))`;
-  console.log("filtersString", filtersString);
+  if (selectedBrand.length === 0)
+    selectedBrand = (await getBrands()).map((brand) => brand.id);
+  if (selectedSubCategory.length === 0)
+    selectedSubCategory = (await getSubCategories()).map((sub) => sub.id);
+
+  const filtersString = `and(brandId.in.(${selectedBrand}),price.lte.${selectedPrice},categoryId.in.(${selectedCategory}),subCategoryId.in.(${selectedSubCategory}))`;
 
   const { data, error } = await supabase
     .from("product")
-    .select(
-      `
-    *,
-    brand (
-      id, title
-    )
-  `
-    )
+    .select(`*, brand(id, title)`)
     .or(filtersString);
 
   if (error) {
@@ -118,6 +70,5 @@ export async function getProductsByFilters(filters) {
     throw new Error("Products could not be loaded");
   }
 
-  console.log("data", data);
   return data;
 }

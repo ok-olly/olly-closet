@@ -36,9 +36,6 @@ function Navbar() {
         <li>
           <StyledNavLink to="/products/men">남성</StyledNavLink>
         </li>
-        <li>
-          <StyledNavLink to="/products/brand">브랜드</StyledNavLink>
-        </li>
       </Ul>
       <Ul>
         <li>

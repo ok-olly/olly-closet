@@ -1,25 +1,36 @@
 import { useState } from "react";
 import { getProductsByFilters } from "../services/apiProducts";
 
-function Filter({ sortedBrands, products, categoryId, setFilteredProducts }) {
+function Filter({
+  sortedBrands,
+  products,
+  categoryId,
+  setFilteredProducts,
+  subCategories,
+}) {
   const [selectedBrand, setSelectedBrand] = useState([]);
-
   const maxPrice = products.reduce((acc, item) => {
     if (item.price > acc) acc = item.price;
     return acc;
   }, 0);
-
   const [selectedPrice, setSelectedPrice] = useState(maxPrice);
   const selectedCategory =
     categoryId === "women" ? 1 : categoryId === "men" ? 2 : 3;
-  const filters = { selectedBrand, selectedPrice, selectedCategory };
+
+  const [selectedSubCategory, setSelectedSubCategory] = useState([]);
+  const filters = {
+    selectedBrand,
+    selectedPrice,
+    selectedCategory,
+    selectedSubCategory,
+  };
 
   async function handleSubmit(e) {
     e.preventDefault();
     const filteredData = await getProductsByFilters(filters);
-
     setFilteredProducts(
-      selectedBrand.length > 0 && filteredData.length === 0
+      (selectedBrand.length > 0 || selectedSubCategory.length > 0) &&
+        filteredData.length === 0
         ? "검색결과가 없습니다"
         : filteredData
     );
@@ -28,6 +39,28 @@ function Filter({ sortedBrands, products, categoryId, setFilteredProducts }) {
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
       <h3>Filter</h3>
+
+      <div>
+        <h4>by subcategory</h4>
+        {subCategories.map((sub) => (
+          <div key={sub.id}>
+            <input
+              type="checkbox"
+              value={sub.id}
+              onChange={(e) => {
+                setSelectedSubCategory(
+                  e.target.checked
+                    ? [...selectedSubCategory, e.target.value]
+                    : selectedSubCategory.filter(
+                        (sub) => sub !== e.target.value
+                      )
+                );
+              }}
+            />
+            <label>{sub.title}</label>
+          </div>
+        ))}
+      </div>
 
       <div>
         <h4>by brand</h4>
@@ -58,9 +91,14 @@ function Filter({ sortedBrands, products, categoryId, setFilteredProducts }) {
             value={selectedPrice}
             min={0}
             max={maxPrice}
-            onChange={(e) => setSelectedPrice(e.target.value)}
+            onChange={(e) => setSelectedPrice(Number(e.target.value))}
           />
-          <span>{selectedPrice}</span>
+          <span>
+            {selectedPrice.toLocaleString("ko-KR", {
+              style: "currency",
+              currency: "KRW",
+            })}
+          </span>
         </div>
       </div>
 

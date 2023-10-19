@@ -1,10 +1,14 @@
+import { useEffect, useState } from "react";
 import { useLoaderData, useParams } from "react-router-dom";
-import SubCategory from "../ui/SubCategory";
-import Brand from "../ui/Brand";
-import { getBrands, getProducts } from "../services/apiProducts";
-import Card from "../ui/Card";
 import styled from "styled-components";
-import { useState } from "react";
+
+import {
+  getBrands,
+  getProducts,
+  getSubCategories,
+} from "../services/apiProducts";
+import Brand from "../ui/Brand";
+import Card from "../ui/Card";
 import Filter from "../ui/Filter";
 
 const Container = styled.div`
@@ -28,68 +32,40 @@ const RightSide = styled.div`
 
 function Products() {
   const { id: categoryId } = useParams();
-  const [{ womenItems }, { menItems }, { sortedBrands }] = useLoaderData();
-
+  const [{ womenItems }, { menItems }, { sortedBrands }, { subCategories }] =
+    useLoaderData();
   const [filteredProducts, setFilteredProducts] = useState([]);
 
-  if (categoryId === "women") {
-    return (
-      <>
-        <SubCategory categoryId={categoryId} />
-        <Container>
-          <LeftSide>
-            <Filter
-              sortedBrands={sortedBrands}
-              products={womenItems}
-              categoryId={categoryId}
-              setFilteredProducts={setFilteredProducts}
-            />
-          </LeftSide>
-          <RightSide>
-            {typeof filteredProducts === "string" ? (
-              <span>{filteredProducts}</span>
-            ) : filteredProducts.length > 0 ? (
-              filteredProducts.map((product) => (
-                <Card product={product} key={product.id} />
-              ))
-            ) : (
-              womenItems.map((item) => <Card product={item} key={item.id} />)
-            )}
-          </RightSide>
-        </Container>
-      </>
-    );
-  }
+  useEffect(() => {
+    setFilteredProducts([]);
+  }, [categoryId]);
 
-  if (categoryId === "men")
-    return (
-      <>
-        <SubCategory categoryId={categoryId} />
-        <Container>
-          <LeftSide>
-            <Filter
-              sortedBrands={sortedBrands}
-              products={menItems}
-              categoryId={categoryId}
-              setFilteredProducts={setFilteredProducts}
-            />
-          </LeftSide>
-          <RightSide>
-            {typeof filteredProducts === "string" ? (
-              <span>{filteredProducts}</span>
-            ) : filteredProducts.length > 0 ? (
-              filteredProducts.map((product) => (
-                <Card product={product} key={product.id} />
-              ))
-            ) : (
-              menItems.map((item) => <Card product={item} key={item.id} />)
-            )}
-          </RightSide>
-        </Container>
-      </>
-    );
-
-  if (categoryId === "brand") return <Brand brands={sortedBrands} />;
+  return (
+    <Container>
+      <LeftSide>
+        <Filter
+          sortedBrands={sortedBrands}
+          products={categoryId === "women" ? womenItems : menItems}
+          categoryId={categoryId}
+          setFilteredProducts={setFilteredProducts}
+          subCategories={subCategories}
+        />
+      </LeftSide>
+      <RightSide>
+        {typeof filteredProducts === "string" ? (
+          <span>{filteredProducts}</span>
+        ) : filteredProducts.length > 0 ? (
+          filteredProducts.map((product) => (
+            <Card product={product} key={product.id} />
+          ))
+        ) : categoryId === "women" ? (
+          womenItems.map((item) => <Card product={item} key={item.id} />)
+        ) : (
+          menItems.map((item) => <Card product={item} key={item.id} />)
+        )}
+      </RightSide>
+    </Container>
+  );
 }
 
 export async function loader() {
@@ -98,7 +74,13 @@ export async function loader() {
   const menItems = allItems.filter((item) => item.categoryId === 2 && item);
   const brands = await getBrands();
   const sortedBrands = brands.sort((a, b) => (a.title < b.title ? -1 : 1));
-  const products = [{ womenItems }, { menItems }, { sortedBrands }];
+  const subCategories = await getSubCategories();
+  const products = [
+    { womenItems },
+    { menItems },
+    { sortedBrands },
+    { subCategories },
+  ];
   return products;
 }
 

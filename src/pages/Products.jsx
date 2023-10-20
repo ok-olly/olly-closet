@@ -7,7 +7,6 @@ import {
   getProducts,
   getSubCategories,
 } from "../services/apiProducts";
-import Brand from "../ui/Brand";
 import Card from "../ui/Card";
 import Filter from "../ui/Filter";
 

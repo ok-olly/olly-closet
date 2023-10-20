@@ -72,3 +72,17 @@ export async function getProductsByFilters(filters) {
 
   return data;
 }
+
+export async function getSingleProduct(id) {
+  const { data, error } = await supabase
+    .from("product")
+    .select(`*, brand(id, title)`)
+    .eq("id", id);
+
+  if (error) {
+    console.error(error);
+    throw new Error("This product could not be loaded");
+  }
+
+  return data;
+}

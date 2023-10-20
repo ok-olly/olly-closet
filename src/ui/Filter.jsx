@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { getProductsByFilters } from "../services/apiProducts";
+import { setCurrency } from "../services/helper";
 
 function Filter({
   sortedBrands,
@@ -93,12 +94,7 @@ function Filter({
             max={maxPrice}
             onChange={(e) => setSelectedPrice(Number(e.target.value))}
           />
-          <span>
-            {selectedPrice.toLocaleString("ko-KR", {
-              style: "currency",
-              currency: "KRW",
-            })}
-          </span>
+          <span>{setCurrency(selectedPrice)}</span>
         </div>
       </div>
 

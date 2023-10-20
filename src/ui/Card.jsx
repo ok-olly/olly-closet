@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { setCurrency } from "../services/helper";
 
 const ImgContainer = styled.div`
   position: relative;
@@ -56,9 +57,8 @@ function Card({ product }) {
     img2,
     fullPrice,
     discount,
+    price,
   } = product;
-
-  const price = fullPrice - discount;
   const percentage = Math.ceil((discount / fullPrice) * 100);
 
   return (
@@ -73,23 +73,13 @@ function Card({ product }) {
 
       {discount > 0 ? (
         <>
-          <FullPrice>
-            {fullPrice.toLocaleString("ko-KR", {
-              style: "currency",
-              currency: "KRW",
-            })}
-          </FullPrice>
+          <FullPrice>{setCurrency(fullPrice)}</FullPrice>
           <Percentage>{percentage}% OFF</Percentage>
         </>
       ) : (
         <br />
       )}
-      <p>
-        {price.toLocaleString("ko-KR", {
-          style: "currency",
-          currency: "KRW",
-        })}
-      </p>
+      <p>{setCurrency(price)}</p>
     </Link>
   );
 }

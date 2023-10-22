@@ -22,7 +22,8 @@ const StyledNavLink = styled(NavLink)`
   &:hover,
   &.active:link,
   &.active:visited {
-    border-bottom: solid 2px var(--color-neutral-300);
+    /* border-bottom: solid 2px var(--color-neutral-300); */
+    font-weight: 400;
   }
 `;
 

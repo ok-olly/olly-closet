@@ -1,38 +1,73 @@
 import { useLoaderData } from "react-router-dom";
 import { getSingleProduct } from "../services/apiProducts";
 import styled from "styled-components";
-import { useState } from "react";
 import { setCurrency } from "../services/helper";
+import Button from "../ui/Button";
 
 const Container = styled.div`
   display: flex;
-  gap: 4rem;
+  gap: 2rem;
 `;
 
 const LeftSide = styled.div`
-  display: flex;
-  gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+
+  img {
+    width: 42rem;
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 
 const RightSide = styled.div`
   flex: 1;
-  background-color: yellowgreen;
-`;
+  background-color: var(--color-neutral-100);
+  padding: 1rem;
+  height: 100%;
+  position: sticky;
+  top: 11rem;
+  text-transform: uppercase;
 
-const LeftSideSmall = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-
-  img {
-    width: 8rem;
-  }
+  gap: 3rem;
 `;
 
-const LeftSideBig = styled.div`
-  img {
-    width: 49rem;
-  }
+const H4 = styled.h4`
+  color: var(--color-neutral-500);
+  font-size: 1.3rem;
+  font-weight: 300;
+`;
+
+const H3 = styled.h3`
+  font-size: 1.8rem;
+  font-weight: 500;
+`;
+
+const H2 = styled.h2`
+  font-size: 1.6rem;
+  font-weight: 300;
+`;
+
+const FullPrice = styled.span`
+  text-decoration: line-through;
+  color: var(--color-neutral-400);
+`;
+
+const Percentage = styled.span`
+  margin-left: 1rem;
+  color: var(--color-red-600);
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
+
+const DescContainer = styled.div`
+  line-height: 1.8;
 `;
 
 function ProductDetail() {
@@ -49,33 +84,59 @@ function ProductDetail() {
       discount,
       fullPrice,
       price,
+      isNew,
+      isTrending,
     },
   ] = useLoaderData();
   const { id: brandId, title: brandTitle } = brand;
-  const [currentImage, setCurrentImage] = useState(img1);
+
+  const percentage = Math.ceil((discount / fullPrice) * 100);
 
   return (
     <Container>
       <LeftSide>
-        <LeftSideSmall className="작은사이즈">
-          <img src={img1} onMouseEnter={() => setCurrentImage(img1)} />
-          <img src={img2} onMouseEnter={() => setCurrentImage(img2)} />
-          <img src={img3} onMouseEnter={() => setCurrentImage(img3)} />
-          <img src={img4} onMouseEnter={() => setCurrentImage(img4)} />
-        </LeftSideSmall>
-        <LeftSideBig className="큰사이즈">
-          <img src={currentImage} />
-        </LeftSideBig>
+        <img src={img1} />
+        <img src={img2} />
+        <img src={img3} />
+        <img src={img4} />
       </LeftSide>
       <RightSide>
-        <h3>{brandTitle}</h3>
-        <h2>{title}</h2>
+        <div>
+          {isNew ? (
+            <H4>New Season</H4>
+          ) : isTrending ? (
+            <H4>Trending</H4>
+          ) : (
+            <br />
+          )}
+          <H3>{brandTitle}</H3>
+          <H2>{title}</H2>
+        </div>
 
-        <span>{setCurrency(fullPrice)}</span>
-        <span>{setCurrency(discount)}</span>
-        <span>{setCurrency(price)}</span>
+        <div>
+          {discount > 0 ? (
+            <>
+              <FullPrice>{setCurrency(fullPrice)}</FullPrice>
+              <Percentage>{percentage}% OFF</Percentage>
+            </>
+          ) : (
+            <br />
+          )}
+          <p>{setCurrency(price)}</p>
+        </div>
 
-        <p>{desc}</p>
+        <ButtonContainer>
+          <Button color="green">장바구니에 담기</Button>
+          <Button color="yellow">바로 구매</Button>
+        </ButtonContainer>
+
+        <hr />
+
+        <DescContainer>
+          {desc.split(",").map((el) => (
+            <p key={el}>{el}</p>
+          ))}
+        </DescContainer>
       </RightSide>
     </Container>
   );

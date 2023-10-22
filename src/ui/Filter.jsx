@@ -1,6 +1,45 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getProductsByFilters } from "../services/apiProducts";
 import { setCurrency } from "../services/helper";
+import styled from "styled-components";
+import Button from "./Button";
+
+const Form = styled.form`
+  position: sticky;
+  top: 11rem;
+  background-color: var(--color-neutral-100);
+  padding: 2rem 1rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-transform: uppercase;
+`;
+
+const CheckboxContainer = styled.div`
+  label:hover {
+    cursor: pointer;
+  }
+`;
+
+const InputCheckbox = styled.input`
+  margin-right: 0.5rem;
+`;
+
+const PriceFilterContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const PriceFilter = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
 
 function Filter({
   sortedBrands,
@@ -26,6 +65,19 @@ function Filter({
     selectedSubCategory,
   };
 
+  function handleSingleCheck(field, checked, id) {
+    if (field === "sub") {
+      if (checked) setSelectedSubCategory((prev) => [...prev, id]);
+      else
+        setSelectedSubCategory(selectedSubCategory.filter((el) => el !== id));
+    }
+
+    if (field === "brand") {
+      if (checked) setSelectedBrand((prev) => [...prev, id]);
+      else setSelectedBrand(selectedBrand.filter((el) => el !== id));
+    }
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
     const filteredData = await getProductsByFilters(filters);
@@ -37,56 +89,60 @@ function Filter({
     );
   }
 
+  function handleReset() {
+    setSelectedBrand([]);
+    setSelectedSubCategory([]);
+    setSelectedPrice(maxPrice);
+    setFilteredProducts([]);
+  }
+
+  useEffect(() => {
+    handleReset();
+  }, [categoryId]);
+
   return (
-    <form onSubmit={(e) => handleSubmit(e)}>
-      <h3>Filter</h3>
+    <Form onSubmit={(e) => handleSubmit(e)}>
+      <h3>필터</h3>
 
       <div>
         <h4>by subcategory</h4>
         {subCategories.map((sub) => (
-          <div key={sub.id}>
-            <input
+          <CheckboxContainer key={sub.id}>
+            <InputCheckbox
               type="checkbox"
               value={sub.id}
-              onChange={(e) => {
-                setSelectedSubCategory(
-                  e.target.checked
-                    ? [...selectedSubCategory, e.target.value]
-                    : selectedSubCategory.filter(
-                        (sub) => sub !== e.target.value
-                      )
-                );
-              }}
+              id={sub.title}
+              onChange={(e) =>
+                handleSingleCheck("sub", e.target.checked, sub.id)
+              }
+              checked={selectedSubCategory.includes(sub.id)}
             />
-            <label>{sub.title}</label>
-          </div>
+            <label htmlFor={sub.title}>{sub.title}</label>
+          </CheckboxContainer>
         ))}
       </div>
 
       <div>
         <h4>by brand</h4>
         {sortedBrands.map((brand) => (
-          <div key={brand.id}>
-            <input
+          <CheckboxContainer key={brand.id}>
+            <InputCheckbox
               type="checkbox"
               value={brand.id}
-              onChange={(e) => {
-                setSelectedBrand(
-                  e.target.checked
-                    ? [...selectedBrand, e.target.value]
-                    : selectedBrand.filter((brand) => brand !== e.target.value)
-                );
-              }}
+              id={brand.title}
+              onChange={(e) =>
+                handleSingleCheck("brand", e.target.checked, brand.id)
+              }
+              checked={selectedBrand.includes(brand.id)}
             />
-            <label>{brand.title}</label>
-          </div>
+            <label htmlFor={brand.title}>{brand.title}</label>
+          </CheckboxContainer>
         ))}
       </div>
 
       <div>
         <h4>by price</h4>
-        <div>
-          <span>₩0</span>
+        <PriceFilterContainer>
           <input
             type="range"
             value={selectedPrice}
@@ -94,12 +150,20 @@ function Filter({
             max={maxPrice}
             onChange={(e) => setSelectedPrice(Number(e.target.value))}
           />
-          <span>{setCurrency(selectedPrice)}</span>
-        </div>
+          <PriceFilter>
+            <span>₩0</span>
+            <span>{setCurrency(selectedPrice)}</span>
+          </PriceFilter>
+        </PriceFilterContainer>
       </div>
 
-      <button>apply</button>
-    </form>
+      <ButtonContainer>
+        <Button color="green">apply</Button>
+        <Button color="red" onClick={handleReset}>
+          reset
+        </Button>
+      </ButtonContainer>
+    </Form>
   );
 }
 

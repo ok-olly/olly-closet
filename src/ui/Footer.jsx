@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { ImLinkedin2, ImGithub } from "react-icons/im";
 
 const Nav = styled.nav`
-  padding: 4rem;
+  margin: 1rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;

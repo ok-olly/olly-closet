@@ -17,7 +17,6 @@ const Container = styled.div`
 `;
 
 const LeftSide = styled.div`
-  background-color: var(--color-neutral-200);
   flex: 0 0 20%;
 `;
 
@@ -25,7 +24,6 @@ const RightSide = styled.div`
   flex: 1;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-
   gap: 4rem;
 `;
 
@@ -34,10 +32,6 @@ function Products() {
   const [{ womenItems }, { menItems }, { sortedBrands }, { subCategories }] =
     useLoaderData();
   const [filteredProducts, setFilteredProducts] = useState([]);
-
-  useEffect(() => {
-    setFilteredProducts([]);
-  }, [categoryId]);
 
   return (
     <Container>

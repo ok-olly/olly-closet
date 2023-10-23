@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
@@ -28,6 +29,8 @@ const StyledNavLink = styled(NavLink)`
 `;
 
 function Navbar() {
+  const products = useSelector((state) => state.cart.products);
+  const numProducts = products.reduce((acc, item) => acc + item.quantity, 0);
   return (
     <Nav>
       <Ul>
@@ -44,6 +47,7 @@ function Navbar() {
         </li>
         <li>
           <StyledNavLink to="/cart">장바구니</StyledNavLink>
+          <div>{numProducts}</div>
         </li>
       </Ul>
     </Nav>

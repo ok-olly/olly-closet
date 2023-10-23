@@ -3,6 +3,9 @@ import { getSingleProduct } from "../services/apiProducts";
 import styled from "styled-components";
 import { setCurrency } from "../services/helper";
 import Button from "../ui/Button";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../redux/cartReducer";
 
 const Container = styled.div`
   display: flex;
@@ -68,6 +71,15 @@ const ButtonContainer = styled.div`
 
 const DescContainer = styled.div`
   line-height: 1.8;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+`;
+
+const DescTitle = styled.p`
+  font-weight: 400;
+  text-decoration: underline;
 `;
 
 function ProductDetail() {
@@ -89,8 +101,10 @@ function ProductDetail() {
     },
   ] = useLoaderData();
   const { id: brandId, title: brandTitle } = brand;
-
+  const [isSelected, setIsSelected] = useState(true);
   const percentage = Math.ceil((discount / fullPrice) * 100);
+  const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
 
   return (
     <Container>
@@ -125,17 +139,58 @@ function ProductDetail() {
           <p>{setCurrency(price)}</p>
         </div>
 
+        <div>
+          <button
+            onClick={() => setQuantity((prev) => (prev === 1 ? 1 : prev - 1))}
+          >
+            -
+          </button>
+          <span>{quantity}</span>
+          <button
+            onClick={() => setQuantity((prev) => (prev === 3 ? 3 : prev + 1))}
+          >
+            +
+          </button>
+        </div>
+
         <ButtonContainer>
-          <Button color="green">장바구니에 담기</Button>
+          <Button
+            color="green"
+            onClick={() =>
+              dispatch(
+                addToCart({
+                  id,
+                  title,
+                  img1,
+
+                  price,
+                  quantity,
+                })
+              )
+            }
+          >
+            장바구니에 담기
+          </Button>
           <Button color="yellow">바로 구매</Button>
         </ButtonContainer>
 
         <hr />
 
         <DescContainer>
-          {desc.split(",").map((el) => (
-            <p key={el}>{el}</p>
-          ))}
+          <div>
+            <DescTitle>상세 정보</DescTitle>
+            {desc.split(",").map((el) => (
+              <p key={el}>{el}</p>
+            ))}
+          </div>
+
+          <div>
+            <DescTitle>배송 안내</DescTitle>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Voluptatem doloribus esse dolore ipsa natus voluptatibus
+            </p>
+          </div>
         </DescContainer>
       </RightSide>
     </Container>

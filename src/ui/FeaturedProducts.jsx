@@ -7,7 +7,7 @@ const StyledFeaturedProducts = styled.div`
   }
 `;
 
-const H2 = styled.h2`
+const Type = styled.p`
   font-size: 2rem;
   margin-bottom: 1rem;
   text-transform: uppercase;
@@ -23,9 +23,9 @@ const CardContainer = styled.div`
 function FeaturedProducts({ type, products }) {
   return (
     <StyledFeaturedProducts>
-      {type === "new" && <H2>New Arrivals</H2>}
-      {type === "featured" && <H2>discover | 이번 시즌 액세서리</H2>}
-      {type === "trending" && <H2>Trending Now</H2>}
+      {type === "new" && <Type>New Arrivals</Type>}
+      {type === "featured" && <Type>discover | 이번 시즌 액세서리</Type>}
+      {type === "trending" && <Type>Trending Now</Type>}
 
       <CardContainer>
         {products.map((product) => (

@@ -53,7 +53,7 @@ html {
 
 body {
   font-family: 'Noto Sans KR', sans-serif;
-  font-weight: 300;
+  font-weight: 400; // 300, 400, 500, 600
   font-size: 1.6rem;
   color: var(--color-neutral-950);
   min-height: 100vh;
@@ -73,11 +73,38 @@ a {
   text-decoration: none;
 }
 
+ol,
 ul {
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
+blockquote,
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+figure,
+p,
+pre {
+  margin: 0;
+}
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
 `;
 
 export default GlobalStyles;

@@ -1,9 +1,23 @@
 import supabase from "./supabase";
 
-export async function getProducts() {
+// export async function getProducts() {
+//   const { data, error } = await supabase
+//     .from("product")
+//     .select(`*, brand(id, title)`);
+
+//   if (error) {
+//     console.error(error);
+//     throw new Error("Products could not be loaded");
+//   }
+
+//   return data;
+// }
+
+export async function getProductsByCategory(categoryId) {
   const { data, error } = await supabase
     .from("product")
-    .select(`*, brand(id, title)`);
+    .select(`*, brand(id, title)`)
+    .eq("categoryId", categoryId);
 
   if (error) {
     console.error(error);

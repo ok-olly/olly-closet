@@ -1,30 +1,72 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrency } from "../services/helper";
 import { removeItem, resetCart } from "../redux/cartReducer";
+import styled from "styled-components";
+
+const StyledCart = styled.div`
+  max-width: 90rem;
+  margin: 0 auto;
+`;
+
+const H2 = styled.h2`
+  font-size: 3rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+`;
+
+const Container = styled.div`
+  background-color: var(--color-neutral-200);
+`;
+
+const Img = styled.img`
+  width: 5rem;
+`;
+
+const Product = styled.div`
+  border-bottom: 1px solid var(--color-neutral-300);
+
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+`;
 
 function Cart() {
   const products = useSelector((state) => state.cart.products);
   const dispatch = useDispatch();
+
   const total = products.reduce(
     (acc, item) => acc + item.quantity * item.price,
     0
   );
 
   return (
-    <>
-      <h2>Cart</h2>
-      {products.map((item) => (
-        <div key={item.id}>
-          <span>{item.title}</span>
-          <img src={item.img1} style={{ width: "30px" }} />
-          <span>가격 : {setCurrency(item.price * item.quantity)}</span>
-          <span>수량 : {item.quantity}</span>
-          <button onClick={() => dispatch(removeItem(item.id))}>delete</button>
-        </div>
-      ))}
+    <StyledCart>
+      <H2>Shopping Cart</H2>
+
+      <Container>
+        {products.map((item) => (
+          <Product key={item.id}>
+            <Img src={item.img1} />
+            <div>
+              <span>{item.title}</span>
+              <span>{setCurrency(item.price)}</span>
+            </div>
+            <span>수량 : {item.quantity}</span>
+            <div>
+              <span>상품 금액</span>
+              <span>{setCurrency(item.price * item.quantity)}</span>
+            </div>
+            <button onClick={() => dispatch(removeItem(item.id))}>
+              delete
+            </button>
+          </Product>
+        ))}
+      </Container>
       <span>{setCurrency(total)}</span>
       <button onClick={() => dispatch(resetCart())}>reset</button>
-    </>
+    </StyledCart>
   );
 }
 

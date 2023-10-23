@@ -6,6 +6,7 @@ import Button from "../ui/Button";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/cartReducer";
+import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 
 const Container = styled.div`
   display: flex;
@@ -40,18 +41,13 @@ const RightSide = styled.div`
 
 const H4 = styled.h4`
   color: var(--color-neutral-500);
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   font-weight: 300;
 `;
 
 const H3 = styled.h3`
   font-size: 1.8rem;
   font-weight: 500;
-`;
-
-const H2 = styled.h2`
-  font-size: 1.6rem;
-  font-weight: 300;
 `;
 
 const FullPrice = styled.span`
@@ -64,6 +60,20 @@ const Percentage = styled.span`
   color: var(--color-red-600);
 `;
 
+const QuantityContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+`;
+
+const QuantityButton = styled.button`
+  border: none;
+  font-size: 2rem;
+  background-color: var(--color-neutral-0);
+  border-radius: 30%;
+  padding: 0.3rem 0.3rem 0rem;
+`;
+
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-around;
@@ -71,6 +81,8 @@ const ButtonContainer = styled.div`
 
 const DescContainer = styled.div`
   line-height: 1.8;
+  font-weight: 300;
+  text-transform: lowercase;
 
   display: flex;
   flex-direction: column;
@@ -124,7 +136,7 @@ function ProductDetail() {
             <br />
           )}
           <H3>{brandTitle}</H3>
-          <H2>{title}</H2>
+          <h2>{title}</h2>
         </div>
 
         <div>
@@ -139,19 +151,19 @@ function ProductDetail() {
           <p>{setCurrency(price)}</p>
         </div>
 
-        <div>
-          <button
+        <QuantityContainer>
+          <QuantityButton
             onClick={() => setQuantity((prev) => (prev === 1 ? 1 : prev - 1))}
           >
-            -
-          </button>
+            <AiOutlineMinus />
+          </QuantityButton>
           <span>{quantity}</span>
-          <button
+          <QuantityButton
             onClick={() => setQuantity((prev) => (prev === 3 ? 3 : prev + 1))}
           >
-            +
-          </button>
-        </div>
+            <AiOutlinePlus />
+          </QuantityButton>
+        </QuantityContainer>
 
         <ButtonContainer>
           <Button
@@ -162,7 +174,6 @@ function ProductDetail() {
                   id,
                   title,
                   img1,
-
                   price,
                   quantity,
                 })

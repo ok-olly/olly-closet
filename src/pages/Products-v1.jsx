@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import {
   getBrands,
-  getProductsByCategory,
+  getProducts,
   getSubCategories,
 } from "../services/apiProducts";
 import Card from "../ui/Card";
@@ -29,25 +29,22 @@ const RightSide = styled.div`
 
 function Products() {
   const { id: categoryId } = useParams();
-  const [
-    { productsByCategory: products },
-    { sortedBrands: brands },
-    { subCategories },
-  ] = useLoaderData();
+  const [{ womenItems }, { menItems }, { sortedBrands }, { subCategories }] =
+    useLoaderData();
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   return (
     <Container>
       <LeftSide>
         <Filter
-          brands={brands}
-          products={products}
+          sortedBrands={sortedBrands}
+          products={categoryId === "women" ? womenItems : menItems}
           categoryId={categoryId}
           setFilteredProducts={setFilteredProducts}
           subCategories={subCategories}
         />
       </LeftSide>
-      {/* <RightSide>
+      <RightSide>
         {typeof filteredProducts === "string" ? (
           <span>{filteredProducts}</span>
         ) : filteredProducts.length > 0 ? (
@@ -59,30 +56,21 @@ function Products() {
         ) : (
           menItems.map((item) => <Card product={item} key={item.id} />)
         )}
-      </RightSide> */}
-      <RightSide>
-        {typeof filteredProducts === "string" ? (
-          <span>{filteredProducts}</span>
-        ) : filteredProducts.length > 0 ? (
-          filteredProducts.map((product) => (
-            <Card product={product} key={product.id} />
-          ))
-        ) : (
-          products.map((item) => <Card product={item} key={item.id} />)
-        )}
       </RightSide>
     </Container>
   );
 }
 
-export async function loader({ params }) {
-  const categoryId = params.id === "women" ? 1 : 2;
-  const productsByCategory = await getProductsByCategory(categoryId);
+export async function loader() {
+  const allItems = await getProducts();
+  const womenItems = allItems.filter((item) => item.categoryId === 1 && item);
+  const menItems = allItems.filter((item) => item.categoryId === 2 && item);
   const brands = await getBrands();
   const sortedBrands = brands.sort((a, b) => (a.title < b.title ? -1 : 1));
   const subCategories = await getSubCategories();
   const products = [
-    { productsByCategory },
+    { womenItems },
+    { menItems },
     { sortedBrands },
     { subCategories },
   ];

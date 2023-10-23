@@ -33,9 +33,16 @@ const Img = styled.img`
   }
 `;
 
-const BrandTitle = styled.span`
-  font-weight: 400;
+const BrandTitle = styled.h3`
+  font-weight: 500;
+  font-size: 1.8rem;
   text-transform: uppercase;
+`;
+
+const PriceContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 `;
 
 const FullPrice = styled.span`
@@ -71,15 +78,17 @@ function Card({ product }) {
       <BrandTitle>{brandTitle}</BrandTitle>
       <p>{productTitle}</p>
 
-      {discount > 0 ? (
-        <>
-          <FullPrice>{setCurrency(fullPrice)}</FullPrice>
-          <Percentage>{percentage}% OFF</Percentage>
-        </>
-      ) : (
-        <br />
-      )}
-      <p>{setCurrency(price)}</p>
+      <PriceContainer>
+        {discount > 0 ? (
+          <div>
+            <FullPrice>{setCurrency(fullPrice)}</FullPrice>
+            <Percentage>{percentage}% OFF</Percentage>
+          </div>
+        ) : (
+          <br />
+        )}
+        <p>{setCurrency(price)}</p>
+      </PriceContainer>
     </Link>
   );
 }

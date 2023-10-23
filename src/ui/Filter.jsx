@@ -26,6 +26,10 @@ const InputCheckbox = styled.input`
   margin-right: 0.5rem;
 `;
 
+const Label = styled.label`
+  font-weight: 300;
+`;
+
 const PriceFilterContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -36,13 +40,17 @@ const PriceFilter = styled.div`
   justify-content: space-between;
 `;
 
+const Span = styled.span`
+  font-weight: 300;
+`;
+
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-around;
 `;
 
 function Filter({
-  sortedBrands,
+  brands,
   products,
   categoryId,
   setFilteredProducts,
@@ -102,7 +110,7 @@ function Filter({
 
   return (
     <Form onSubmit={(e) => handleSubmit(e)}>
-      <h3>필터</h3>
+      <p>필터</p>
 
       <div>
         <h4>by subcategory</h4>
@@ -117,14 +125,14 @@ function Filter({
               }
               checked={selectedSubCategory.includes(sub.id)}
             />
-            <label htmlFor={sub.title}>{sub.title}</label>
+            <Label htmlFor={sub.title}>{sub.title}</Label>
           </CheckboxContainer>
         ))}
       </div>
 
       <div>
         <h4>by brand</h4>
-        {sortedBrands.map((brand) => (
+        {brands.map((brand) => (
           <CheckboxContainer key={brand.id}>
             <InputCheckbox
               type="checkbox"
@@ -135,7 +143,7 @@ function Filter({
               }
               checked={selectedBrand.includes(brand.id)}
             />
-            <label htmlFor={brand.title}>{brand.title}</label>
+            <Label htmlFor={brand.title}>{brand.title}</Label>
           </CheckboxContainer>
         ))}
       </div>
@@ -151,8 +159,8 @@ function Filter({
             onChange={(e) => setSelectedPrice(Number(e.target.value))}
           />
           <PriceFilter>
-            <span>₩0</span>
-            <span>{setCurrency(selectedPrice)}</span>
+            <Span>₩0</Span>
+            <Span>{setCurrency(selectedPrice)}</Span>
           </PriceFilter>
         </PriceFilterContainer>
       </div>

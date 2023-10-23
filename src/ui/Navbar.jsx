@@ -11,7 +11,6 @@ const Nav = styled.nav`
 
 const Ul = styled.ul`
   display: flex;
-  /* gap: 4rem; */
 `;
 
 const StyledNavLink = styled(NavLink)`
@@ -23,14 +22,32 @@ const StyledNavLink = styled(NavLink)`
   &:hover,
   &.active:link,
   &.active:visited {
-    /* border-bottom: solid 2px var(--color-neutral-300); */
-    font-weight: 400;
+    font-weight: 600;
+  }
+
+  &:last-of-type {
+    position: relative;
+
+    span {
+      position: absolute;
+      top: -10px;
+      right: 10px;
+
+      font-size: 1.2rem;
+      text-align: center;
+      color: var(--color-neutral-0);
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background-color: var(--color-slate-500);
+    }
   }
 `;
 
 function Navbar() {
   const products = useSelector((state) => state.cart.products);
   const numProducts = products.reduce((acc, item) => acc + item.quantity, 0);
+
   return (
     <Nav>
       <Ul>
@@ -46,8 +63,10 @@ function Navbar() {
           <StyledNavLink to="/login">로그인</StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/cart">장바구니</StyledNavLink>
-          <div>{numProducts}</div>
+          <StyledNavLink to="/cart">
+            장바구니
+            {numProducts > 0 && <span>{numProducts}</span>}
+          </StyledNavLink>
         </li>
       </Ul>
     </Nav>

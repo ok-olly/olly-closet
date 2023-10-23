@@ -12,6 +12,7 @@ const StyledHeader = styled.header`
 
 const H1 = styled.h1`
   font-family: "Oswald", sans-serif;
+  font-size: 3.5rem;
   text-transform: uppercase;
   text-align: center;
 `;
@@ -23,12 +24,6 @@ const StyledLink = styled(Link)`
   &:active {
     color: var(--color-neutral-950);
   }
-
-  /* a:link    { color: blue; }
-a:visited { color: purple; }
-a:hover   { color: red; }
-a:focus   { outline: 1px solid blue; }
-a:active  { color: yellow ;} */
 `;
 
 function Header() {

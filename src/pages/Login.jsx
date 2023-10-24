@@ -1,5 +1,7 @@
-import { Form } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { login } from "../services/apiAuth";
+import { useState } from "react";
 
 const H2 = styled.h2`
   font-weight: 600;
@@ -28,6 +30,7 @@ const InputContainer = styled.div`
   input {
     border: none;
     font-size: inherit;
+    width: 100%;
 
     &:focus {
       outline: none;
@@ -51,17 +54,46 @@ const Button = styled.button`
 `;
 
 function Login() {
+  const [email, setEmail] = useState("olivia@example.com");
+  const [password, setPassword] = useState("password");
+  const navigate = useNavigate();
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (!email || !password) return;
+
+    try {
+      const { user, session } = await login({ email, password });
+      if (user.aud === "authenticated") navigate("/");
+    } catch (e) {
+      console.log(e);
+      alert("이메일 또는 비밀번호를 잘못 입력했습니다.");
+    }
+  }
+
   return (
     <>
       <H2>로그인</H2>
       <Container>
-        <StyledForm>
+        <StyledForm onSubmit={handleSubmit}>
           <div>
             <InputContainer>
-              <input type="text" placeholder="아이디" />
+              <input
+                type="text"
+                placeholder="아이디"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </InputContainer>
             <InputContainer>
-              <input type="password" placeholder="비밀번호" />
+              <input
+                type="password"
+                placeholder="비밀번호"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </InputContainer>
           </div>
 

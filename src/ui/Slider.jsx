@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import {
   MdArrowBackIos,
@@ -67,6 +67,20 @@ const images = [
 function Slider() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  function handleClick() {
+    setCurrentSlide((s) => (s === images.length - 1 ? 0 : s + 1));
+  }
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      handleClick();
+    }, 3000);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
   return (
     <StyledSlider>
       <ImgContainer $slide={currentSlide}>
@@ -83,11 +97,7 @@ function Slider() {
         >
           <StyledMdArrowBackIos />
         </div>
-        <div
-          onClick={() =>
-            setCurrentSlide((s) => (s === images.length - 1 ? 0 : s + 1))
-          }
-        >
+        <div onClick={() => handleClick()}>
           <MdArrowForwardIos />
         </div>
       </BtnContainer>

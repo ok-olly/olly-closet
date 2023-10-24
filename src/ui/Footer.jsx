@@ -1,6 +1,10 @@
 import styled, { css } from "styled-components";
 import { ImLinkedin2, ImGithub } from "react-icons/im";
 
+const StyledFooter = styled.footer`
+  margin-top: 10rem;
+`;
+
 const Nav = styled.nav`
   margin: 1rem 0;
   display: flex;
@@ -34,7 +38,7 @@ const Hr = styled.hr`
 
 function Footer() {
   return (
-    <footer>
+    <StyledFooter>
       <Nav>
         <Ul type="uppercase">
           <li>company</li>
@@ -66,7 +70,7 @@ function Footer() {
           <li>개인정보책임자: Jeongok Lee</li>
         </Ul>
       </Nav>
-    </footer>
+    </StyledFooter>
   );
 }
 

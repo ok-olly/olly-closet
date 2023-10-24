@@ -12,7 +12,8 @@ const H2 = styled.h2`
   font-size: 3rem;
   font-weight: 600;
   text-transform: uppercase;
-  margin-bottom: 2rem;
+  text-align: center;
+  margin: 4rem 0;
 `;
 
 const Container = styled.div`
@@ -43,7 +44,7 @@ function Cart() {
 
   return (
     <StyledCart>
-      <H2>Shopping Cart</H2>
+      <H2>장바구니</H2>
 
       <Container>
         {products.map((item) => (

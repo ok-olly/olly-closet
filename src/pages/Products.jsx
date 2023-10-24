@@ -10,6 +10,13 @@ import {
 import Card from "../ui/Card";
 import Filter from "../ui/Filter";
 
+const H2 = styled.h2`
+  font-weight: 600;
+  font-size: 3rem;
+  text-align: center;
+  margin: 4rem 0;
+`;
+
 const Container = styled.div`
   display: flex;
   gap: 4rem;
@@ -37,17 +44,19 @@ function Products() {
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   return (
-    <Container>
-      <LeftSide>
-        <Filter
-          brands={brands}
-          products={products}
-          categoryId={categoryId}
-          setFilteredProducts={setFilteredProducts}
-          subCategories={subCategories}
-        />
-      </LeftSide>
-      {/* <RightSide>
+    <>
+      <H2>{categoryId === "women" ? "여성" : "남성"}</H2>
+      <Container>
+        <LeftSide>
+          <Filter
+            brands={brands}
+            products={products}
+            categoryId={categoryId}
+            setFilteredProducts={setFilteredProducts}
+            subCategories={subCategories}
+          />
+        </LeftSide>
+        {/* <RightSide>
         {typeof filteredProducts === "string" ? (
           <span>{filteredProducts}</span>
         ) : filteredProducts.length > 0 ? (
@@ -60,18 +69,19 @@ function Products() {
           menItems.map((item) => <Card product={item} key={item.id} />)
         )}
       </RightSide> */}
-      <RightSide>
-        {typeof filteredProducts === "string" ? (
-          <span>{filteredProducts}</span>
-        ) : filteredProducts.length > 0 ? (
-          filteredProducts.map((product) => (
-            <Card product={product} key={product.id} />
-          ))
-        ) : (
-          products.map((item) => <Card product={item} key={item.id} />)
-        )}
-      </RightSide>
-    </Container>
+        <RightSide>
+          {typeof filteredProducts === "string" ? (
+            <span>{filteredProducts}</span>
+          ) : filteredProducts.length > 0 ? (
+            filteredProducts.map((product) => (
+              <Card product={product} key={product.id} />
+            ))
+          ) : (
+            products.map((item) => <Card product={item} key={item.id} />)
+          )}
+        </RightSide>
+      </Container>
+    </>
   );
 }
 

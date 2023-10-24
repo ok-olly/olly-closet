@@ -9,9 +9,9 @@ const StyledAppLayout = styled.div`
 `;
 
 const Main = styled.main`
-  margin: 3rem 0;
+  margin: 3rem auto;
   padding: 0 10rem;
-  min-height: 70vh;
+  min-height: 60vh;
 `;
 
 function AppLayout() {

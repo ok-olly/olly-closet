@@ -90,7 +90,9 @@ function Filter({
     e.preventDefault();
     const filteredData = await getProductsByFilters(filters);
     setFilteredProducts(
-      (selectedBrand.length > 0 || selectedSubCategory.length > 0) &&
+      (selectedBrand.length > 0 ||
+        selectedSubCategory.length > 0 ||
+        selectedPrice !== maxPrice) &&
         filteredData.length === 0
         ? "검색결과가 없습니다"
         : filteredData

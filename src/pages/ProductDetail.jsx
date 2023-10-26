@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/cartReducer";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+import toast from "react-hot-toast";
 
 const Container = styled.div`
   display: flex;
@@ -113,7 +114,6 @@ function ProductDetail() {
     },
   ] = useLoaderData();
   const { id: brandId, title: brandTitle } = brand;
-  const [isSelected, setIsSelected] = useState(true);
   const percentage = Math.ceil((discount / fullPrice) * 100);
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
@@ -168,7 +168,7 @@ function ProductDetail() {
         <ButtonContainer>
           <Button
             color="green"
-            onClick={() =>
+            onClick={() => {
               dispatch(
                 addToCart({
                   id,
@@ -177,8 +177,9 @@ function ProductDetail() {
                   price,
                   quantity,
                 })
-              )
-            }
+              );
+              toast.success("상품을 장바구니에 담았습니다.");
+            }}
           >
             장바구니에 담기
           </Button>

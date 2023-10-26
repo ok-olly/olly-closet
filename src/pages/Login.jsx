@@ -2,6 +2,7 @@ import { Form, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { login } from "../services/apiAuth";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const H2 = styled.h2`
   font-weight: 600;
@@ -67,7 +68,9 @@ function Login() {
       if (user.aud === "authenticated") navigate("/");
     } catch (e) {
       console.log(e);
-      alert("이메일 또는 비밀번호를 잘못 입력했습니다.");
+      setEmail("");
+      setPassword("");
+      toast.error("이메일 또는 비밀번호를 잘못 입력했습니다.");
     }
   }
 

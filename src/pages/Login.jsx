@@ -1,8 +1,9 @@
 import { Form, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { login } from "../services/apiAuth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { loginAsync } from "../redux/authReducer";
 
 const H2 = styled.h2`
   font-weight: 600;
@@ -59,20 +60,27 @@ function Login() {
   const [password, setPassword] = useState("password");
   const navigate = useNavigate();
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    if (!email || !password) return;
+  const { loading, userInfo, error } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
-    try {
-      const { user, session } = await login({ email, password });
-      if (user.aud === "authenticated") navigate("/");
-    } catch (e) {
-      console.log(e);
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    dispatch(loginAsync({ email, password }));
+  }
+
+  useEffect(() => {
+    if (userInfo) navigate("/mypage");
+  }, [userInfo]);
+
+  useEffect(() => {
+    if (error) {
+      console.log(error);
       setEmail("");
       setPassword("");
       toast.error("이메일 또는 비밀번호를 잘못 입력했습니다.");
     }
-  }
+  }, [error]);
 
   return (
     <>

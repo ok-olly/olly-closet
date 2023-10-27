@@ -11,6 +11,7 @@ import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 import Error from "./pages/Error";
 import { Toaster } from "react-hot-toast";
+import MyPage from "./pages/MyPage";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,7 @@ const router = createBrowserRouter([
       },
       { path: "/cart", element: <Cart /> },
       { path: "/login", element: <Login /> },
+      { path: "/mypage", element: <MyPage /> },
     ],
   },
   { path: "*", element: <Error /> },

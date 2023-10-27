@@ -48,6 +48,8 @@ function Navbar() {
   const products = useSelector((state) => state.cart.products);
   const numProducts = products.reduce((acc, item) => acc + item.quantity, 0);
 
+  const { userInfo } = useSelector((state) => state.auth);
+
   return (
     <Nav>
       <Ul>
@@ -60,7 +62,11 @@ function Navbar() {
       </Ul>
       <Ul>
         <li>
-          <StyledNavLink to="/login">로그인</StyledNavLink>
+          {userInfo ? (
+            <StyledNavLink to="/mypage">마이페이지</StyledNavLink>
+          ) : (
+            <StyledNavLink to="/login">로그인</StyledNavLink>
+          )}
         </li>
         <li>
           <StyledNavLink to="/cart">

@@ -9,13 +9,14 @@ import {
 } from "../services/apiProducts";
 import Card from "../ui/Card";
 import Filter from "../ui/Filter";
+import Heading from "../ui/Heading";
 
-const H2 = styled.h2`
-  font-weight: 600;
-  font-size: 3rem;
-  text-align: center;
-  margin: 4rem 0;
-`;
+// const H2 = styled.h2`
+//   font-weight: 600;
+//   font-size: 3rem;
+//   text-align: center;
+//   margin: 4rem 0;
+// `;
 
 const Container = styled.div`
   display: flex;
@@ -45,7 +46,7 @@ function Products() {
 
   return (
     <>
-      <H2>{categoryId === "women" ? "여성" : "남성"}</H2>
+      <Heading as="h2">{categoryId === "women" ? "여성" : "남성"}</Heading>
       <Container>
         <LeftSide>
           <Filter

@@ -168,8 +168,10 @@ function Filter({
       </div>
 
       <ButtonContainer>
-        <Button color="green">apply</Button>
-        <Button color="red" onClick={handleReset}>
+        <Button type="submit" color="green">
+          apply
+        </Button>
+        <Button type="button" color="red" onClick={handleReset}>
           reset
         </Button>
       </ButtonContainer>

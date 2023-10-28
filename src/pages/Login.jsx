@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { clearError, loginAsync } from "../redux/authReducer";
+import Heading from "../ui/Heading";
 
-const H2 = styled.h2`
-  font-weight: 600;
-  font-size: 3rem;
-  text-align: center;
-  margin: 4rem 0;
-`;
+// const H2 = styled.h2`
+//   font-weight: 600;
+//   font-size: 3rem;
+//   text-align: center;
+//   margin: 4rem 0;
+// `;
 
 const Container = styled.div`
   width: 35rem;
@@ -56,8 +57,10 @@ const Button = styled.button`
 `;
 
 function Login() {
-  const [email, setEmail] = useState("olivia@example.com");
-  const [password, setPassword] = useState("password");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [fullname, setFullname] = useState("");
+  const [isSigningup, setIsSigningup] = useState(false);
   const navigate = useNavigate();
 
   const { isLoading, userInfo, error } = useSelector((state) => state.auth);
@@ -77,28 +80,39 @@ function Login() {
     }
   }, [error]);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    dispatch(loginAsync({ email, password }));
+  function handleSignup() {
+    // navigate("/signup");
+    console.log("회원가입신청함");
+
+    if (!email.match(/\S+@\S+\.\S+/))
+      toast.error("올바른 이메일 주소를 입력해 주세요.");
+
+    if (password.length < 8) toast.error("비밀번호는 8자리 이상이어야 합니다.");
+
+    if (!fullname.length) toast.error("이름을 입력해주세요.");
   }
 
-  function handleSignin() {}
+  function handleSubmit(e) {
+    e.preventDefault();
+    isSigningup ? handleSignup() : dispatch(loginAsync({ email, password }));
+  }
 
   return (
     <>
-      <H2>로그인</H2>
+      <Heading as="h2">로그인</Heading>
       <Container>
         <StyledForm onSubmit={handleSubmit}>
           <div>
             <InputContainer>
               <input
                 type="text"
-                placeholder="아이디"
+                placeholder="이메일"
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </InputContainer>
+
             <InputContainer>
               <input
                 type="password"
@@ -108,11 +122,30 @@ function Login() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </InputContainer>
+
+            {isSigningup && (
+              <InputContainer>
+                <input
+                  type="text"
+                  placeholder="이름"
+                  id="fullname"
+                  value={fullname}
+                  onChange={(e) => setFullname(e.target.value)}
+                />
+              </InputContainer>
+            )}
           </div>
 
           <ButtonContainer>
-            <Button>로그인</Button>
-            <Button onClick={handleSignin}>회원가입</Button>
+            {!isSigningup && (
+              <>
+                <Button type="submit">로그인</Button>
+                <Button type="button" onClick={() => setIsSigningup(true)}>
+                  회원가입
+                </Button>
+              </>
+            )}
+            {isSigningup && <Button type="submit">회원가입</Button>}
           </ButtonContainer>
         </StyledForm>
       </Container>

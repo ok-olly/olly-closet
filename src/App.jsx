@@ -12,6 +12,9 @@ import Login from "./pages/Login";
 import Error from "./pages/Error";
 import { Toaster } from "react-hot-toast";
 import MyPage from "./pages/MyPage";
+import ProtectedRoute, {
+  loader as ProtectedRouteLoader,
+} from "./ui/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -34,7 +37,16 @@ const router = createBrowserRouter([
       },
       { path: "/cart", element: <Cart /> },
       { path: "/login", element: <Login /> },
-      { path: "/mypage", element: <MyPage /> },
+      {
+        element: <ProtectedRoute />,
+        loader: ProtectedRouteLoader,
+        children: [
+          {
+            path: "/mypage",
+            element: <MyPage />,
+          },
+        ],
+      },
     ],
   },
   { path: "*", element: <Error /> },

@@ -30,7 +30,11 @@ export const logoutAsync = createAsyncThunk("auth/logout", async () => {
 export const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    clearError: (state) => {
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(loginAsync.pending, (state) => {
@@ -44,7 +48,8 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.error = action.error.message;
         console.log("login rejected!", action.error);
-      })
+      });
+    builder
       .addCase(getCurrentUserAsync.pending, (state) => {
         state.isLoading = true;
       })
@@ -56,7 +61,8 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.error = action.error.message;
         console.log("getCurrentUser rejected!", action.error);
-      })
+      });
+    builder
       .addCase(logoutAsync.pending, (state) => {
         state.isLoading = true;
       })
@@ -71,6 +77,6 @@ export const authSlice = createSlice({
   },
 });
 
-// export const {} = authSlice.actions;
+export const { clearError } = authSlice.actions;
 
 export default authSlice.reducer;

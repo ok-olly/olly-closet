@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { loginAsync } from "../redux/authReducer";
+import { clearError, loginAsync } from "../redux/authReducer";
 
 const H2 = styled.h2`
   font-weight: 600;
@@ -60,14 +60,8 @@ function Login() {
   const [password, setPassword] = useState("password");
   const navigate = useNavigate();
 
-  const { loading, userInfo, error } = useSelector((state) => state.auth);
+  const { isLoading, userInfo, error } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    dispatch(loginAsync({ email, password }));
-  }
 
   useEffect(() => {
     if (userInfo) navigate("/mypage");
@@ -79,8 +73,16 @@ function Login() {
       setEmail("");
       setPassword("");
       toast.error("이메일 또는 비밀번호를 잘못 입력했습니다.");
+      dispatch(clearError());
     }
   }, [error]);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    dispatch(loginAsync({ email, password }));
+  }
+
+  function handleSignin() {}
 
   return (
     <>
@@ -110,7 +112,7 @@ function Login() {
 
           <ButtonContainer>
             <Button>로그인</Button>
-            <Button>회원가입</Button>
+            <Button onClick={handleSignin}>회원가입</Button>
           </ButtonContainer>
         </StyledForm>
       </Container>

@@ -1,11 +1,19 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getCurrentUser, login, logout } from "../services/apiAuth";
+import { getCurrentUser, login, logout, signup } from "../services/apiAuth";
 
 const initialState = {
   isLoading: false,
   userInfo: null,
   error: null,
 };
+
+export const signupAsync = createAsyncThunk(
+  "auth/signup",
+  async ({ fullName, email, password }) => {
+    const data = await signup({ fullName, email, password });
+    return data;
+  }
+);
 
 export const loginAsync = createAsyncThunk(
   "auth/login",
@@ -36,6 +44,19 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder
+      .addCase(signupAsync.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(signupAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.userInfo = action.payload;
+      })
+      .addCase(signupAsync.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+        console.log("signup rejected!", action.error);
+      });
     builder
       .addCase(loginAsync.pending, (state) => {
         state.isLoading = true;

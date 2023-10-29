@@ -3,8 +3,9 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { clearError, loginAsync } from "../redux/authReducer";
+import { clearError, loginAsync, signupAsync } from "../redux/authReducer";
 import Heading from "../ui/Heading";
+import { RiArrowGoBackLine } from "react-icons/ri";
 
 // const H2 = styled.h2`
 //   font-weight: 600;
@@ -59,7 +60,7 @@ const Button = styled.button`
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [fullname, setFullname] = useState("");
+  const [fullName, setFullName] = useState("");
   const [isSigningup, setIsSigningup] = useState(false);
   const navigate = useNavigate();
 
@@ -81,15 +82,14 @@ function Login() {
   }, [error]);
 
   function handleSignup() {
-    // navigate("/signup");
-    console.log("회원가입신청함");
-
     if (!email.match(/\S+@\S+\.\S+/))
       toast.error("올바른 이메일 주소를 입력해 주세요.");
 
     if (password.length < 8) toast.error("비밀번호는 8자리 이상이어야 합니다.");
 
-    if (!fullname.length) toast.error("이름을 입력해주세요.");
+    if (!fullName.length) toast.error("이름을 입력해주세요.");
+
+    dispatch(signupAsync({ fullName, email, password }));
   }
 
   function handleSubmit(e) {
@@ -128,9 +128,9 @@ function Login() {
                 <input
                   type="text"
                   placeholder="이름"
-                  id="fullname"
-                  value={fullname}
-                  onChange={(e) => setFullname(e.target.value)}
+                  id="fullName"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
                 />
               </InputContainer>
             )}
@@ -145,7 +145,14 @@ function Login() {
                 </Button>
               </>
             )}
-            {isSigningup && <Button type="submit">회원가입</Button>}
+            {isSigningup && (
+              <>
+                <div onClick={() => setIsSigningup(false)}>
+                  <RiArrowGoBackLine />
+                </div>
+                <Button type="submit">회원가입</Button>
+              </>
+            )}
           </ButtonContainer>
         </StyledForm>
       </Container>

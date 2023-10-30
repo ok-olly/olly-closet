@@ -1,5 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getCurrentUser, login, logout, signup } from "../services/apiAuth";
+import {
+  getCurrentUser,
+  login,
+  logout,
+  signup,
+  updateCurrentUser,
+} from "../services/apiAuth";
 
 const initialState = {
   isLoading: false,
@@ -34,6 +40,19 @@ export const getCurrentUserAsync = createAsyncThunk(
 export const logoutAsync = createAsyncThunk("auth/logout", async () => {
   await logout();
 });
+
+export const updateCurrentUserAsync = createAsyncThunk(
+  "auth/updateCurrentUser",
+  async ({ password, fullName, address, phoneNumber }) => {
+    const data = await updateCurrentUser({
+      password,
+      fullName,
+      address,
+      phoneNumber,
+    });
+    return data;
+  }
+);
 
 export const authSlice = createSlice({
   name: "auth",
@@ -94,6 +113,19 @@ export const authSlice = createSlice({
       .addCase(logoutAsync.rejected, (state) => {
         state.isLoading = false;
         console.log("logout rejected!");
+      });
+    builder
+      .addCase(updateCurrentUserAsync.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateCurrentUserAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.userInfo = action.payload;
+      })
+      .addCase(updateCurrentUserAsync.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+        console.log("updateCurrentUser rejected!");
       });
   },
 });

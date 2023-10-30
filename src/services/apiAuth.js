@@ -1,12 +1,22 @@
 import supabase from "./supabase";
 
 export async function signup({ fullName, email, password }) {
+  const address = {
+    address1: "",
+    address2: "",
+    zipcode: "",
+  };
+
+  const phoneNumber = "010-1234-5678";
+
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
       data: {
         fullName,
+        address,
+        phoneNumber,
       },
     },
   });
@@ -42,4 +52,23 @@ export async function logout() {
   const { error } = await supabase.auth.signOut();
 
   if (error) throw new Error(error.message);
+}
+
+export async function updateCurrentUser({
+  password,
+  fullName,
+  address,
+  phoneNumber,
+}) {
+  let updateData;
+  if (password) updateData = { password };
+  if (address) updateData = { data: { address } };
+  if (phoneNumber) updateData = { data: { phoneNumber } };
+  if (fullName) updateData = { data: { fullName } };
+
+  const { data, error } = await supabase.auth.updateUser(updateData);
+
+  if (error) throw new Error(error.message);
+
+  return data?.user;
 }

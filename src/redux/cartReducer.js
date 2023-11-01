@@ -23,9 +23,17 @@ export const cartSlice = createSlice({
     resetCart: (state) => {
       state.products = [];
     },
+    // clearError: (state) => {
+    //   state.error = null;
+    // },
   },
 });
 
-export const { addToCart, removeItem, resetCart } = cartSlice.actions;
+export const {
+  addToCart,
+  removeItem,
+  resetCart,
+  // clearError
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

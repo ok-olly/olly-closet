@@ -118,6 +118,11 @@ function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
 
+  function handleClick() {
+    const item = { id, title, img1, price, quantity };
+    dispatch(addToCart(item));
+  }
+
   return (
     <Container>
       <LeftSide>
@@ -166,21 +171,7 @@ function ProductDetail() {
         </QuantityContainer>
 
         <ButtonContainer>
-          <Button
-            color="green"
-            onClick={() => {
-              dispatch(
-                addToCart({
-                  id,
-                  title,
-                  img1,
-                  price,
-                  quantity,
-                })
-              );
-              toast.success("상품을 장바구니에 담았습니다.");
-            }}
-          >
+          <Button color="green" onClick={handleClick}>
             장바구니에 담기
           </Button>
           <Button color="yellow">바로 구매</Button>

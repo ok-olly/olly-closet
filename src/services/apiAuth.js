@@ -9,6 +9,8 @@ export async function signup({ fullName, email, password }) {
 
   const phoneNumber = "010-1234-5678";
 
+  const cart = [];
+
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
@@ -17,6 +19,7 @@ export async function signup({ fullName, email, password }) {
         fullName,
         address,
         phoneNumber,
+        cart,
       },
     },
   });
@@ -59,12 +62,14 @@ export async function updateCurrentUser({
   fullName,
   address,
   phoneNumber,
+  cart,
 }) {
   let updateData;
   if (password) updateData = { password };
   if (address) updateData = { data: { address } };
   if (phoneNumber) updateData = { data: { phoneNumber } };
   if (fullName) updateData = { data: { fullName } };
+  if (cart) updateData = { data: { cart } };
 
   const { data, error } = await supabase.auth.updateUser(updateData);
 

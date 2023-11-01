@@ -13,16 +13,23 @@ import {
 import storage from "redux-persist/lib/storage";
 import authReducer from "./authReducer";
 
-const persistConfig = {
-  key: "root",
+const persistCartConfig = {
+  key: "CartRoot",
   version: 1,
   storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, cartReducer);
+const persistAuthConfig = {
+  key: "AuthRoot",
+  version: 1,
+  storage,
+};
+
+const persistedCartReducer = persistReducer(persistCartConfig, cartReducer);
+const persistedAuthReducer = persistReducer(persistAuthConfig, authReducer);
 
 export const store = configureStore({
-  reducer: { cart: persistedReducer, auth: authReducer },
+  reducer: { cart: persistedCartReducer, auth: persistedAuthReducer },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

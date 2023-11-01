@@ -43,12 +43,13 @@ export const logoutAsync = createAsyncThunk("auth/logout", async () => {
 
 export const updateCurrentUserAsync = createAsyncThunk(
   "auth/updateCurrentUser",
-  async ({ password, fullName, address, phoneNumber }) => {
+  async ({ password, fullName, address, phoneNumber, cart }) => {
     const data = await updateCurrentUser({
       password,
       fullName,
       address,
       phoneNumber,
+      cart,
     });
     return data;
   }

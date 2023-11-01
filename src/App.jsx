@@ -1,4 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 import GlobalStyles from "./styles/GlobalStyles";
 import AppLayout from "./ui/AppLayout";
@@ -10,7 +11,6 @@ import ProductDetail, {
 import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 import Error from "./pages/Error";
-import { Toaster } from "react-hot-toast";
 import MyPage from "./pages/MyPage";
 import ProtectedRoute, {
   loader as ProtectedRouteLoader,

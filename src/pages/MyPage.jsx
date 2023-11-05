@@ -5,7 +5,6 @@ import UpdateAddressForm from "../ui/UpdateAddressForm";
 import { useState } from "react";
 import UpdatePhoneNumberForm from "../ui/UpdatePhoneNumberForm";
 import UpdatePasswordForm from "../ui/UpdatePasswordForm";
-import { resetCart } from "../redux/cartReducer";
 
 function MyPage() {
   const [isUPFormOpen, setIsUPFormOpen] = useState(false);
@@ -38,7 +37,6 @@ function MyPage() {
 
   async function handleLogout() {
     dispatch(logoutAsync());
-    // dispatch(resetCart());
   }
 
   return (

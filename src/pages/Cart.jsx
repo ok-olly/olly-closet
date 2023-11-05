@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrency } from "../services/helper";
-import { removeItem, resetCart } from "../redux/cartReducer";
 import styled from "styled-components";
 import Heading from "../ui/Heading";
+import { removeCartItemAsync, resetCartAsync } from "../redux/authReducer";
 
 const StyledCart = styled.div`
   max-width: 90rem;
@@ -35,7 +35,7 @@ const Product = styled.div`
 `;
 
 function Cart() {
-  const products = useSelector((state) => state.cart.products);
+  const products = useSelector((state) => state.auth.cart);
   const dispatch = useDispatch();
 
   const total = products.reduce(
@@ -60,14 +60,15 @@ function Cart() {
               <span>상품 금액</span>
               <span>{setCurrency(item.price * item.quantity)}</span>
             </div>
-            <button onClick={() => dispatch(removeItem(item.id))}>
+
+            <button onClick={() => dispatch(removeCartItemAsync(item.id))}>
               delete
             </button>
           </Product>
         ))}
       </Container>
       <span>{setCurrency(total)}</span>
-      <button onClick={() => dispatch(resetCart())}>reset</button>
+      <button onClick={() => dispatch(resetCartAsync())}>reset</button>
     </StyledCart>
   );
 }

@@ -57,19 +57,7 @@ function Products() {
             subCategories={subCategories}
           />
         </LeftSide>
-        {/* <RightSide>
-        {typeof filteredProducts === "string" ? (
-          <span>{filteredProducts}</span>
-        ) : filteredProducts.length > 0 ? (
-          filteredProducts.map((product) => (
-            <Card product={product} key={product.id} />
-          ))
-        ) : categoryId === "women" ? (
-          womenItems.map((item) => <Card product={item} key={item.id} />)
-        ) : (
-          menItems.map((item) => <Card product={item} key={item.id} />)
-        )}
-      </RightSide> */}
+
         <RightSide>
           {typeof filteredProducts === "string" ? (
             <span>{filteredProducts}</span>

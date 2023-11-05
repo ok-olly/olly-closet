@@ -1,13 +1,13 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { getSingleProduct } from "../services/apiProducts";
 import styled from "styled-components";
 import { setCurrency } from "../services/helper";
 import Button from "../ui/Button";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../redux/cartReducer";
+import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import toast from "react-hot-toast";
+import { addToCartAsync } from "../redux/authReducer";
 
 const Container = styled.div`
   display: flex;
@@ -116,11 +116,21 @@ function ProductDetail() {
   const { id: brandId, title: brandTitle } = brand;
   const percentage = Math.ceil((discount / fullPrice) * 100);
   const [quantity, setQuantity] = useState(1);
+  const { userInfo, isLoggedin, cart } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   function handleClick() {
+    if (!isLoggedin) {
+      const answer = confirm("로그인 후 이용해주세요 😊");
+      if (answer) {
+        navigate("/login");
+        return;
+      } else return;
+    }
+
     const item = { id, title, img1, price, quantity };
-    dispatch(addToCart(item));
+    dispatch(addToCartAsync(item));
   }
 
   return (

@@ -4,13 +4,18 @@ import {
   login,
   logout,
   signup,
+  addToCart,
   updateCurrentUser,
+  removeCartItem,
+  resetCart,
 } from "../services/apiAuth";
 
 const initialState = {
   isLoading: false,
   userInfo: null,
   error: null,
+  isLoggedin: false,
+  cart: [],
 };
 
 export const signupAsync = createAsyncThunk(
@@ -43,17 +48,37 @@ export const logoutAsync = createAsyncThunk("auth/logout", async () => {
 
 export const updateCurrentUserAsync = createAsyncThunk(
   "auth/updateCurrentUser",
-  async ({ password, fullName, address, phoneNumber, cart }) => {
+  async ({ password, fullName, address, phoneNumber }) => {
     const data = await updateCurrentUser({
       password,
       fullName,
       address,
       phoneNumber,
-      cart,
     });
     return data;
   }
 );
+
+export const addToCartAsync = createAsyncThunk(
+  "auth/addToCart",
+  async (product) => {
+    const data = await addToCart(product);
+    return data;
+  }
+);
+
+export const removeCartItemAsync = createAsyncThunk(
+  "auth/removeCartItem",
+  async (id) => {
+    const data = await removeCartItem(id);
+    return data;
+  }
+);
+
+export const resetCartAsync = createAsyncThunk("auth/resetCart", async () => {
+  const data = await resetCart();
+  return data;
+});
 
 export const authSlice = createSlice({
   name: "auth",
@@ -97,6 +122,7 @@ export const authSlice = createSlice({
       .addCase(getCurrentUserAsync.fulfilled, (state, action) => {
         state.isLoading = false;
         state.userInfo = action.payload;
+        state.isLoggedin = true;
       })
       .addCase(getCurrentUserAsync.rejected, (state, action) => {
         state.isLoading = false;
@@ -110,6 +136,7 @@ export const authSlice = createSlice({
       .addCase(logoutAsync.fulfilled, (state) => {
         state.isLoading = false;
         state.userInfo = null;
+        state.isLoggedin = false;
       })
       .addCase(logoutAsync.rejected, (state) => {
         state.isLoading = false;
@@ -127,6 +154,48 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.error = action.error.message;
         console.log("updateCurrentUser rejected!");
+      });
+    builder
+      .addCase(addToCartAsync.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(addToCartAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.userInfo = action.payload;
+        state.cart = action.payload.user_metadata.cart;
+      })
+      .addCase(addToCartAsync.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+        console.log("addToCart rejected!");
+      });
+    builder
+      .addCase(removeCartItemAsync.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(removeCartItemAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.userInfo = action.payload;
+        state.cart = action.payload.user_metadata.cart;
+      })
+      .addCase(removeCartItemAsync.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+        console.log("removeCartItem rejected!");
+      });
+    builder
+      .addCase(resetCartAsync.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(resetCartAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.userInfo = action.payload;
+        state.cart = action.payload.user_metadata.cart;
+      })
+      .addCase(resetCartAsync.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+        console.log("resetCart rejected!");
       });
   },
 });

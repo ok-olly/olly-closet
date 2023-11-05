@@ -42,6 +42,7 @@ export async function login({ email, password }) {
 
 export async function getCurrentUser() {
   const { data: session } = await supabase.auth.getSession();
+
   if (!session.session) return null;
 
   const { data, error } = await supabase.auth.getUser();
@@ -62,16 +63,54 @@ export async function updateCurrentUser({
   fullName,
   address,
   phoneNumber,
-  cart,
 }) {
   let updateData;
   if (password) updateData = { password };
   if (address) updateData = { data: { address } };
   if (phoneNumber) updateData = { data: { phoneNumber } };
   if (fullName) updateData = { data: { fullName } };
-  if (cart) updateData = { data: { cart } };
 
   const { data, error } = await supabase.auth.updateUser(updateData);
+
+  if (error) throw new Error(error.message);
+
+  return data?.user;
+}
+
+export async function addToCart(product) {
+  let userCart = (await getCurrentUser())?.user_metadata.cart;
+
+  const item = userCart.find((item) => item.id === product.id);
+
+  item ? (item.quantity += product.quantity) : userCart.push(product);
+
+  const { data, error } = await supabase.auth.updateUser({
+    data: { cart: userCart },
+  });
+
+  if (error) throw new Error(error.message);
+
+  return data?.user;
+}
+
+export async function removeCartItem(id) {
+  const userCart = (await getCurrentUser())?.user_metadata.cart;
+
+  const newCart = userCart.filter((item) => item.id !== id);
+
+  const { data, error } = await supabase.auth.updateUser({
+    data: { cart: newCart },
+  });
+
+  if (error) throw new Error(error.message);
+
+  return data?.user;
+}
+
+export async function resetCart() {
+  const { data, error } = await supabase.auth.updateUser({
+    data: { cart: [] },
+  });
 
   if (error) throw new Error(error.message);
 

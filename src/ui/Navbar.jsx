@@ -45,10 +45,13 @@ const StyledNavLink = styled(NavLink)`
 `;
 
 function Navbar() {
-  const products = useSelector((state) => state.cart.products);
-  const numProducts = products.reduce((acc, item) => acc + item.quantity, 0);
+  const { userInfo, cart } = useSelector((state) => state.auth);
+  const numProducts = cart.reduce((acc, item) => acc + item.quantity, 0);
 
-  const { userInfo } = useSelector((state) => state.auth);
+  // const products = useSelector((state) => state.cart.products);
+  // const numProducts = products.reduce((acc, item) => acc + item.quantity, 0);
+
+  // const { userInfo } = useSelector((state) => state.auth);
 
   return (
     <Nav>

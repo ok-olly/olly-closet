@@ -122,6 +122,7 @@ export const authSlice = createSlice({
       .addCase(getCurrentUserAsync.fulfilled, (state, action) => {
         state.isLoading = false;
         state.userInfo = action.payload;
+        state.cart = action.payload.user_metadata.cart;
         state.isLoggedin = true;
       })
       .addCase(getCurrentUserAsync.rejected, (state, action) => {
@@ -137,6 +138,8 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.userInfo = null;
         state.isLoggedin = false;
+        state.error = null;
+        state.cart = [];
       })
       .addCase(logoutAsync.rejected, (state) => {
         state.isLoading = false;

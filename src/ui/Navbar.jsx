@@ -1,17 +1,7 @@
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-
-const Nav = styled.nav`
-  display: flex;
-  justify-content: space-between;
-  padding: 0 4rem;
-  margin: 1rem 0;
-`;
-
-const Ul = styled.ul`
-  display: flex;
-`;
+import Nav from "./Nav";
 
 const StyledNavLink = styled(NavLink)`
   &:link,
@@ -48,22 +38,17 @@ function Navbar() {
   const { userInfo, cart } = useSelector((state) => state.auth);
   const numProducts = cart.reduce((acc, item) => acc + item.quantity, 0);
 
-  // const products = useSelector((state) => state.cart.products);
-  // const numProducts = products.reduce((acc, item) => acc + item.quantity, 0);
-
-  // const { userInfo } = useSelector((state) => state.auth);
-
   return (
     <Nav>
-      <Ul>
+      <ul>
         <li>
           <StyledNavLink to="/products/women">여성</StyledNavLink>
         </li>
         <li>
           <StyledNavLink to="/products/men">남성</StyledNavLink>
         </li>
-      </Ul>
-      <Ul>
+      </ul>
+      <ul>
         <li>
           {userInfo ? (
             <StyledNavLink to="/mypage">마이페이지</StyledNavLink>
@@ -77,7 +62,7 @@ function Navbar() {
             {numProducts > 0 && <span>{numProducts}</span>}
           </StyledNavLink>
         </li>
-      </Ul>
+      </ul>
     </Nav>
   );
 }

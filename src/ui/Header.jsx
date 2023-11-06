@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Navbar from "./Navbar";
+import Heading from "./Heading";
 
 const StyledHeader = styled.header`
   position: sticky;
@@ -8,13 +9,7 @@ const StyledHeader = styled.header`
   background-color: var(--color-neutral-0);
   z-index: 200;
   border-bottom: 1px solid var(--color-neutral-400);
-`;
-
-const H1 = styled.h1`
-  font-family: "Oswald", sans-serif;
-  font-size: 3.5rem;
-  text-transform: uppercase;
-  text-align: center;
+  padding: 0 4rem;
 `;
 
 const StyledLink = styled(Link)`
@@ -29,9 +24,9 @@ const StyledLink = styled(Link)`
 function Header() {
   return (
     <StyledHeader>
-      <H1>
+      <Heading as="h1">
         <StyledLink to="/">Olly's Closet</StyledLink>
-      </H1>
+      </Heading>
 
       <Navbar />
     </StyledHeader>

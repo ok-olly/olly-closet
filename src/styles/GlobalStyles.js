@@ -17,11 +17,11 @@ const GlobalStyles = createGlobalStyle`
   --color-neutral-950: #0a0a0a;
 
   /* Slate */
-  /* --color-slate-0: #fff;
+  /* --color-slate-0: #fff; */
   --color-slate-50: #f8fafc;
   --color-slate-100: #f1f5f9;
   --color-slate-200: #e2e8f0;
-  --color-slate-300: #cbd5e1; */
+  --color-slate-300: #cbd5e1; 
   --color-slate-400: #94a3b8;
   --color-slate-500: #64748b;
   --color-slate-600: #475569;

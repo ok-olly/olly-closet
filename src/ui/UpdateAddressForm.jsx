@@ -4,6 +4,29 @@ import FormInputContainer from "./FormInputContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCurrentUserAsync } from "../redux/authReducer";
 import toast from "react-hot-toast";
+import styled from "styled-components";
+import Button from "./Button";
+
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2rem;
+
+  width: 50rem;
+  margin: 3rem auto;
+  background-color: var(--color-neutral-0);
+  padding: 3rem;
+
+  div {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  button {
+    align-self: center;
+  }
+`;
 
 function UpdateAddressForm() {
   const { address } = useSelector((state) => state.auth.userInfo.user_metadata);
@@ -25,22 +48,21 @@ function UpdateAddressForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ backgroundColor: "yellow" }}>
-      <p>주소변경폼</p>
-      <div style={{ display: "flex" }}>
+    <StyledForm onSubmit={handleSubmit}>
+      <div>
         <FormInputContainer>
           <input type="text" value={zipcode} placeholder="우편번호" readOnly />
         </FormInputContainer>
-        <button type="button" onClick={() => setIsOpen((v) => !v)}>
+        <Button type="button" onClick={() => setIsOpen((v) => !v)}>
           주소찾기
-        </button>
+        </Button>
       </div>
 
       <FormInputContainer>
         <input
           type="text"
           value={address1}
-          placeholder="주소찾기 버튼을 눌러주세요"
+          placeholder="주소찾기 버튼을 눌러주세요 👆"
           readOnly
         />
       </FormInputContainer>
@@ -56,8 +78,8 @@ function UpdateAddressForm() {
 
       {isOpen && <Postcode setZipcode={setZipcode} setAddress1={setAddress1} />}
 
-      <button>주소 저장하기</button>
-    </form>
+      <Button color="green">저장하기</Button>
+    </StyledForm>
   );
 }
 

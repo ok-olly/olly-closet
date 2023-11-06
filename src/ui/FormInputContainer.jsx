@@ -9,6 +9,7 @@ const InputContainer = styled.div`
     border: none;
     font-size: inherit;
     width: 100%;
+    background-color: rgba(0, 0, 0, 0);
 
     &:focus {
       outline: none;

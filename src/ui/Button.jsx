@@ -4,7 +4,14 @@ const StyledButton = styled.button`
   text-transform: uppercase;
   letter-spacing: 1.5px;
 
-  background-color: var(--color-neutral-0);
+  /* background-color: var(--color-neutral-0); */
+  background-color: ${(props) =>
+    props.color === "green"
+      ? css`var(--color-green-100)`
+      : props.color === "red"
+      ? css`var(--color-red-100)`
+      : css`var(--color-yellow-100)`};
+
   padding: 0.5rem 1rem;
   border-radius: 45px;
   border: none;
@@ -22,6 +29,11 @@ const StyledButton = styled.button`
     box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.3);
     color: #fff;
     transform: translateY(-4px);
+  }
+
+  &:active {
+    transform: translateY(0px);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
   }
 `;
 

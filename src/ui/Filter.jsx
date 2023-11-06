@@ -3,11 +3,13 @@ import { getProductsByFilters } from "../services/apiProducts";
 import { setCurrency } from "../services/helper";
 import styled from "styled-components";
 import Button from "./Button";
+import ButtonContainer from "./ButtonContainer";
 
 const Form = styled.form`
   position: sticky;
   top: 11rem;
   background-color: var(--color-neutral-100);
+  border-radius: 10px;
   padding: 2rem 1rem;
 
   display: flex;
@@ -42,11 +44,6 @@ const PriceFilter = styled.div`
 
 const Span = styled.span`
   font-weight: 300;
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: space-around;
 `;
 
 function Filter({

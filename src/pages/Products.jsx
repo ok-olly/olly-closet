@@ -11,13 +11,6 @@ import Card from "../ui/Card";
 import Filter from "../ui/Filter";
 import Heading from "../ui/Heading";
 
-// const H2 = styled.h2`
-//   font-weight: 600;
-//   font-size: 3rem;
-//   text-align: center;
-//   margin: 4rem 0;
-// `;
-
 const Container = styled.div`
   display: flex;
   gap: 4rem;

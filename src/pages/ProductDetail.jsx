@@ -1,13 +1,17 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
-import { getSingleProduct } from "../services/apiProducts";
 import styled from "styled-components";
-import { setCurrency } from "../services/helper";
-import Button from "../ui/Button";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
+import { addToCartAsync } from "../redux/authReducer";
+import { getSingleProduct } from "../services/apiProducts";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import toast from "react-hot-toast";
-import { addToCartAsync } from "../redux/authReducer";
+import Button from "../ui/Button";
+import Title from "../ui/Title";
+import Price from "../ui/Price";
+import Heading from "../ui/Heading";
+import ButtonContainer from "../ui/ButtonContainer";
 
 const Container = styled.div`
   display: flex;
@@ -40,27 +44,6 @@ const RightSide = styled.div`
   gap: 3rem;
 `;
 
-const H4 = styled.h4`
-  color: var(--color-neutral-500);
-  font-size: 1.5rem;
-  font-weight: 300;
-`;
-
-const H3 = styled.h3`
-  font-size: 1.8rem;
-  font-weight: 500;
-`;
-
-const FullPrice = styled.span`
-  text-decoration: line-through;
-  color: var(--color-neutral-400);
-`;
-
-const Percentage = styled.span`
-  margin-left: 1rem;
-  color: var(--color-red-600);
-`;
-
 const QuantityContainer = styled.div`
   display: flex;
   align-items: center;
@@ -75,24 +58,14 @@ const QuantityButton = styled.button`
   padding: 0.3rem 0.3rem 0rem;
 `;
 
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: space-around;
-`;
-
 const DescContainer = styled.div`
-  line-height: 1.8;
+  line-height: 1.7;
   font-weight: 300;
   text-transform: lowercase;
 
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-`;
-
-const DescTitle = styled.p`
-  font-weight: 400;
-  text-decoration: underline;
 `;
 
 function ProductDetail() {
@@ -114,23 +87,22 @@ function ProductDetail() {
     },
   ] = useLoaderData();
   const { id: brandId, title: brandTitle } = brand;
-  const percentage = Math.ceil((discount / fullPrice) * 100);
   const [quantity, setQuantity] = useState(1);
-  const { userInfo, isLoggedin, cart } = useSelector((state) => state.auth);
+  const { isLoggedin } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   function handleClick() {
     if (!isLoggedin) {
       const answer = confirm("로그인 후 이용해주세요 😊");
-      if (answer) {
-        navigate("/login");
-        return;
-      } else return;
+      if (!answer) return;
+      navigate("/login");
+      return;
     }
 
     const item = { id, title, img1, price, quantity };
     dispatch(addToCartAsync(item));
+    toast.success("장바구니에 상품을 담았습니다.");
   }
 
   return (
@@ -144,27 +116,16 @@ function ProductDetail() {
       <RightSide>
         <div>
           {isNew ? (
-            <H4>New Season</H4>
+            <Heading as="h4">New Season</Heading>
           ) : isTrending ? (
-            <H4>Trending</H4>
+            <Heading as="h4">Trending</Heading>
           ) : (
             <br />
           )}
-          <H3>{brandTitle}</H3>
-          <h2>{title}</h2>
+          <Title brandTitle={brandTitle} productTitle={title} />
         </div>
 
-        <div>
-          {discount > 0 ? (
-            <>
-              <FullPrice>{setCurrency(fullPrice)}</FullPrice>
-              <Percentage>{percentage}% OFF</Percentage>
-            </>
-          ) : (
-            <br />
-          )}
-          <p>{setCurrency(price)}</p>
-        </div>
+        <Price discount={discount} fullPrice={fullPrice} price={price} />
 
         <QuantityContainer>
           <QuantityButton
@@ -191,14 +152,16 @@ function ProductDetail() {
 
         <DescContainer>
           <div>
-            <DescTitle>상세 정보</DescTitle>
-            {desc.split(",").map((el) => (
-              <p key={el}>{el}</p>
-            ))}
+            <Heading as="h5">상세 정보</Heading>
+            <ul>
+              {desc.split(",").map((el) => (
+                <li key={el}>{el}</li>
+              ))}
+            </ul>
           </div>
 
           <div>
-            <DescTitle>배송 안내</DescTitle>
+            <Heading as="h5">배송 안내</Heading>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Voluptatem doloribus esse dolore ipsa natus voluptatibus

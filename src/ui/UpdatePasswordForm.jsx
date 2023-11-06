@@ -1,8 +1,26 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import FormInputContainer from "./FormInputContainer";
+import { updateCurrentUserAsync } from "../redux/authReducer";
+import styled from "styled-components";
 import toast from "react-hot-toast";
-import { logoutAsync, updateCurrentUserAsync } from "../redux/authReducer";
+import FormInputContainer from "./FormInputContainer";
+import Button from "./Button";
+
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2rem;
+
+  width: 35rem;
+  margin: 3rem auto;
+  background-color: var(--color-neutral-0);
+  padding: 3rem;
+
+  button {
+    align-self: center;
+  }
+`;
 
 function UpdatePasswordForm() {
   const [newPassword, setNewPassword] = useState("");
@@ -28,13 +46,11 @@ function UpdatePasswordForm() {
     }
 
     dispatch(updateCurrentUserAsync({ password: newPassword }));
-    toast.success("비밀번호가 변경되었습니다 😊 다시 로그인 해주세요");
-    dispatch(logoutAsync());
+    toast.success("비밀번호가 변경되었습니다 😊");
   }
   return (
-    <form onSubmit={handleSubmit}>
-      <p>비밀번호변경폼</p>
-      <div style={{ display: "flex" }}>
+    <StyledForm onSubmit={handleSubmit}>
+      <div>
         <label htmlFor="newPassword">새로운 비밀번호</label>
         <FormInputContainer>
           <input
@@ -45,6 +61,9 @@ function UpdatePasswordForm() {
             id="newPassword"
           />
         </FormInputContainer>
+      </div>
+
+      <div>
         <label htmlFor="newPasswordCheck">새로운 비밀번호 확인</label>
         <FormInputContainer>
           <input
@@ -55,9 +74,9 @@ function UpdatePasswordForm() {
             id="newPasswordCheck"
           />
         </FormInputContainer>
-        <button>비밀번호 저장하기</button>
       </div>
-    </form>
+      <Button color="green">저장하기</Button>
+    </StyledForm>
   );
 }
 

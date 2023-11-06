@@ -1,45 +1,24 @@
-import { Form, useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+
+import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { clearError, loginAsync, signupAsync } from "../redux/authReducer";
-import Heading from "../ui/Heading";
+import toast from "react-hot-toast";
 import { RiArrowGoBackLine } from "react-icons/ri";
-
-// const H2 = styled.h2`
-//   font-weight: 600;
-//   font-size: 3rem;
-//   text-align: center;
-//   margin: 4rem 0;
-// `;
+import Heading from "../ui/Heading";
+import FormInputContainer from "../ui/FormInputContainer";
 
 const Container = styled.div`
   width: 35rem;
   margin: 0 auto;
 `;
 
-const StyledForm = styled(Form)`
+const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: stretch;
   gap: 2rem;
-`;
-
-const InputContainer = styled.div`
-  border-bottom: 1px solid var(--color-neutral-900);
-  padding: 1rem;
-  margin-bottom: 2rem;
-
-  input {
-    border: none;
-    font-size: inherit;
-    width: 100%;
-
-    &:focus {
-      outline: none;
-    }
-  }
 `;
 
 const ButtonContainer = styled.div`
@@ -103,7 +82,7 @@ function Login() {
       <Container>
         <StyledForm onSubmit={handleSubmit}>
           <div>
-            <InputContainer>
+            <FormInputContainer>
               <input
                 type="text"
                 placeholder="이메일"
@@ -111,9 +90,9 @@ function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-            </InputContainer>
+            </FormInputContainer>
 
-            <InputContainer>
+            <FormInputContainer>
               <input
                 type="password"
                 placeholder="비밀번호"
@@ -121,10 +100,10 @@ function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-            </InputContainer>
+            </FormInputContainer>
 
             {isSigningup && (
-              <InputContainer>
+              <FormInputContainer>
                 <input
                   type="text"
                   placeholder="이름"
@@ -132,7 +111,7 @@ function Login() {
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                 />
-              </InputContainer>
+              </FormInputContainer>
             )}
           </div>
 

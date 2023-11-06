@@ -3,22 +3,17 @@ import { setCurrency } from "../services/helper";
 import styled from "styled-components";
 import Heading from "../ui/Heading";
 import { removeCartItemAsync, resetCartAsync } from "../redux/authReducer";
+import Button from "../ui/Button";
 
-const StyledCart = styled.div`
-  max-width: 90rem;
-  margin: 0 auto;
+const Wrapper = styled.div`
+  background-color: var(--color-neutral-100);
+  border-radius: 10px;
 `;
 
-// const H2 = styled.h2`
-//   font-size: 3rem;
-//   font-weight: 600;
-//   text-transform: uppercase;
-//   text-align: center;
-//   margin: 4rem 0;
-// `;
-
 const Container = styled.div`
-  background-color: var(--color-neutral-200);
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 1rem 0 2.5rem;
 `;
 
 const Img = styled.img`
@@ -44,32 +39,40 @@ function Cart() {
   );
 
   return (
-    <StyledCart>
+    <>
       <Heading as="h2">장바구니</Heading>
 
-      <Container>
-        {products.map((item) => (
-          <Product key={item.id}>
-            <Img src={item.img1} />
-            <div>
-              <span>{item.title}</span>
-              <span>{setCurrency(item.price)}</span>
-            </div>
-            <span>수량 : {item.quantity}</span>
-            <div>
-              <span>상품 금액</span>
-              <span>{setCurrency(item.price * item.quantity)}</span>
-            </div>
+      <Wrapper>
+        <Container>
+          {products.map((item) => (
+            <Product key={item.id}>
+              <Img src={item.img1} />
+              <div>
+                <span>{item.title}</span>
+                <span>{setCurrency(item.price)}</span>
+              </div>
+              <span>수량 : {item.quantity}</span>
+              <div>
+                <span>상품 금액</span>
+                <span>{setCurrency(item.price * item.quantity)}</span>
+              </div>
 
-            <button onClick={() => dispatch(removeCartItemAsync(item.id))}>
-              delete
-            </button>
-          </Product>
-        ))}
-      </Container>
-      <span>{setCurrency(total)}</span>
-      <button onClick={() => dispatch(resetCartAsync())}>reset</button>
-    </StyledCart>
+              <Button
+                color="yellow"
+                onClick={() => dispatch(removeCartItemAsync(item.id))}
+              >
+                삭제
+              </Button>
+            </Product>
+          ))}
+
+          <span>{setCurrency(total)}</span>
+          <Button color="red" onClick={() => dispatch(resetCartAsync())}>
+            전체삭제
+          </Button>
+        </Container>
+      </Wrapper>
+    </>
   );
 }
 

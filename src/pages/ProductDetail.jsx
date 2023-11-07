@@ -100,7 +100,7 @@ function ProductDetail() {
       return;
     }
 
-    const item = { id, title, img1, price, quantity };
+    const item = { id, title, img1, price, quantity, brandId, brandTitle };
     dispatch(addToCartAsync(item));
     toast.success("장바구니에 상품을 담았습니다.");
   }

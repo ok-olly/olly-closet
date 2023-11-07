@@ -15,6 +15,7 @@ import MyPage from "./pages/MyPage";
 import ProtectedRoute, {
   loader as ProtectedRouteLoader,
 } from "./ui/ProtectedRoute";
+import Order from "./pages/Order";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
             path: "/mypage",
             element: <MyPage />,
           },
+          { path: "/order", element: <Order /> },
         ],
       },
     ],

@@ -116,3 +116,19 @@ export async function resetCart() {
 
   return data?.user;
 }
+
+export async function order({ products, shippingInfo }) {
+  const { id, title, img1, price, quantity, brandId, brandTitle } = products;
+  console.log(products);
+  Date.now();
+
+  // const { data, error } = await supabase
+  //   .from("order")
+  //   .insert([{ productId: id, title,img1,price,quantity,brandId,brandTitle, },
+  //    { some_column: "otherValue" }])
+  //   .select();
+
+  // if (error) throw new Error(error.message);
+
+  // return data;
+}

@@ -34,10 +34,10 @@ const Img = styled.img`
 
 function CartProduct({ item, handleRemove }) {
   return (
-    <StyledDiv key={item.id}>
+    <StyledDiv key={item.productId}>
       <Img
         src={item.img1}
-        onClick={() => navigate(`/productdetail/${item.id}`)}
+        onClick={() => navigate(`/productdetail/${item.productId}`)}
       />
       <div>
         <span>
@@ -54,7 +54,7 @@ function CartProduct({ item, handleRemove }) {
         <span>{setCurrency(item.price * item.quantity)}</span>
       </div>
 
-      <Button color="yellow" onClick={() => handleRemove(item.id)}>
+      <Button color="yellow" onClick={() => handleRemove(item.productId)}>
         삭제
       </Button>
     </StyledDiv>

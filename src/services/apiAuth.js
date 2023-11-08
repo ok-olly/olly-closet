@@ -80,7 +80,7 @@ export async function updateCurrentUser({
 export async function addToCart(product) {
   let userCart = (await getCurrentUser())?.user_metadata.cart;
 
-  const item = userCart.find((item) => item.id === product.id);
+  const item = userCart.find((item) => item.productId === product.productId);
 
   item ? (item.quantity += product.quantity) : userCart.push(product);
 
@@ -96,7 +96,7 @@ export async function addToCart(product) {
 export async function removeCartItem(id) {
   const userCart = (await getCurrentUser())?.user_metadata.cart;
 
-  const newCart = userCart.filter((item) => item.id !== id);
+  const newCart = userCart.filter((item) => item.productId !== id);
 
   const { data, error } = await supabase.auth.updateUser({
     data: { cart: newCart },
@@ -117,18 +117,10 @@ export async function resetCart() {
   return data?.user;
 }
 
-export async function order({ products, shippingInfo }) {
-  const { id, title, img1, price, quantity, brandId, brandTitle } = products;
-  console.log(products);
-  Date.now();
+export async function order(info) {
+  const { data, error } = await supabase.from("order").insert(info).select();
 
-  // const { data, error } = await supabase
-  //   .from("order")
-  //   .insert([{ productId: id, title,img1,price,quantity,brandId,brandTitle, },
-  //    { some_column: "otherValue" }])
-  //   .select();
+  if (error) throw new Error(error.message);
 
-  // if (error) throw new Error(error.message);
-
-  // return data;
+  return data;
 }

@@ -72,7 +72,7 @@ function ProductDetail() {
   const [
     {
       brand,
-      id,
+      id: productId,
       title,
       img1,
       img2,
@@ -100,7 +100,15 @@ function ProductDetail() {
       return;
     }
 
-    const item = { id, title, img1, price, quantity, brandId, brandTitle };
+    const item = {
+      productId,
+      title,
+      img1,
+      price,
+      quantity,
+      brandId,
+      brandTitle,
+    };
     dispatch(addToCartAsync(item));
     toast.success("장바구니에 상품을 담았습니다.");
   }

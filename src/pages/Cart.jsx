@@ -52,7 +52,6 @@ function Cart() {
     (acc, item) => acc + item.quantity * item.price,
     0
   );
-
   const totalQuantity = products.reduce((acc, item) => acc + item.quantity, 0);
 
   function handleRemove(id) {
@@ -80,7 +79,7 @@ function Cart() {
             <>
               {products.map((item) => (
                 <CartProduct
-                  key={item.id}
+                  key={item.productId}
                   item={item}
                   handleRemove={handleRemove}
                 />

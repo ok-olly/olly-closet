@@ -1,19 +1,19 @@
+import { useState } from "react";
 import Button from "./Button";
 import { useForm } from "react-hook-form";
+import { order } from "../services/apiAuth";
 
-function OrderForm({
-  address,
-  fullName,
-  phoneNumber,
-  email,
-  setShippingInfo,
-  cart,
-}) {
+function OrderForm({ address, fullName, phoneNumber, email, cart }) {
+  const [shippingInfo, setShippingInfo] = useState([]);
   const { address1, address2, zipcode } = address;
   const [phoneNumber1, phoneNumber2, phoneNumber3] = phoneNumber.split("-");
   const [email1, email2] = email.split("@");
 
   const { register, handleSubmit } = useForm();
+
+  function handleOrder(info) {
+    order(info);
+  }
 
   function submitForm(data) {
     const shippingEmail = data.email1 + "@" + data.email2;
@@ -21,16 +21,24 @@ function OrderForm({
       data.phoneNumber1 + "-" + data.phoneNumber2 + "-" + data.phoneNumber3;
     const orderId = Date.now();
 
-    // setShippingInfo({
-    //   address1: data.address1,
-    //   address2: data.address2,
-    //   zipcode: data.zipcode,
-    //   fullName: data.fullName,
-    //   phoneNumber: shippingPhoneNumber,
-    //   email: shippingEmail,
-    //   orderId,
-    //   cart,
-    // });
+    cart.map((item) => {
+      setShippingInfo((info) => [
+        ...info,
+        {
+          ...item,
+          address1: data.address1,
+          address2: data.address2,
+          zipcode: data.zipcode,
+          fullName: data.fullName,
+          phoneNumber: shippingPhoneNumber,
+          email: shippingEmail,
+          orderId,
+          user_id: email,
+        },
+      ]);
+    });
+
+    handleOrder(shippingInfo);
   }
 
   return (

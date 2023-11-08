@@ -4,7 +4,6 @@ import Heading from "../ui/Heading";
 import Button from "../ui/Button";
 import { setCurrency } from "../services/helper";
 import OrderForm from "../ui/OrderForm";
-import { useState } from "react";
 
 const Wrapper = styled.div`
   background-color: var(--color-neutral-100);
@@ -61,7 +60,6 @@ function Order() {
     user_metadata: { address, fullName, phoneNumber, cart },
     email,
   } = useSelector((state) => state.auth.userInfo);
-  const [shippingInfo, setShippingInfo] = useState();
 
   const totalPrice = cart.reduce(
     (acc, item) => acc + item.quantity * item.price,
@@ -80,7 +78,7 @@ function Order() {
             <Heading as="h3">주문상품</Heading>
 
             {cart.map((product) => (
-              <Product key={product.id}>
+              <Product key={product.productId}>
                 <Img src={product.img1} />
                 <Desc>
                   <p>{product.title}</p>
@@ -103,7 +101,6 @@ function Order() {
               fullName={fullName}
               phoneNumber={phoneNumber}
               email={email}
-              setShippingInfo={setShippingInfo}
               cart={cart}
             />
           </RightSide>

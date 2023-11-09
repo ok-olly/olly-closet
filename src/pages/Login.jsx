@@ -61,12 +61,20 @@ function Login() {
   }, [error]);
 
   function handleSignup() {
-    if (!email.match(/\S+@\S+\.\S+/))
+    if (!email.match(/\S+@\S+\.\S+/)) {
       toast.error("올바른 이메일 주소를 입력해 주세요.");
+      return;
+    }
 
-    if (password.length < 8) toast.error("비밀번호는 8자리 이상이어야 합니다.");
+    if (password.length < 8) {
+      toast.error("비밀번호는 8자리 이상이어야 합니다.");
+      return;
+    }
 
-    if (!fullName.length) toast.error("이름을 입력해주세요.");
+    if (!fullName.length) {
+      toast.error("이름을 입력해주세요.");
+      return;
+    }
 
     dispatch(signupAsync({ fullName, email, password }));
   }

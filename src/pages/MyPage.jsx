@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutAsync } from "../redux/authReducer";
 import styled from "styled-components";
@@ -8,6 +8,8 @@ import UpdatePhoneNumberForm from "../ui/UpdatePhoneNumberForm";
 import UpdatePasswordForm from "../ui/UpdatePasswordForm";
 import Button from "../ui/Button";
 import Nav from "../ui/Nav";
+import { getOrdersByUser } from "../services/apiOrders";
+import { useLoaderData } from "react-router-dom";
 
 const Wrapper = styled.div`
   background-color: var(--color-neutral-100);
@@ -41,9 +43,19 @@ function MyPage() {
   const [isPhoneNumberOpen, setIsPhoneNumberOpen] = useState(false);
   const [isAddressOpen, setIsAddressOpen] = useState(false);
   const dispatch = useDispatch();
-  const { fullName } = useSelector(
-    (state) => state.auth.userInfo.user_metadata
-  );
+  const {
+    user_metadata: { fullName },
+    email,
+  } = useSelector((state) => state.auth.userInfo);
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const orders = await getOrdersByUser(email);
+      setOrders(orders);
+    }
+    fetchData();
+  }, []);
 
   function handleUpdateForm(id) {
     if (id === "password") {
@@ -103,6 +115,17 @@ function MyPage() {
           {isPasswordOpen && <UpdatePasswordForm />}
           {isPhoneNumberOpen && <UpdatePhoneNumberForm />}
           {isAddressOpen && <UpdateAddressForm />}
+
+          {orders.length > 0 ? (
+            orders.map((order) => (
+              <div key={order.id}>
+                <p>{order.orderId}</p>
+                <p>{order.title}</p>
+              </div>
+            ))
+          ) : (
+            <span>주문내역이 없습니다.</span>
+          )}
 
           <Button color="red" type="button" onClick={handleLogout}>
             로그아웃

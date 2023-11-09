@@ -7,7 +7,7 @@ export async function signup({ fullName, email, password }) {
     zipcode: "",
   };
 
-  const phoneNumber = "010-1234-5678";
+  const phoneNumber = "010-0000-0000";
 
   const cart = [];
 

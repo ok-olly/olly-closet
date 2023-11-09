@@ -118,9 +118,7 @@ export async function resetCart() {
 }
 
 export async function order(info) {
-  const { data, error } = await supabase.from("order").insert(info).select();
+  const { error } = await supabase.from("order").insert(info);
 
   if (error) throw new Error(error.message);
-
-  return data;
 }

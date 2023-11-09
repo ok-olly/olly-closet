@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "./Button";
 import { useForm } from "react-hook-form";
-import { order } from "../services/apiAuth";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { orderAsync, resetCartAsync } from "../redux/authReducer";
 
 function OrderForm({ address, fullName, phoneNumber, email, cart }) {
   const [shippingInfo, setShippingInfo] = useState([]);
@@ -10,10 +13,18 @@ function OrderForm({ address, fullName, phoneNumber, email, cart }) {
   const [email1, email2] = email.split("@");
 
   const { register, handleSubmit } = useForm();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  function handleOrder(info) {
-    order(info);
-  }
+  useEffect(() => {
+    console.log("shippingInfo", shippingInfo);
+    if (shippingInfo.length > 0) {
+      dispatch(orderAsync(shippingInfo));
+      toast.success("주문이 완료되었습니다 🎉");
+      dispatch(resetCartAsync());
+      navigate("/");
+    }
+  }, [shippingInfo]);
 
   function submitForm(data) {
     const shippingEmail = data.email1 + "@" + data.email2;
@@ -37,8 +48,6 @@ function OrderForm({ address, fullName, phoneNumber, email, cart }) {
         },
       ]);
     });
-
-    handleOrder(shippingInfo);
   }
 
   return (

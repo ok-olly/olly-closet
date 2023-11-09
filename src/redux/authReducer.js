@@ -8,6 +8,7 @@ import {
   updateCurrentUser,
   removeCartItem,
   resetCart,
+  order,
 } from "../services/apiAuth";
 
 const initialState = {
@@ -80,6 +81,11 @@ export const resetCartAsync = createAsyncThunk("auth/resetCart", async () => {
   return data;
 });
 
+export const orderAsync = createAsyncThunk("auth/order", async (info) => {
+  const data = await order(info);
+  return data;
+});
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -99,7 +105,6 @@ export const authSlice = createSlice({
       })
       .addCase(signupAsync.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.error.message;
         console.log("signup rejected!", action.error);
       });
     builder
@@ -127,7 +132,6 @@ export const authSlice = createSlice({
       })
       .addCase(getCurrentUserAsync.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.error.message;
         console.log("getCurrentUser rejected!", action.error);
       });
     builder
@@ -143,7 +147,7 @@ export const authSlice = createSlice({
       })
       .addCase(logoutAsync.rejected, (state) => {
         state.isLoading = false;
-        console.log("logout rejected!");
+        console.log("logout rejected!", action.error);
       });
     builder
       .addCase(updateCurrentUserAsync.pending, (state) => {
@@ -155,8 +159,7 @@ export const authSlice = createSlice({
       })
       .addCase(updateCurrentUserAsync.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.error.message;
-        console.log("updateCurrentUser rejected!");
+        console.log("updateCurrentUser rejected!", action.error);
       });
     builder
       .addCase(addToCartAsync.pending, (state) => {
@@ -169,8 +172,7 @@ export const authSlice = createSlice({
       })
       .addCase(addToCartAsync.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.error.message;
-        console.log("addToCart rejected!");
+        console.log("addToCart rejected!", action.error);
       });
     builder
       .addCase(removeCartItemAsync.pending, (state) => {
@@ -183,8 +185,7 @@ export const authSlice = createSlice({
       })
       .addCase(removeCartItemAsync.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.error.message;
-        console.log("removeCartItem rejected!");
+        console.log("removeCartItem rejected!", action.error);
       });
     builder
       .addCase(resetCartAsync.pending, (state) => {
@@ -197,8 +198,18 @@ export const authSlice = createSlice({
       })
       .addCase(resetCartAsync.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.error.message;
-        console.log("resetCart rejected!");
+        console.log("resetCart rejected!", action.error);
+      });
+    builder
+      .addCase(orderAsync.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(orderAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(orderAsync.rejected, (state, action) => {
+        state.isLoading = false;
+        console.log("order rejected!", action.error);
       });
   },
 });

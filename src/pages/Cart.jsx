@@ -90,6 +90,8 @@ function Cart() {
                   전체삭제
                 </Button>
 
+                <span>모든 상품은 무료배송입니다 📦</span>
+
                 <TotalContainer>
                   <div>
                     <span>총 수량</span>

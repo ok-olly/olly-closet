@@ -22,10 +22,16 @@ const LeftSide = styled.div`
   background-color: var(--color-neutral-0);
   padding: 2rem;
   border-radius: 10px;
+  height: 100%;
 `;
 
 const RightSide = styled.div`
   flex: 1;
+  padding: 2rem;
+
+  div {
+    margin-top: 1rem;
+  }
 `;
 
 const Product = styled.div`
@@ -91,10 +97,13 @@ function Order() {
             <Summary>
               <p>총 상품 금액 : {setCurrency(totalPrice)}</p>
               <p>총 수량 : {totalQuantity}</p>
+              <p>📦 배송비 무료 📦</p>
+              <p>입고순으로 개별 배송해드립니다</p>
             </Summary>
           </LeftSide>
 
           <RightSide>
+            <Heading as="h3">배송정보</Heading>
             <OrderForm
               address={address}
               fullName={fullName}

@@ -5,19 +5,41 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { orderAsync, resetCartAsync } from "../redux/authReducer";
+import styled from "styled-components";
+import Postcode from "./Postcode";
+
+const StyledDiv = styled.div`
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  label {
+    flex-basis: 20%;
+  }
+
+  input {
+    border: none;
+    padding: 0.5rem;
+
+    &:focus {
+      outline: none;
+    }
+  }
+`;
 
 function OrderForm({ address, fullName, phoneNumber, email, cart }) {
   const [shippingInfo, setShippingInfo] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
   const { address1, address2, zipcode } = address;
   const [phoneNumber1, phoneNumber2, phoneNumber3] = phoneNumber.split("-");
   const [email1, email2] = email.split("@");
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("shippingInfo", shippingInfo);
     if (shippingInfo.length > 0) {
       dispatch(orderAsync(shippingInfo));
       toast.success("주문이 완료되었습니다 🎉");
@@ -25,6 +47,14 @@ function OrderForm({ address, fullName, phoneNumber, email, cart }) {
       navigate("/");
     }
   }, [shippingInfo]);
+
+  function setAddress1FromPostcode(v) {
+    setValue("address1", v);
+  }
+
+  function setZipcodeFromPostcode(v) {
+    setValue("zipcode", v);
+  }
 
   function submitForm(data) {
     const shippingEmail = data.email1 + "@" + data.email2;
@@ -52,7 +82,7 @@ function OrderForm({ address, fullName, phoneNumber, email, cart }) {
 
   return (
     <form onSubmit={handleSubmit(submitForm)}>
-      <div>
+      <StyledDiv>
         <label htmlFor="fullName">이름</label>
         <input
           type="text"
@@ -61,9 +91,9 @@ function OrderForm({ address, fullName, phoneNumber, email, cart }) {
           required
           {...register("fullName")}
         />
-      </div>
+      </StyledDiv>
 
-      <div>
+      <StyledDiv>
         <label htmlFor="email1">이메일</label>
         <input
           type="text"
@@ -80,9 +110,9 @@ function OrderForm({ address, fullName, phoneNumber, email, cart }) {
           required
           {...register("email2")}
         />
-      </div>
+      </StyledDiv>
 
-      <div>
+      <StyledDiv>
         <label htmlFor="zipcode">우편번호</label>
         <input
           type="text"
@@ -91,40 +121,56 @@ function OrderForm({ address, fullName, phoneNumber, email, cart }) {
           required
           {...register("zipcode")}
         />
-        <Button color="yellow" type="button">
+        <Button
+          color="yellow"
+          type="button"
+          onClick={() => setIsOpen((v) => !v)}
+        >
           주소찾기
         </Button>
-      </div>
+      </StyledDiv>
 
-      <div>
+      {isOpen && (
+        <StyledDiv>
+          <Postcode
+            setAddress1={setAddress1FromPostcode}
+            setZipcode={setZipcodeFromPostcode}
+          />
+        </StyledDiv>
+      )}
+
+      <StyledDiv>
         <label htmlFor="address1">주소</label>
         <input
           type="text"
           id="address1"
           defaultValue={address1}
-          size={50}
+          size={47}
           required
           {...register("address1")}
         />
-      </div>
+      </StyledDiv>
 
-      <div>
+      <StyledDiv>
         <label htmlFor="address2">상세주소</label>
         <input
           type="text"
           id="address2"
           defaultValue={address2}
+          size={47}
           {...register("address2")}
         />
-      </div>
+      </StyledDiv>
 
-      <div>
+      <StyledDiv>
         <label htmlFor="phoneNumber1">휴대폰 번호</label>
         <input
           type="text"
           id="phoneNumber1"
           defaultValue={phoneNumber1}
           required
+          maxLength={3}
+          size={4}
           {...register("phoneNumber1")}
         />
         <span>-</span>
@@ -133,6 +179,8 @@ function OrderForm({ address, fullName, phoneNumber, email, cart }) {
           id="phoneNumber2"
           defaultValue={phoneNumber2}
           required
+          maxLength={4}
+          size={4}
           {...register("phoneNumber2")}
         />
         <span>-</span>
@@ -141,9 +189,11 @@ function OrderForm({ address, fullName, phoneNumber, email, cart }) {
           id="phoneNumber3"
           defaultValue={phoneNumber3}
           required
+          maxLength={4}
+          size={4}
           {...register("phoneNumber3")}
         />
-      </div>
+      </StyledDiv>
 
       <Button color="green" type="submit">
         결제하기

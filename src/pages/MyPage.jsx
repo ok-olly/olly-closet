@@ -9,11 +9,16 @@ import UpdatePasswordForm from "../ui/UpdatePasswordForm";
 import Button from "../ui/Button";
 import Nav from "../ui/Nav";
 import { getOrdersByUser } from "../services/apiOrders";
-import { useLoaderData } from "react-router-dom";
+import OrderList from "../ui/OrderList";
 
 const Wrapper = styled.div`
   background-color: var(--color-neutral-100);
   border-radius: 10px;
+
+  h3 {
+    text-align: center;
+    margin: 2rem 0;
+  }
 `;
 
 const Container = styled.div`
@@ -38,10 +43,20 @@ const NavButton = styled.button`
   }
 `;
 
+const TableHeader = styled.div`
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+  gap: 2rem;
+  grid-template-columns: 17rem 23rem 3rem 10rem 15rem;
+  margin-bottom: 1rem;
+`;
+
 function MyPage() {
   const [isPasswordOpen, setIsPasswordOpen] = useState(false);
   const [isPhoneNumberOpen, setIsPhoneNumberOpen] = useState(false);
   const [isAddressOpen, setIsAddressOpen] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState(null);
   const dispatch = useDispatch();
   const {
     user_metadata: { fullName },
@@ -83,6 +98,10 @@ function MyPage() {
     dispatch(logoutAsync());
   }
 
+  function handleIsOpen(order) {
+    setSelectedOrder((cur) => (cur?.id === order.id ? null : order));
+  }
+
   return (
     <>
       <Heading as="h2">마이페이지</Heading>
@@ -92,6 +111,11 @@ function MyPage() {
           <Nav>
             <ul>
               <li>{fullName}님</li>
+              <li>
+                <Button color="red" type="button" onClick={handleLogout}>
+                  로그아웃
+                </Button>
+              </li>
             </ul>
             <ul>
               <li>
@@ -116,20 +140,29 @@ function MyPage() {
           {isPhoneNumberOpen && <UpdatePhoneNumberForm />}
           {isAddressOpen && <UpdateAddressForm />}
 
-          {orders.length > 0 ? (
-            orders.map((order) => (
-              <div key={order.id}>
-                <p>{order.orderId}</p>
-                <p>{order.title}</p>
-              </div>
-            ))
-          ) : (
-            <span>주문내역이 없습니다.</span>
-          )}
+          <Heading as="h3">주문내역</Heading>
 
-          <Button color="red" type="button" onClick={handleLogout}>
-            로그아웃
-          </Button>
+          {orders.length > 0 ? (
+            <>
+              <TableHeader>
+                <span>주문일</span>
+                <span>상품명</span>
+                <span>수량</span>
+                <span>배송상태</span>
+                <span>주문번호</span>
+              </TableHeader>
+              {orders.map((order) => (
+                <OrderList
+                  order={order}
+                  key={order.id}
+                  selectedOrder={selectedOrder}
+                  handleIsOpen={handleIsOpen}
+                />
+              ))}
+            </>
+          ) : (
+            <span>주문내역이 없습니다</span>
+          )}
         </Container>
       </Wrapper>
     </>

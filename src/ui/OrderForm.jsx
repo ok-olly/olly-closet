@@ -28,7 +28,7 @@ const StyledDiv = styled.div`
   }
 `;
 
-function OrderForm({ address, fullName, phoneNumber, email, cart }) {
+function OrderForm({ address, fullName, phoneNumber, email, cart, item }) {
   const [shippingInfo, setShippingInfo] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const { address1, address2, zipcode } = address;
@@ -43,7 +43,7 @@ function OrderForm({ address, fullName, phoneNumber, email, cart }) {
     if (shippingInfo.length > 0) {
       dispatch(orderAsync(shippingInfo));
       toast.success("주문이 완료되었습니다 🎉");
-      dispatch(resetCartAsync());
+      if (!item) dispatch(resetCartAsync());
       navigate("/");
     }
   }, [shippingInfo]);
@@ -61,6 +61,24 @@ function OrderForm({ address, fullName, phoneNumber, email, cart }) {
     const shippingPhoneNumber =
       data.phoneNumber1 + "-" + data.phoneNumber2 + "-" + data.phoneNumber3;
     const orderId = Date.now();
+
+    if (item) {
+      setShippingInfo((info) => [
+        ...info,
+        {
+          ...item,
+          address1: data.address1,
+          address2: data.address2,
+          zipcode: data.zipcode,
+          fullName: data.fullName,
+          phoneNumber: shippingPhoneNumber,
+          email: shippingEmail,
+          orderId,
+          user_id: email,
+        },
+      ]);
+      return;
+    }
 
     cart.map((item) => {
       setShippingInfo((info) => [

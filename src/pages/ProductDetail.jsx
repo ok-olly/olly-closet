@@ -88,6 +88,15 @@ function ProductDetail() {
   ] = useLoaderData();
   const { id: brandId, title: brandTitle } = brand;
   const [quantity, setQuantity] = useState(1);
+  const item = {
+    productId,
+    title,
+    img1,
+    price,
+    quantity,
+    brandId,
+    brandTitle,
+  };
   const { isLoggedin } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -100,15 +109,15 @@ function ProductDetail() {
       return;
     }
 
-    const item = {
-      productId,
-      title,
-      img1,
-      price,
-      quantity,
-      brandId,
-      brandTitle,
-    };
+    // const item = {
+    //   productId,
+    //   title,
+    //   img1,
+    //   price,
+    //   quantity,
+    //   brandId,
+    //   brandTitle,
+    // };
     dispatch(addToCartAsync(item));
     toast.success("장바구니에 상품을 담았습니다.");
   }
@@ -153,7 +162,16 @@ function ProductDetail() {
           <Button color="green" onClick={handleClick}>
             장바구니에 담기
           </Button>
-          <Button color="yellow">바로 구매</Button>
+          <Button
+            color="yellow"
+            onClick={() =>
+              navigate("/order", {
+                state: item,
+              })
+            }
+          >
+            바로 구매
+          </Button>
         </ButtonContainer>
 
         <hr />

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Heading from "../ui/Heading";
 import { setCurrency } from "../services/helper";
 import OrderForm from "../ui/OrderForm";
+import { useLocation } from "react-router-dom";
 
 const Wrapper = styled.div`
   background-color: var(--color-neutral-100);
@@ -66,12 +67,16 @@ function Order() {
     email,
   } = useSelector((state) => state.auth.userInfo);
 
-  const totalPrice = cart.reduce(
-    (acc, item) => acc + item.quantity * item.price,
-    0
-  );
+  const location = useLocation();
+  const item = location.state;
 
-  const totalQuantity = cart.reduce((acc, item) => acc + item.quantity, 0);
+  const totalPrice = item
+    ? item.price
+    : cart.reduce((acc, item) => acc + item.quantity * item.price, 0);
+
+  const totalQuantity = item
+    ? item.quantity
+    : cart.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
     <>
@@ -82,17 +87,29 @@ function Order() {
           <LeftSide>
             <Heading as="h3">주문상품</Heading>
 
-            {cart.map((product) => (
-              <Product key={product.productId}>
-                <Img src={product.img1} />
+            {item ? (
+              <Product key={item.productId}>
+                <Img src={item.img1} />
                 <Desc>
-                  <p>{product.title}</p>
+                  <p>{item.title}</p>
                   <p>
-                    {setCurrency(product.price)} &times; {product.quantity}
+                    {setCurrency(item.price)} &times; {item.quantity}
                   </p>
                 </Desc>
               </Product>
-            ))}
+            ) : (
+              cart.map((product) => (
+                <Product key={product.productId}>
+                  <Img src={product.img1} />
+                  <Desc>
+                    <p>{product.title}</p>
+                    <p>
+                      {setCurrency(product.price)} &times; {product.quantity}
+                    </p>
+                  </Desc>
+                </Product>
+              ))
+            )}
 
             <Summary>
               <p>총 상품 금액 : {setCurrency(totalPrice)}</p>
@@ -110,6 +127,7 @@ function Order() {
               phoneNumber={phoneNumber}
               email={email}
               cart={cart}
+              item={item}
             />
           </RightSide>
         </Container>

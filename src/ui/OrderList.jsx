@@ -62,7 +62,7 @@ const FormContainer = styled.div`
 `;
 
 const LeftSide = styled.div`
-  flex-basis: 60%;
+  flex-basis: 57%;
 
   form {
     div {

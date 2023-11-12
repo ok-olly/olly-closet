@@ -109,17 +109,21 @@ function ProductDetail() {
       return;
     }
 
-    // const item = {
-    //   productId,
-    //   title,
-    //   img1,
-    //   price,
-    //   quantity,
-    //   brandId,
-    //   brandTitle,
-    // };
     dispatch(addToCartAsync(item));
     toast.success("장바구니에 상품을 담았습니다.");
+  }
+
+  function handleOrderNow() {
+    if (!isLoggedin) {
+      const answer = confirm("로그인 후 이용해주세요 😊");
+      if (!answer) return;
+      navigate("/login");
+      return;
+    }
+
+    navigate("/order", {
+      state: item,
+    });
   }
 
   return (
@@ -162,14 +166,7 @@ function ProductDetail() {
           <Button color="green" onClick={handleClick}>
             장바구니에 담기
           </Button>
-          <Button
-            color="yellow"
-            onClick={() =>
-              navigate("/order", {
-                state: item,
-              })
-            }
-          >
+          <Button color="yellow" onClick={handleOrderNow}>
             바로 구매
           </Button>
         </ButtonContainer>

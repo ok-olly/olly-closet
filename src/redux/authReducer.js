@@ -14,9 +14,11 @@ import {
 const initialState = {
   isLoading: false,
   userInfo: null,
-  error: null,
+  // error: null,
   isLoggedin: false,
   cart: [],
+  loginError: null,
+  signupError: null,
 };
 
 export const signupAsync = createAsyncThunk(
@@ -91,7 +93,9 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     clearError: (state) => {
-      state.error = null;
+      // state.error = null;
+      state.signupError = null;
+      state.loginError = null;
     },
   },
   extraReducers: (builder) => {
@@ -105,6 +109,8 @@ export const authSlice = createSlice({
       })
       .addCase(signupAsync.rejected, (state, action) => {
         state.isLoading = false;
+        // state.error = action.error.message;
+        state.signupError = action.error.message;
         console.log("signup rejected!", action.error);
       });
     builder
@@ -117,7 +123,8 @@ export const authSlice = createSlice({
       })
       .addCase(loginAsync.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.error.message;
+        // state.error = action.error.message;
+        state.loginError = action.error.message;
         console.log("login rejected!", action.error);
       });
     builder

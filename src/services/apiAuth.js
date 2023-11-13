@@ -7,7 +7,7 @@ export async function signup({ fullName, email, password }) {
     zipcode: "",
   };
 
-  const phoneNumber = "010-0000-0000";
+  const phoneNumber = "010--";
 
   const cart = [];
 
@@ -26,6 +26,7 @@ export async function signup({ fullName, email, password }) {
 
   if (error) throw new Error(error.message);
 
+  console.log(data);
   return data;
 }
 

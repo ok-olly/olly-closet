@@ -43,7 +43,9 @@ function Login() {
   const [isSigningup, setIsSigningup] = useState(false);
   const navigate = useNavigate();
 
-  const { isLoading, userInfo, error } = useSelector((state) => state.auth);
+  const { isLoading, userInfo, loginError, signupError } = useSelector(
+    (state) => state.auth
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -51,14 +53,26 @@ function Login() {
   }, [userInfo]);
 
   useEffect(() => {
-    if (error) {
-      console.log(error);
+    // if (error) {
+    if (loginError) {
+      console.log(loginError);
       setEmail("");
       setPassword("");
       toast.error("이메일 또는 비밀번호를 잘못 입력했습니다.");
       dispatch(clearError());
     }
-  }, [error]);
+  }, [
+    // error
+    loginError,
+  ]);
+
+  useEffect(() => {
+    if (signupError) {
+      console.log(signupError);
+      toast.error("이미 사용중인 이메일입니다.");
+      dispatch(clearError());
+    }
+  }, [signupError]);
 
   function handleSignup() {
     if (!email.match(/\S+@\S+\.\S+/)) {

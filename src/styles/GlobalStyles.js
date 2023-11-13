@@ -105,6 +105,32 @@ h6 {
   font-size: inherit;
   font-weight: inherit;
 }
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  border: 10px solid;
+  border-color: rgba(120, 113, 108, 0.15) rgba(120, 113, 108, 0.25)
+    rgba(120, 113, 108, 0.35) rgba(120, 113, 108, 0.5);
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 0;
+}
 `;
 
 export default GlobalStyles;

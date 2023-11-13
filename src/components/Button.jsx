@@ -4,7 +4,6 @@ const StyledButton = styled.button`
   text-transform: uppercase;
   letter-spacing: 1.5px;
 
-  /* background-color: var(--color-neutral-0); */
   background-color: ${(props) =>
     props.color === "green"
       ? css`var(--color-green-100)`
@@ -17,7 +16,6 @@ const StyledButton = styled.button`
   border: none;
   transition: all 0.3s ease 0s;
   box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
 
   &:hover {
     background-color: ${(props) =>
@@ -26,6 +24,7 @@ const StyledButton = styled.button`
         : props.color === "red"
         ? css`var(--color-red-600)`
         : css`var(--color-yellow-600)`};
+
     box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.3);
     color: #fff;
     transform: translateY(-4px);

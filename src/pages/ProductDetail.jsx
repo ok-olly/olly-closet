@@ -2,16 +2,16 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import toast from "react-hot-toast";
 
 import { addToCartAsync } from "../redux/authReducer";
 import { getSingleProduct } from "../services/apiProducts";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
-import toast from "react-hot-toast";
-import Button from "../ui/Button";
 import Title from "../ui/Title";
 import Price from "../ui/Price";
-import Heading from "../ui/Heading";
-import ButtonContainer from "../ui/ButtonContainer";
+import Heading from "../components/Heading";
+import SquareButton from "../components/SquareButton";
+import SquareButtonContainer from "../components/SquaredButtonContainer";
 
 const Container = styled.div`
   display: flex;
@@ -56,12 +56,22 @@ const QuantityButton = styled.button`
   background-color: var(--color-neutral-0);
   border-radius: 30%;
   padding: 0.3rem 0.3rem 0rem;
+  transition: all 0.3s ease 0s;
+
+  &:hover {
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.3);
+    transform: scale(1.1);
+  }
+
+  &:active {
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9);
+  }
 `;
 
 const DescContainer = styled.div`
   line-height: 1.7;
   font-weight: 300;
-  text-transform: lowercase;
 
   display: flex;
   flex-direction: column;
@@ -162,14 +172,12 @@ function ProductDetail() {
           </QuantityButton>
         </QuantityContainer>
 
-        <ButtonContainer>
-          <Button color="green" onClick={handleClick}>
-            장바구니에 담기
-          </Button>
-          <Button color="yellow" onClick={handleOrderNow}>
+        <SquareButtonContainer>
+          <SquareButton onClick={handleClick}>장바구니에 담기</SquareButton>
+          <SquareButton color="white" onClick={handleOrderNow}>
             바로 구매
-          </Button>
-        </ButtonContainer>
+          </SquareButton>
+        </SquareButtonContainer>
 
         <hr />
 
@@ -181,14 +189,19 @@ function ProductDetail() {
                 <li key={el}>{el}</li>
               ))}
             </ul>
+            <p>
+              모든 제품 사진의 저작권은 개발자에게 있으며 무단 사용을 절대
+              금합니다.
+            </p>
+            <p>
+              The copyright of the product photos belongs to the developer.
+              Unauthorized use is prohibited.
+            </p>
           </div>
 
           <div>
             <Heading as="h5">배송 안내</Heading>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Voluptatem doloribus esse dolore ipsa natus voluptatibus
-            </p>
+            <p>전상품 무료배송 📦</p>
           </div>
         </DescContainer>
       </RightSide>

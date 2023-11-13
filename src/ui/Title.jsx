@@ -1,4 +1,4 @@
-import Heading from "./Heading";
+import Heading from "../components/Heading";
 
 function Title({ brandTitle, productTitle }) {
   return (

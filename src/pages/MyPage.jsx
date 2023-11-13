@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutAsync } from "../redux/authReducer";
 import styled from "styled-components";
-import Heading from "../ui/Heading";
+
+import Heading from "../components/Heading";
 import UpdateAddressForm from "../ui/UpdateAddressForm";
 import UpdatePhoneNumberForm from "../ui/UpdatePhoneNumberForm";
 import UpdatePasswordForm from "../ui/UpdatePasswordForm";
-import Button from "../ui/Button";
+import Button from "../components/Button";
 import Nav from "../ui/Nav";
 import { getOrdersByUser } from "../services/apiOrders";
 import OrderList from "../ui/OrderList";

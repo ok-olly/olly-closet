@@ -16,6 +16,8 @@ import ProtectedRoute, {
   loader as ProtectedRouteLoader,
 } from "./ui/ProtectedRoute";
 import Order from "./pages/Order";
+import { ThemeProvider } from "styled-components";
+import theme from "./styles/theme";
 
 const router = createBrowserRouter([
   {
@@ -57,28 +59,30 @@ const router = createBrowserRouter([
 function App() {
   return (
     <>
-      <GlobalStyles />
-      <RouterProvider router={router}></RouterProvider>
-      <Toaster
-        position="top-center"
-        gutter={12}
-        containerStyle={{ margin: "8px" }}
-        toastOptions={{
-          success: {
-            duration: 3000,
-          },
-          error: {
-            duration: 5000,
-          },
-          style: {
-            fontSize: "16px",
-            maxWidth: "500px",
-            padding: "16px 24px",
-            backgroundColor: "var(--color-neutral-100)",
-            color: "var(--color-neutral-950)",
-          },
-        }}
-      />
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+        <RouterProvider router={router}></RouterProvider>
+        <Toaster
+          position="top-center"
+          gutter={12}
+          containerStyle={{ margin: "8px" }}
+          toastOptions={{
+            success: {
+              duration: 3000,
+            },
+            error: {
+              duration: 5000,
+            },
+            style: {
+              fontSize: "16px",
+              maxWidth: "500px",
+              padding: "16px 24px",
+              backgroundColor: "var(--color-neutral-100)",
+              color: "var(--color-neutral-950)",
+            },
+          }}
+        />
+      </ThemeProvider>
     </>
   );
 }

@@ -4,7 +4,7 @@ import { updateCurrentUserAsync } from "../redux/authReducer";
 import styled from "styled-components";
 import toast from "react-hot-toast";
 import FormInputContainer from "./FormInputContainer";
-import Button from "./Button";
+import Button from "../components/Button";
 
 const StyledForm = styled.form`
   display: flex;

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import Button from "./Button";
-import Heading from "./Heading";
+import Button from "../components/Button";
+import Heading from "../components/Heading";
 import Postcode from "./Postcode";
 import { useForm } from "react-hook-form";
 import { updateOrderInfo } from "../services/apiOrders";

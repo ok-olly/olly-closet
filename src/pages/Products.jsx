@@ -9,7 +9,7 @@ import {
 } from "../services/apiProducts";
 import Card from "../ui/Card";
 import Filter from "../ui/Filter";
-import Heading from "../ui/Heading";
+import Heading from "../components/Heading";
 
 const Container = styled.div`
   display: flex;

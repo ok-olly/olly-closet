@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { getProductsByFilters } from "../services/apiProducts";
 import { setCurrency } from "../services/helper";
 import styled from "styled-components";
-import Button from "./Button";
-import ButtonContainer from "./ButtonContainer";
+import Button from "../components/Button";
 
 const Form = styled.form`
   position: sticky;
@@ -44,6 +43,11 @@ const PriceFilter = styled.div`
 
 const Span = styled.span`
   font-weight: 300;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
 `;
 
 function Filter({

@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-// const StyledNav = styled.nav`
 const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
@@ -12,9 +11,5 @@ const Nav = styled.nav`
     align-items: center;
   }
 `;
-
-// function Nav({ children }) {
-//   return <StyledNav>{children}</StyledNav>;
-// }
 
 export default Nav;

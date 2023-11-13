@@ -1,13 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+import toast from "react-hot-toast";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { clearError, loginAsync, signupAsync } from "../redux/authReducer";
-import toast from "react-hot-toast";
 import { RiArrowGoBackLine } from "react-icons/ri";
-import Heading from "../ui/Heading";
+import Heading from "../components/Heading";
 import FormInputContainer from "../ui/FormInputContainer";
+import SquareButton from "../components/SquareButton";
+import SquareButtonContainer from "../components/SquaredButtonContainer";
 
 const Container = styled.div`
   width: 35rem;
@@ -21,20 +23,20 @@ const StyledForm = styled.form`
   gap: 2rem;
 `;
 
-const ButtonContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`;
+// const ButtonContainer = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   gap: 1rem;
+// `;
 
-const Button = styled.button`
-  border: 1px solid var(--color-slate-700);
-  background-color: var(--color-slate-700);
-  color: var(--color-neutral-0);
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-  font-size: inherit;
-`;
+// const Button = styled.button`
+//   border: 1px solid var(--color-slate-700);
+//   background-color: var(--color-slate-700);
+//   color: var(--color-neutral-0);
+//   padding-top: 1.5rem;
+//   padding-bottom: 1.5rem;
+//   font-size: inherit;
+// `;
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -137,13 +139,17 @@ function Login() {
             )}
           </div>
 
-          <ButtonContainer>
+          <SquareButtonContainer>
             {!isSigningup && (
               <>
-                <Button type="submit">로그인</Button>
-                <Button type="button" onClick={() => setIsSigningup(true)}>
+                <SquareButton type="submit">로그인</SquareButton>
+                <SquareButton
+                  type="button"
+                  color="white"
+                  onClick={() => setIsSigningup(true)}
+                >
                   회원가입
-                </Button>
+                </SquareButton>
               </>
             )}
             {isSigningup && (
@@ -151,10 +157,10 @@ function Login() {
                 <div onClick={() => setIsSigningup(false)}>
                   <RiArrowGoBackLine />
                 </div>
-                <Button type="submit">회원가입</Button>
+                <SquareButton type="submit">회원가입</SquareButton>
               </>
             )}
-          </ButtonContainer>
+          </SquareButtonContainer>
         </StyledForm>
       </Container>
     </>

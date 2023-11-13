@@ -3,6 +3,12 @@ import { useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 import { getCurrentUserAsync } from "../redux/authReducer";
 import { store } from "../redux/store";
+import styled from "styled-components";
+
+const Div = styled.div`
+  width: 10rem;
+  height: 10rem;
+`;
 
 function ProtectedRoute() {
   const navigate = useNavigate();
@@ -13,7 +19,7 @@ function ProtectedRoute() {
     if (!isUserLoggedin && !isLoading) navigate("/login");
   }, [isUserLoggedin, isLoading]);
 
-  if (isLoading) return <div>로딩중</div>;
+  if (isLoading) return <Div className="loader"></Div>;
 
   if (isUserLoggedin) return <Outlet />;
 }

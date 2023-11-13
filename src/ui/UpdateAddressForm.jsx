@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateCurrentUserAsync } from "../redux/authReducer";
 import toast from "react-hot-toast";
 import styled from "styled-components";
-import Button from "./Button";
+import Button from "../components/Button";
 
 const StyledForm = styled.form`
   display: flex;

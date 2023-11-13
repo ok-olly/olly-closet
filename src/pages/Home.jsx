@@ -1,5 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 import { getProductsByFeatures } from "../services/apiProducts";
+
 import Slider from "../ui/Slider";
 import FeaturedProducts from "../ui/FeaturedProducts";
 

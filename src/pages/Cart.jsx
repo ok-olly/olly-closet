@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrency } from "../services/helper";
 import styled from "styled-components";
-import Heading from "../ui/Heading";
+import Heading from "../components/Heading";
 import { removeCartItemAsync, resetCartAsync } from "../redux/authReducer";
-import Button from "../ui/Button";
+import Button from "../components/Button";
 import toast from "react-hot-toast";
 import CartProduct from "../ui/CartProduct";
 import { useNavigate } from "react-router-dom";

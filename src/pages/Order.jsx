@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import Heading from "../ui/Heading";
+import Heading from "../components/Heading";
 import { setCurrency } from "../services/helper";
 import OrderForm from "../ui/OrderForm";
 import { useLocation } from "react-router-dom";

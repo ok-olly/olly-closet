@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { setCurrency } from "../services/helper";
-import Button from "./Button";
+import Button from "../components/Button";
+import { useNavigate } from "react-router-dom";
+import Heading from "../components/Heading";
 
 const StyledDiv = styled.div`
   background-color: var(--color-neutral-0);
@@ -16,6 +18,16 @@ const StyledDiv = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    h5 {
+      cursor: pointer;
+
+      &:hover,
+      &:focus,
+      &:active {
+        color: var(--color-neutral-400);
+      }
+    }
   }
 
   button {
@@ -29,20 +41,21 @@ const Img = styled.img`
   height: 10rem;
   object-fit: cover;
   border-radius: 10px;
-  cursor: pointer;
 `;
 
 function CartProduct({ item, handleRemove }) {
+  const navigate = useNavigate();
+
   return (
     <StyledDiv key={item.productId}>
-      <Img
-        src={item.img1}
-        onClick={() => navigate(`/productdetail/${item.productId}`)}
-      />
+      <Img src={item.img1} />
       <div>
-        <span>
+        <Heading
+          as="h5"
+          onClick={() => navigate(`/productdetail/${item.productId}`)}
+        >
           {item.brandTitle.toUpperCase()} - {item.title}
-        </span>
+        </Heading>
         <span>{setCurrency(item.price)}</span>
       </div>
       <div>

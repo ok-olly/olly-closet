@@ -34,6 +34,10 @@ const StyledButton = styled.button`
     transform: translateY(0px);
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
   }
+
+  @media ${({ theme }) => theme.device.medium} {
+    font-size: 1.2rem;
+  }
 `;
 
 function Button({ children, onClick, color, type }) {

@@ -19,7 +19,7 @@ const ImgContainer = styled.div`
 
 const Img = styled.img`
   width: 100%;
-  height: 40rem;
+  /* height: 40rem; */
   object-fit: cover;
 
   &:last-child {

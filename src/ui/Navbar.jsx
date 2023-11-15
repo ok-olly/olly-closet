@@ -30,6 +30,14 @@ const StyledNavLink = styled(NavLink)`
       height: 2rem;
       border-radius: 50%;
       background-color: var(--color-slate-500);
+
+      @media ${({ theme }) => theme.device.medium} {
+        font-size: 1rem;
+        width: 1.7rem;
+        height: 1.7rem;
+        top: -9px;
+        right: 11px;
+      }
     }
   }
 `;

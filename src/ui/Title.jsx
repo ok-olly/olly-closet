@@ -4,7 +4,7 @@ function Title({ brandTitle, productTitle }) {
   return (
     <div>
       <Heading as="h3">{brandTitle}</Heading>
-      <h2>{productTitle}</h2>
+      <Heading as="h6">{productTitle}</Heading>
     </div>
   );
 }

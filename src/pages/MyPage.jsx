@@ -20,12 +20,25 @@ const Wrapper = styled.div`
     text-align: center;
     margin: 2rem 0;
   }
+
+  @media ${({ theme }) => theme.device.medium} {
+    font-size: 1.4rem;
+  }
 `;
 
 const Container = styled.div`
   max-width: 80rem;
   margin: 0 auto;
   padding: 1rem 0 2.5rem;
+
+  @media ${({ theme }) => theme.device.medium} {
+    max-width: 70rem;
+  }
+
+  @media ${({ theme }) => theme.device.small} {
+    /* max-width: 60rem; */
+    padding: 1rem 2rem 2.5rem;
+  }
 `;
 
 const NavButton = styled.button`
@@ -42,6 +55,10 @@ const NavButton = styled.button`
     background-color: var(--color-neutral-0);
     border-bottom: 1px solid black;
   }
+
+  @media ${({ theme }) => theme.device.medium} {
+    font-size: 1.4rem;
+  }
 `;
 
 const TableHeader = styled.div`
@@ -51,6 +68,14 @@ const TableHeader = styled.div`
   gap: 2rem;
   grid-template-columns: 17rem 23rem 3rem 10rem 15rem;
   margin-bottom: 1rem;
+
+  @media ${({ theme }) => theme.device.medium} {
+    gap: 1rem;
+  }
+
+  @media ${({ theme }) => theme.device.small} {
+    display: none;
+  }
 `;
 
 function MyPage() {

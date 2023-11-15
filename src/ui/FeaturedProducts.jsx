@@ -11,6 +11,14 @@ const Type = styled.p`
   font-size: 2rem;
   margin-bottom: 1rem;
   text-transform: uppercase;
+
+  @media ${({ theme }) => theme.device.medium} {
+    font-size: 1.7rem;
+  }
+`;
+
+const ScrollBox = styled.div`
+  overflow-x: auto;
 `;
 
 const CardContainer = styled.div`
@@ -18,6 +26,15 @@ const CardContainer = styled.div`
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: min-content;
   gap: 4rem;
+
+  @media ${({ theme }) => theme.device.medium} {
+    width: 952px;
+    gap: 2rem;
+  }
+
+  @media ${({ theme }) => theme.device.small} {
+    width: 800px;
+  }
 `;
 
 function FeaturedProducts({ type, products }) {
@@ -27,11 +44,13 @@ function FeaturedProducts({ type, products }) {
       {type === "featured" && <Type>discover | 이번 시즌 액세서리</Type>}
       {type === "trending" && <Type>Trending Now</Type>}
 
-      <CardContainer>
-        {products.map((product) => (
-          <Card product={product} key={product.id} />
-        ))}
-      </CardContainer>
+      <ScrollBox>
+        <CardContainer>
+          {products.map((product) => (
+            <Card product={product} key={product.id} />
+          ))}
+        </CardContainer>
+      </ScrollBox>
     </StyledFeaturedProducts>
   );
 }

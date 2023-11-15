@@ -2,15 +2,10 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
-import theme from "../styles/theme";
 
 const StyledAppLayout = styled.div`
   max-width: 140rem;
-  margin: 1.5rem auto;
-
-  /* @media ${({ theme }) => theme.device.large} {
-    font-size: 80%;
-  } */
+  margin: 1.5rem auto 0;
 `;
 
 const Main = styled.main`
@@ -18,8 +13,18 @@ const Main = styled.main`
   padding: 0 10rem;
   min-height: 60vh;
 
-  @media ${({ theme }) => theme.device.large} {
+  @media ${({ theme }) => theme.device.largest} {
     padding: 0 5rem;
+  }
+
+  @media ${({ theme }) => theme.device.medium} {
+    padding: 0 2rem;
+    margin: 2rem auto;
+  }
+
+  @media ${({ theme }) => theme.device.small} {
+    padding: 0 1rem;
+    margin: 1rem auto;
   }
 `;
 

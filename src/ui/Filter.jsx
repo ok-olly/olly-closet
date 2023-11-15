@@ -15,6 +15,11 @@ const Form = styled.form`
   flex-direction: column;
   gap: 1.5rem;
   text-transform: uppercase;
+
+  @media ${({ theme }) => theme.device.large} {
+    font-size: 85%;
+    gap: 1rem;
+  }
 `;
 
 const CheckboxContainer = styled.div`

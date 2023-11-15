@@ -15,10 +15,18 @@ const Container = styled.div`
   display: flex;
   gap: 4rem;
   width: 100%;
+
+  @media ${({ theme }) => theme.device.large} {
+    gap: 2rem;
+  }
 `;
 
 const LeftSide = styled.div`
   flex: 0 0 20%;
+
+  @media ${({ theme }) => theme.device.medium} {
+    flex: 0 1 25%;
+  }
 `;
 
 const RightSide = styled.div`
@@ -26,6 +34,14 @@ const RightSide = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 4rem;
+
+  @media ${({ theme }) => theme.device.large} {
+    gap: 2rem;
+  }
+
+  @media ${({ theme }) => theme.device.medium} {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 function Products() {
@@ -40,6 +56,7 @@ function Products() {
   return (
     <>
       <Heading as="h2">{categoryId === "women" ? "여성" : "남성"}</Heading>
+
       <Container>
         <LeftSide>
           <Filter

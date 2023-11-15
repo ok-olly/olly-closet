@@ -3,14 +3,28 @@ import { ImLinkedin2, ImGithub } from "react-icons/im";
 
 const StyledFooter = styled.footer`
   margin-top: 10rem;
+
+  @media ${({ theme }) => theme.device.small} {
+    margin-top: 6rem;
+    background-color: var(--color-slate-200);
+  }
 `;
 
 const Nav = styled.nav`
-  margin: 1rem 0;
+  margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+
+  @media ${({ theme }) => theme.device.small} {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    padding: 2rem 6rem;
+    margin: 0 auto;
+  }
 `;
 
 const Ul = styled.ul`
@@ -29,11 +43,25 @@ const Ul = styled.ul`
       color: var(--color-neutral-400);
       font-size: 1.3rem;
     `};
+
+  @media ${({ theme }) => theme.device.medium} {
+    font-size: 1.4rem;
+  }
+
+  @media ${({ theme }) => theme.device.small} {
+    flex-direction: column;
+    gap: 0.2rem;
+    color: var(--color-slate-900);
+  }
 `;
 
 const Hr = styled.hr`
   color: var(--color-neutral-300);
   width: 100%;
+
+  @media ${({ theme }) => theme.device.small} {
+    display: none;
+  }
 `;
 
 function Footer() {
@@ -55,7 +83,7 @@ function Footer() {
             </a>
           </li>
           <li>
-            <a href="https://github.com/ok-olly" target="_blank">
+            <a href="https://github.com/ok-olly/olly-closet" target="_blank">
               <ImGithub />
             </a>
           </li>

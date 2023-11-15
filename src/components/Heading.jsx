@@ -9,6 +9,14 @@ const Heading = styled.h1`
       font-size: 3.5rem;
       text-transform: uppercase;
       text-align: center;
+
+      @media ${({ theme }) => theme.device.medium} {
+        font-size: 2.8rem;
+      }
+
+      @media ${({ theme }) => theme.device.small} {
+        font-size: 2.5rem;
+      }
     `}
 
   // 여성, 남성, 마이페이지, 장바구니
@@ -19,6 +27,14 @@ const Heading = styled.h1`
       font-size: 3rem;
       text-align: center;
       margin: 4rem 0;
+
+      @media ${({ theme }) => theme.device.medium} {
+        font-size: 2.2rem;
+      }
+
+      @media ${({ theme }) => theme.device.small} {
+        font-size: 2rem;
+      }
     `}
     
     // BOTTEGA VENETA
@@ -28,6 +44,10 @@ const Heading = styled.h1`
       font-size: 1.8rem;
       font-weight: 500;
       text-transform: uppercase;
+
+      @media ${({ theme }) => theme.device.medium} {
+        font-size: 1.5rem;
+      }
     `}
     
     // new season, trending
@@ -45,6 +65,15 @@ const Heading = styled.h1`
     css`
       font-weight: 400;
       text-decoration: underline;
+    `}
+
+    // 캔버스 토트백
+    ${(props) =>
+    props.as === "h6" &&
+    css`
+      @media ${({ theme }) => theme.device.medium} {
+        font-size: 1.4rem;
+      }
     `}
 `;
 

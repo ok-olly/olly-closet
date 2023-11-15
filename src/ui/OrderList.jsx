@@ -16,6 +16,24 @@ const Ul = styled.ul`
   background-color: var(--color-neutral-0);
   padding: 1rem;
   margin-bottom: 1rem;
+
+  @media ${({ theme }) => theme.device.medium} {
+    gap: 1rem;
+  }
+
+  @media ${({ theme }) => theme.device.small} {
+    grid-template-columns: 17rem 23rem 6rem;
+    /*  10rem 15rem; */
+    grid-template-rows: repeat(2, 1fr);
+  }
+`;
+
+const HiddenSpan = styled.span`
+  display: none;
+
+  @media ${({ theme }) => theme.device.small} {
+    display: inline;
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -59,6 +77,10 @@ const Container = styled.div`
 const FormContainer = styled.div`
   display: flex;
   gap: 2rem;
+
+  @media ${({ theme }) => theme.device.medium} {
+    flex-direction: column;
+  }
 `;
 
 const LeftSide = styled.div`
@@ -151,7 +173,10 @@ function OrderList({ order, selectedOrder, handleIsOpen }) {
         <li>
           <StyledLink to={`/productdetail/${productId}`}>{title}</StyledLink>
         </li>
-        <li>{quantity}</li>
+        <li>
+          <HiddenSpan>수량: </HiddenSpan>
+          {quantity}
+        </li>
         <li>
           {!isShipped && !isDelivered
             ? "배송준비중"

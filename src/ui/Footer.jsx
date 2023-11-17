@@ -25,6 +25,11 @@ const Nav = styled.nav`
     padding: 2rem 6rem;
     margin: 0 auto;
   }
+
+  @media ${({ theme }) => theme.device.mobileLarge} {
+    padding: 2rem 5rem;
+    margin: 0 auto;
+  }
 `;
 
 const Ul = styled.ul`
@@ -74,6 +79,7 @@ function Footer() {
           <li>privacy policy</li>
           <li>help</li>
           <li>partnership</li>
+
           <li>
             <a
               href="https://www.linkedin.com/in/jeongok-olivia-lee/"

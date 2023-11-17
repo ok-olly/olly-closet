@@ -1,7 +1,8 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+
 import { setCurrency } from "../services/helper";
 import Button from "../components/Button";
-import { useNavigate } from "react-router-dom";
 import Heading from "../components/Heading";
 
 const StyledDiv = styled.div`
@@ -13,11 +14,33 @@ const StyledDiv = styled.div`
   grid-template-columns: min-content minmax(27rem, 1fr) minmax(5rem, 10rem) 10rem 8rem;
   grid-gap: 2rem;
 
+  @media ${({ theme }) => theme.device.medium} {
+    grid-template-columns: min-content minmax(23rem, 1fr) minmax(5rem, 7rem) 10rem 8rem;
+    grid-gap: 1.5rem;
+    margin: 0 1rem;
+  }
+
+  @media ${({ theme }) => theme.device.small} {
+    grid-template-columns: min-content minmax(23rem, 1fr) 14rem;
+    grid-template-areas: "image title button" "image quantity price";
+    grid-gap: 1rem;
+  }
+
+  @media ${({ theme }) => theme.device.mobileLarge} {
+    grid-template-columns: min-content 1fr 7rem;
+    grid-template-areas: "image title button" "image quantity button" "image price button";
+  }
+
   div {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    @media ${({ theme }) => theme.device.small} {
+      flex-direction: row;
+      gap: 0.8rem;
+    }
 
     h5 {
       cursor: pointer;
@@ -33,6 +56,10 @@ const StyledDiv = styled.div`
   button {
     align-self: center;
     justify-self: center;
+
+    @media ${({ theme }) => theme.device.small} {
+      grid-area: button;
+    }
   }
 `;
 
@@ -41,6 +68,32 @@ const Img = styled.img`
   height: 10rem;
   object-fit: cover;
   border-radius: 10px;
+  cursor: pointer;
+
+  @media ${({ theme }) => theme.device.small} {
+    grid-area: image;
+    width: 6rem;
+    height: 8rem;
+  }
+
+  @media ${({ theme }) => theme.device.mobileLarge} {
+    width: 8rem;
+    height: 10.5rem;
+  }
+`;
+
+const ToggleSpan1 = styled.span`
+  @media ${({ theme }) => theme.device.small} {
+    display: none;
+  }
+`;
+
+const ToggleSpan2 = styled.span`
+  display: none;
+
+  @media ${({ theme }) => theme.device.small} {
+    display: inline;
+  }
 `;
 
 function CartProduct({ item, handleRemove }) {
@@ -48,7 +101,10 @@ function CartProduct({ item, handleRemove }) {
 
   return (
     <StyledDiv key={item.productId}>
-      <Img src={item.img1} />
+      <Img
+        src={item.img1}
+        onClick={() => navigate(`/productdetail/${item.productId}`)}
+      />
       <div>
         <Heading
           as="h5"
@@ -56,10 +112,11 @@ function CartProduct({ item, handleRemove }) {
         >
           {item.brandTitle.toUpperCase()} - {item.title}
         </Heading>
-        <span>{setCurrency(item.price)}</span>
+        <ToggleSpan1>{setCurrency(item.price)}</ToggleSpan1>
       </div>
       <div>
-        <span>수량</span>
+        <ToggleSpan1>수량</ToggleSpan1>
+        <ToggleSpan2>{setCurrency(item.price)} &times; </ToggleSpan2>
         <span>{item.quantity}</span>
       </div>
       <div>

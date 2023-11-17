@@ -27,6 +27,10 @@ const LeftSide = styled.div`
   @media ${({ theme }) => theme.device.medium} {
     flex: 0 1 25%;
   }
+
+  @media ${({ theme }) => theme.device.mobileLarge} {
+    display: none;
+  }
 `;
 
 const RightSide = styled.div`

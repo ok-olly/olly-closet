@@ -26,6 +26,11 @@ const Ul = styled.ul`
     /*  10rem 15rem; */
     grid-template-rows: repeat(2, 1fr);
   }
+
+  @media ${({ theme }) => theme.device.mobileLarge} {
+    grid-template-columns: 15rem 17rem 6rem;
+    gap: 0.5rem;
+  }
 `;
 
 const HiddenSpan = styled.span`

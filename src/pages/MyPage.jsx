@@ -39,6 +39,14 @@ const Container = styled.div`
     /* max-width: 60rem; */
     padding: 1rem 2rem 2.5rem;
   }
+
+  nav {
+    @media ${({ theme }) => theme.device.mobileLarge} {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+    }
+  }
 `;
 
 const NavButton = styled.button`

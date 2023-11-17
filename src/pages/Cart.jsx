@@ -17,6 +17,10 @@ const Container = styled.div`
   max-width: 80rem;
   margin: 0 auto;
   padding: 2.5rem 0;
+
+  @media ${({ theme }) => theme.device.medium} {
+    font-size: 1.4rem;
+  }
 `;
 
 const SummaryContainer = styled.div`
@@ -25,15 +29,48 @@ const SummaryContainer = styled.div`
   align-items: center;
   padding: 1rem;
   margin-top: 1rem;
+
+  @media ${({ theme }) => theme.device.medium} {
+    margin: 0 1rem;
+  }
+
+  @media ${({ theme }) => theme.device.mobileLarge} {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: "total total" "reset text";
+
+    button:first-child {
+      justify-self: start;
+      margin-left: 2rem;
+    }
+  }
+`;
+
+const SummaryText = styled.span`
+  @media ${({ theme }) => theme.device.mobileLarge} {
+    justify-self: end;
+    margin-right: 2rem;
+  }
 `;
 
 const TotalContainer = styled.div`
   display: grid;
   grid-template-columns: minmax(5rem, 10rem) 10rem 8rem;
-  justify-content: flex-end;
+  /* justify-content: flex-end; */
   align-items: center;
   justify-items: center;
   gap: 2rem;
+
+  @media ${({ theme }) => theme.device.medium} {
+    grid-template-columns: minmax(5rem, 7rem) 10rem 8rem;
+    grid-gap: 1.5rem;
+  }
+
+  @media ${({ theme }) => theme.device.mobileLarge} {
+    grid-area: total;
+    grid-template-columns: 10rem 1fr 10rem;
+  }
 
   div {
     display: flex;
@@ -90,7 +127,7 @@ function Cart() {
                   전체삭제
                 </Button>
 
-                <span>모든 상품은 무료배송입니다 📦</span>
+                <SummaryText>모든 상품은 무료배송입니다 📦</SummaryText>
 
                 <TotalContainer>
                   <div>
@@ -101,6 +138,7 @@ function Cart() {
                     <span>총 상품 금액</span>
                     <span>{setCurrency(totalPrice)}</span>
                   </div>
+
                   <Button color="green" onClick={() => navigate("/order")}>
                     주문하기
                   </Button>

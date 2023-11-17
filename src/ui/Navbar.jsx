@@ -7,6 +7,10 @@ const StyledNavLink = styled(NavLink)`
   &:link,
   &:visited {
     padding: 0 2rem;
+
+    @media ${({ theme }) => theme.device.mobileLarge} {
+      padding: 0 1rem;
+    }
   }
 
   &:hover,
@@ -36,7 +40,11 @@ const StyledNavLink = styled(NavLink)`
         width: 1.7rem;
         height: 1.7rem;
         top: -9px;
-        right: 11px;
+      }
+
+      @media ${({ theme }) => theme.device.mobileLarge} {
+        top: -10px;
+        right: 0;
       }
     }
   }

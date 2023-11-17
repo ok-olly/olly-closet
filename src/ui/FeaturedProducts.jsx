@@ -35,6 +35,11 @@ const CardContainer = styled.div`
   @media ${({ theme }) => theme.device.small} {
     width: 800px;
   }
+
+  @media ${({ theme }) => theme.device.mobileLarge} {
+    width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 function FeaturedProducts({ type, products }) {

@@ -135,6 +135,12 @@ h6 {
 /////////////////////////////////////
 /* mobileMedium size navbar */
 @media screen and (max-width:420px) {
+  .hidden {
+    ul {
+      display:none;
+    }
+  }
+
   .open {
     background-image: linear-gradient(to bottom, var(--color-neutral-0), var(--color-slate-300));
     height: 30vh;

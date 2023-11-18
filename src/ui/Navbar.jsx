@@ -19,9 +19,9 @@ const Nav = styled.nav`
       font-size: 1.4rem;
     }
 
-    @media ${({ theme }) => theme.device.mobileMedium} {
+    /* @media ${({ theme }) => theme.device.mobileMedium} {
       display: none;
-    }
+    } */
   }
 `;
 
@@ -83,6 +83,7 @@ const ShowNav = styled.div`
     button {
       border: none;
       background-color: var(--color-neutral-0);
+      color: var(--color-neutral-950);
 
       svg {
         font-size: 2.5rem;
@@ -103,7 +104,7 @@ function Navbar() {
 
   return (
     <>
-      <Nav className={isOpen ? "open" : ""}>
+      <Nav className={isOpen ? "open" : "hidden"}>
         <ul>
           <li>
             <StyledNavLink to="/products/women">여성</StyledNavLink>

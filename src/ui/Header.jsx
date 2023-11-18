@@ -10,6 +10,11 @@ const StyledHeader = styled.header`
   z-index: 200;
   border-bottom: 1px solid var(--color-neutral-400);
   padding: 0 4rem;
+
+  @media ${({ theme }) => theme.device.mobileMedium} {
+    position: relative;
+    padding: 0;
+  }
 `;
 
 const StyledLink = styled(Link)`

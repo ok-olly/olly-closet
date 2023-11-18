@@ -8,6 +8,7 @@ const Heading = styled.h1`
       font-family: "Oswald", sans-serif;
       font-size: 3.5rem;
       text-transform: uppercase;
+      margin-top: 2rem;
       text-align: center;
 
       @media ${({ theme }) => theme.device.medium} {
@@ -16,6 +17,7 @@ const Heading = styled.h1`
 
       @media ${({ theme }) => theme.device.small} {
         font-size: 2.5rem;
+        margin-top: 1.5rem;
       }
     `}
 

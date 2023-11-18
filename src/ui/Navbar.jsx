@@ -1,7 +1,29 @@
 import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import Nav from "./Nav";
+import { FaBars } from "react-icons/fa6";
+import { FaTimes } from "react-icons/fa";
+import { useEffect, useState } from "react";
+
+const Nav = styled.nav`
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0;
+
+  ul {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+
+    @media ${({ theme }) => theme.device.medium} {
+      font-size: 1.4rem;
+    }
+
+    @media ${({ theme }) => theme.device.mobileMedium} {
+      display: none;
+    }
+  }
+`;
 
 const StyledNavLink = styled(NavLink)`
   &:link,
@@ -49,37 +71,67 @@ const StyledNavLink = styled(NavLink)`
     }
   }
 `;
+const ShowNav = styled.div`
+  display: none;
+
+  @media ${({ theme }) => theme.device.mobileMedium} {
+    display: inline;
+    position: absolute;
+    top: 8px;
+    left: 15px;
+
+    button {
+      border: none;
+      background-color: var(--color-neutral-0);
+
+      svg {
+        font-size: 2.5rem;
+      }
+    }
+  }
+`;
 
 function Navbar() {
   const { userInfo, cart } = useSelector((state) => state.auth);
   const numProducts = cart.reduce((acc, item) => acc + item.quantity, 0);
+  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location]);
 
   return (
-    <Nav>
-      <ul>
-        <li>
-          <StyledNavLink to="/products/women">여성</StyledNavLink>
-        </li>
-        <li>
-          <StyledNavLink to="/products/men">남성</StyledNavLink>
-        </li>
-      </ul>
-      <ul>
-        <li>
-          {userInfo ? (
-            <StyledNavLink to="/mypage">마이페이지</StyledNavLink>
-          ) : (
-            <StyledNavLink to="/login">로그인</StyledNavLink>
-          )}
-        </li>
-        <li>
-          <StyledNavLink to="/cart">
-            장바구니
-            {numProducts > 0 && <span>{numProducts}</span>}
-          </StyledNavLink>
-        </li>
-      </ul>
-    </Nav>
+    <>
+      <Nav className={isOpen ? "open" : ""}>
+        <ul>
+          <li>
+            <StyledNavLink to="/products/women">여성</StyledNavLink>
+          </li>
+          <li>
+            <StyledNavLink to="/products/men">남성</StyledNavLink>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            {userInfo ? (
+              <StyledNavLink to="/mypage">마이페이지</StyledNavLink>
+            ) : (
+              <StyledNavLink to="/login">로그인</StyledNavLink>
+            )}
+          </li>
+          <li>
+            <StyledNavLink to="/cart">
+              장바구니
+              {numProducts > 0 && <span>{numProducts}</span>}
+            </StyledNavLink>
+          </li>
+        </ul>
+      </Nav>
+      <ShowNav onClick={() => setIsOpen((v) => !v)}>
+        <button>{isOpen ? <FaTimes /> : <FaBars />}</button>
+      </ShowNav>
+    </>
   );
 }
 

@@ -2,7 +2,6 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
-import SlideNav from "./SlideNav";
 
 const StyledAppLayout = styled.div`
   max-width: 140rem;
@@ -33,7 +32,6 @@ const Main = styled.main`
 function AppLayout() {
   return (
     <StyledAppLayout>
-      <SlideNav />
       <Header />
 
       <Main>

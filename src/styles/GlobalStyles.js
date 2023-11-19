@@ -134,11 +134,9 @@ h6 {
 
 /////////////////////////////////////
 /* mobileMedium size navbar */
-@media screen and (max-width:420px) {
+@media screen and (max-width: 420px) {
   .hidden {
-    ul {
-      display:none;
-    }
+     display: none;
   }
 
   .open {
@@ -147,6 +145,7 @@ h6 {
     flex-direction: column;
     justify-content: center;
     gap: 2rem;
+    margin: 0;
 
     ul {
       display: flex;
@@ -154,5 +153,6 @@ h6 {
     }
   }
 }
+
 `;
 export default GlobalStyles;

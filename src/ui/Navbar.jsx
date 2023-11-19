@@ -18,10 +18,6 @@ const Nav = styled.nav`
     @media ${({ theme }) => theme.device.medium} {
       font-size: 1.4rem;
     }
-
-    /* @media ${({ theme }) => theme.device.mobileMedium} {
-      display: none;
-    } */
   }
 `;
 

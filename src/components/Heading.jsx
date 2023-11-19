@@ -19,6 +19,10 @@ const Heading = styled.h1`
         font-size: 2.5rem;
         margin-top: 1.5rem;
       }
+
+      @media ${({ theme }) => theme.device.mobileMedium} {
+        margin-bottom: 1.5rem;
+      }
     `}
 
   // 여성, 남성, 마이페이지, 장바구니

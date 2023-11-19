@@ -23,6 +23,10 @@ const Container = styled.div`
   }
 `;
 
+const Text = styled.div`
+  text-align: center;
+`;
+
 const SummaryContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -111,7 +115,7 @@ function Cart() {
       <Wrapper>
         <Container>
           {!products.length ? (
-            <span>장바구니에 상품을 담아보세요 🛍️</span>
+            <Text>장바구니에 상품을 담아보세요 🛍️</Text>
           ) : (
             <>
               {products.map((item) => (

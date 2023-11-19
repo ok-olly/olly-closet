@@ -10,6 +10,30 @@ const Nav = styled.nav`
   justify-content: space-between;
   margin: 1rem 0;
 
+  @media ${({ theme }) => theme.device.mobileMedium} {
+    &.hidden {
+      display: none;
+    }
+
+    &.open {
+      background-image: linear-gradient(
+        to bottom,
+        var(--color-neutral-0),
+        var(--color-slate-300)
+      );
+      height: 30vh;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2rem;
+      margin: 0;
+
+      ul {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+
   ul {
     display: flex;
     gap: 2rem;
@@ -18,10 +42,6 @@ const Nav = styled.nav`
     @media ${({ theme }) => theme.device.medium} {
       font-size: 1.4rem;
     }
-
-    /* @media ${({ theme }) => theme.device.mobileMedium} {
-      display: none;
-    } */
   }
 `;
 

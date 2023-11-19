@@ -31,6 +31,12 @@ const Ul = styled.ul`
     grid-template-columns: 15rem 17rem 6rem;
     gap: 0.5rem;
   }
+
+  @media ${({ theme }) => theme.device.mobileMedium} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const HiddenSpan = styled.span`
@@ -73,6 +79,10 @@ const Wrapper = styled.div`
 const Container = styled.div`
   padding: 0 2.5rem 2.5rem;
 
+  @media ${({ theme }) => theme.device.mobileMedium} {
+    padding: 0 1rem 1rem;
+  }
+
   h5 {
     text-align: center;
     margin-bottom: 1rem;
@@ -81,25 +91,32 @@ const Container = styled.div`
 
 const FormContainer = styled.div`
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
 
-  @media ${({ theme }) => theme.device.medium} {
+  @media ${({ theme }) => theme.device.small} {
     flex-direction: column;
   }
 `;
 
 const LeftSide = styled.div`
-  flex-basis: 57%;
+  /* flex-basis: 57%; */
+  flex: 1;
+
+  @media ${({ theme }) => theme.device.small} {
+    width: 35rem;
+    margin: 1rem auto;
+  }
 
   form {
     div {
-      margin-bottom: 0.7rem;
+      margin-bottom: 1rem;
       display: flex;
       gap: 1rem;
       align-items: center;
 
       label {
-        flex-basis: 20%;
+        /* flex-basis: 20%; */
+        flex-basis: 22%;
       }
 
       input {
@@ -110,8 +127,21 @@ const LeftSide = styled.div`
   }
 `;
 
+const AddressInput = styled.input`
+  width: 30rem;
+
+  @media ${({ theme }) => theme.device.medium} {
+    width: 25rem;
+  }
+
+  @media ${({ theme }) => theme.device.mobileSmall} {
+    width: 20rem;
+  }
+`;
+
 const RightSide = styled.div`
-  flex: 1;
+  /* flex: 1; */
+  flex-basis: 45%;
 `;
 
 function OrderList({ order, selectedOrder, handleIsOpen }) {
@@ -220,6 +250,7 @@ function OrderList({ order, selectedOrder, handleIsOpen }) {
                       id="fullName"
                       defaultValue={fullName}
                       disabled={isShipped}
+                      size={15}
                       required
                       {...register("fullName")}
                     />
@@ -232,6 +263,7 @@ function OrderList({ order, selectedOrder, handleIsOpen }) {
                       id="zipcode"
                       defaultValue={zipcode}
                       disabled={isShipped}
+                      size={15}
                       required
                       {...register("zipcode")}
                     />
@@ -248,12 +280,11 @@ function OrderList({ order, selectedOrder, handleIsOpen }) {
 
                   <div>
                     <label htmlFor="address1">주소</label>
-                    <input
+                    <AddressInput
                       type="text"
                       id="address1"
                       defaultValue={address1}
                       disabled={isShipped}
-                      size={47}
                       required
                       {...register("address1")}
                     />
@@ -261,12 +292,11 @@ function OrderList({ order, selectedOrder, handleIsOpen }) {
 
                   <div>
                     <label htmlFor="address2">상세주소</label>
-                    <input
+                    <AddressInput
                       type="text"
                       id="address2"
                       defaultValue={address2}
                       disabled={isShipped}
-                      size={47}
                       {...register("address2")}
                     />
                   </div>

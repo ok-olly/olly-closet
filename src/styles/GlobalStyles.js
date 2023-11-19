@@ -131,27 +131,5 @@ h6 {
 ::-webkit-scrollbar {
   width: 0;
 }
-
-/////////////////////////////////////
-/* mobileMedium size navbar */
-/* @media screen and (max-width: 420px) {
-  .hidden {
-     display: none;
-  }
-
-  .open {
-    background-image: linear-gradient(to bottom, var(--color-neutral-0), var(--color-slate-300));
-    height: 30vh;
-    flex-direction: column;
-    justify-content: center;
-    gap: 2rem;
-    margin: 0;
-
-    ul {
-      display: flex;
-      flex-direction: column;
-    }
-  }
-} */
 `;
 export default GlobalStyles;

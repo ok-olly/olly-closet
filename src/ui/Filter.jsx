@@ -20,6 +20,25 @@ const Form = styled.form`
     font-size: 85%;
     gap: 1rem;
   }
+
+  @media ${({ theme }) => theme.device.mobileLarge} {
+    &.hidden {
+      display: none;
+    }
+
+    &.open {
+      display: block;
+      position: absolute;
+      margin-bottom: 1rem;
+      width: 25rem;
+      z-index: 100;
+      top: -1rem;
+      left: 50%;
+      transform: translate(-50%, 0);
+      background-color: var(--color-slate-200);
+      box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.5);
+    }
+  }
 `;
 
 const CheckboxContainer = styled.div`
@@ -61,6 +80,8 @@ function Filter({
   categoryId,
   setFilteredProducts,
   subCategories,
+  showFilter,
+  setShowFilter,
 }) {
   const [selectedBrand, setSelectedBrand] = useState([]);
   const maxPrice = products.reduce((acc, item) => {
@@ -94,6 +115,7 @@ function Filter({
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setShowFilter(false);
     const filteredData = await getProductsByFilters(filters);
     setFilteredProducts(
       (selectedBrand.length > 0 ||
@@ -110,6 +132,7 @@ function Filter({
     setSelectedSubCategory([]);
     setSelectedPrice(maxPrice);
     setFilteredProducts([]);
+    setShowFilter(false);
   }
 
   useEffect(() => {
@@ -117,7 +140,10 @@ function Filter({
   }, [categoryId]);
 
   return (
-    <Form onSubmit={(e) => handleSubmit(e)}>
+    <Form
+      onSubmit={(e) => handleSubmit(e)}
+      className={showFilter ? "open" : "hidden"}
+    >
       <p>필터</p>
 
       <div>

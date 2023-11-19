@@ -39,8 +39,8 @@ const StyledForm = styled.form`
 // `;
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("demo@demo.com");
+  const [password, setPassword] = useState("password");
   const [fullName, setFullName] = useState("");
   const [isSigningup, setIsSigningup] = useState(false);
   const navigate = useNavigate();

@@ -10,6 +10,7 @@ const StyledAppLayout = styled.div`
 `;
 
 const Main = styled.main`
+  background-color: var(--color-neutral-0);
   margin: 3rem auto;
   padding: 0 10rem;
   min-height: 60vh;

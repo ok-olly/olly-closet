@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 const StyledButton = styled.button`
   text-transform: uppercase;
   letter-spacing: 1.5px;
+  color: var(--color-neutral-950);
 
   background-color: ${(props) =>
     props.color === "green"
@@ -26,7 +27,7 @@ const StyledButton = styled.button`
         : css`var(--color-yellow-600)`};
 
     box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.3);
-    color: #fff;
+    color: var(--color-neutral-0);
     transform: translateY(-4px);
   }
 

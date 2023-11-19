@@ -36,8 +36,11 @@ const Container = styled.div`
   }
 
   @media ${({ theme }) => theme.device.small} {
-    /* max-width: 60rem; */
     padding: 1rem 2rem 2.5rem;
+  }
+
+  @media ${({ theme }) => theme.device.mobileLarge} {
+    padding: 0.5rem 1.2rem 0.3rem;
   }
 
   nav {
@@ -56,6 +59,7 @@ const NavButton = styled.button`
   padding: 1rem;
   background-color: rgba(0, 0, 0, 0);
   border-bottom: 1px dotted black;
+  color: var(--color-neutral-950);
 
   &:hover,
   &:focus,
@@ -66,6 +70,12 @@ const NavButton = styled.button`
 
   @media ${({ theme }) => theme.device.medium} {
     font-size: 1.4rem;
+  }
+
+  span {
+    @media ${({ theme }) => theme.device.mobileMedium} {
+      display: block;
+    }
   }
 `;
 
@@ -154,17 +164,20 @@ function MyPage() {
             <ul>
               <li>
                 <NavButton onClick={() => handleUpdateForm("password")}>
-                  비밀번호 변경
+                  <span>비밀번호 </span>
+                  <span>변경</span>
                 </NavButton>
               </li>
               <li>
                 <NavButton onClick={() => handleUpdateForm("phoneNumber")}>
-                  휴대폰 번호 변경
+                  <span>휴대폰 번호 </span>
+                  <span>변경</span>
                 </NavButton>
               </li>
               <li>
                 <NavButton onClick={() => handleUpdateForm("address")}>
-                  배송지 관리
+                  <span>배송지 </span>
+                  <span>관리</span>
                 </NavButton>
               </li>
             </ul>

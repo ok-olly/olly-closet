@@ -54,6 +54,7 @@ const QuantityButton = styled.button`
   border: none;
   font-size: 2rem;
   background-color: var(--color-neutral-0);
+  color: var(--color-neutral-950);
   border-radius: 30%;
   padding: 0.3rem 0.3rem 0rem;
   transition: all 0.3s ease 0s;

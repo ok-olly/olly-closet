@@ -3,6 +3,7 @@ import { ImLinkedin2, ImGithub } from "react-icons/im";
 
 const StyledFooter = styled.footer`
   margin-top: 10rem;
+  background-color: var(--color-neutral-0);
 
   @media ${({ theme }) => theme.device.small} {
     margin-top: 6rem;
@@ -29,6 +30,11 @@ const Nav = styled.nav`
   @media ${({ theme }) => theme.device.mobileLarge} {
     padding: 2rem 5rem;
     margin: 0 auto;
+  }
+
+  @media ${({ theme }) => theme.device.mobileMedium} {
+    flex-direction: column;
+    gap: 3rem;
   }
 `;
 

@@ -9,7 +9,11 @@ const StyledHeader = styled.header`
   background-color: var(--color-neutral-0);
   z-index: 200;
   border-bottom: 1px solid var(--color-neutral-400);
-  padding: 0 4rem;
+  padding: 2rem 4rem 0;
+
+  @media ${({ theme }) => theme.device.small} {
+    padding: 1.5rem 4rem 0;
+  }
 
   @media ${({ theme }) => theme.device.mobileMedium} {
     position: relative;

@@ -13,10 +13,15 @@ const StyledForm = styled.form`
   align-items: stretch;
   gap: 2rem;
 
-  width: 50rem;
+  width: 35rem;
   margin: 3rem auto;
   background-color: var(--color-neutral-0);
   padding: 3rem;
+
+  @media ${({ theme }) => theme.device.mobileMedium} {
+    width: 32rem;
+    padding: 2rem;
+  }
 
   div {
     display: flex;

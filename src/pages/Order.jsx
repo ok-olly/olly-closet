@@ -16,6 +16,10 @@ const Container = styled.div`
   padding: 2.5rem;
   display: flex;
   gap: 2rem;
+
+  @media ${({ theme }) => theme.device.medium} {
+    gap: 1rem;
+  }
 `;
 
 const LeftSide = styled.div`
@@ -30,8 +34,8 @@ const RightSide = styled.div`
   flex: 1;
   padding: 2rem;
 
-  div {
-    margin-top: 1rem;
+  h3 {
+    margin-bottom: 1rem;
   }
 `;
 

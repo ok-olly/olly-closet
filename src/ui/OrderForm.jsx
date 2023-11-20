@@ -15,10 +15,18 @@ const StyledDiv = styled.div`
   margin-bottom: 1rem;
 
   label {
-    flex-basis: 20%;
+    width: 30%;
   }
+`;
+
+const InputContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
 
   input {
+    width: 100%;
     border: none;
     padding: 0.5rem;
 
@@ -26,6 +34,14 @@ const StyledDiv = styled.div`
       outline: none;
     }
   }
+
+  button {
+    width: 30%;
+  }
+`;
+
+const ButtonContainer = styled.div`
+  text-align: end;
 `;
 
 function OrderForm({ address, fullName, phoneNumber, email, cart, item }) {
@@ -102,50 +118,56 @@ function OrderForm({ address, fullName, phoneNumber, email, cart, item }) {
     <form onSubmit={handleSubmit(submitForm)}>
       <StyledDiv>
         <label htmlFor="fullName">이름</label>
-        <input
-          type="text"
-          id="fullName"
-          defaultValue={fullName}
-          required
-          {...register("fullName")}
-        />
+        <InputContainer>
+          <input
+            type="text"
+            id="fullName"
+            defaultValue={fullName}
+            required
+            {...register("fullName")}
+          />
+        </InputContainer>
       </StyledDiv>
 
       <StyledDiv>
         <label htmlFor="email1">이메일</label>
-        <input
-          type="text"
-          id="email1"
-          defaultValue={email1}
-          required
-          {...register("email1")}
-        />
-        <span>&#64;</span>
-        <input
-          type="text"
-          id="email2"
-          defaultValue={email2}
-          required
-          {...register("email2")}
-        />
+        <InputContainer>
+          <input
+            type="text"
+            id="email1"
+            defaultValue={email1}
+            required
+            {...register("email1")}
+          />
+          <span>&#64;</span>
+          <input
+            type="text"
+            id="email2"
+            defaultValue={email2}
+            required
+            {...register("email2")}
+          />
+        </InputContainer>
       </StyledDiv>
 
       <StyledDiv>
         <label htmlFor="zipcode">우편번호</label>
-        <input
-          type="text"
-          id="zipcode"
-          defaultValue={zipcode}
-          required
-          {...register("zipcode")}
-        />
-        <Button
-          color="yellow"
-          type="button"
-          onClick={() => setIsOpen((v) => !v)}
-        >
-          주소찾기
-        </Button>
+        <InputContainer>
+          <input
+            type="text"
+            id="zipcode"
+            defaultValue={zipcode}
+            required
+            {...register("zipcode")}
+          />
+          <Button
+            color="yellow"
+            type="button"
+            onClick={() => setIsOpen((v) => !v)}
+          >
+            주소찾기
+          </Button>
+        </InputContainer>
       </StyledDiv>
 
       {isOpen && (
@@ -159,63 +181,71 @@ function OrderForm({ address, fullName, phoneNumber, email, cart, item }) {
 
       <StyledDiv>
         <label htmlFor="address1">주소</label>
-        <input
-          type="text"
-          id="address1"
-          defaultValue={address1}
-          size={47}
-          required
-          {...register("address1")}
-        />
+        <InputContainer>
+          <input
+            type="text"
+            id="address1"
+            defaultValue={address1}
+            // size={47}
+            required
+            {...register("address1")}
+          />
+        </InputContainer>
       </StyledDiv>
 
       <StyledDiv>
         <label htmlFor="address2">상세주소</label>
-        <input
-          type="text"
-          id="address2"
-          defaultValue={address2}
-          size={47}
-          {...register("address2")}
-        />
+        <InputContainer>
+          <input
+            type="text"
+            id="address2"
+            defaultValue={address2}
+            // size={47}
+            {...register("address2")}
+          />
+        </InputContainer>
       </StyledDiv>
 
       <StyledDiv>
         <label htmlFor="phoneNumber1">휴대폰 번호</label>
-        <input
-          type="text"
-          id="phoneNumber1"
-          defaultValue={phoneNumber1}
-          required
-          maxLength={3}
-          size={4}
-          {...register("phoneNumber1")}
-        />
-        <span>-</span>
-        <input
-          type="text"
-          id="phoneNumber2"
-          defaultValue={phoneNumber2}
-          required
-          maxLength={4}
-          size={4}
-          {...register("phoneNumber2")}
-        />
-        <span>-</span>
-        <input
-          type="text"
-          id="phoneNumber3"
-          defaultValue={phoneNumber3}
-          required
-          maxLength={4}
-          size={4}
-          {...register("phoneNumber3")}
-        />
+        <InputContainer>
+          <input
+            type="text"
+            id="phoneNumber1"
+            defaultValue={phoneNumber1}
+            required
+            maxLength={3}
+            size={4}
+            {...register("phoneNumber1")}
+          />
+          <span>-</span>
+          <input
+            type="text"
+            id="phoneNumber2"
+            defaultValue={phoneNumber2}
+            required
+            maxLength={4}
+            size={4}
+            {...register("phoneNumber2")}
+          />
+          <span>-</span>
+          <input
+            type="text"
+            id="phoneNumber3"
+            defaultValue={phoneNumber3}
+            required
+            maxLength={4}
+            size={4}
+            {...register("phoneNumber3")}
+          />
+        </InputContainer>
       </StyledDiv>
 
-      <Button color="green" type="submit">
-        결제하기
-      </Button>
+      <ButtonContainer>
+        <Button color="green" type="submit">
+          결제하기
+        </Button>
+      </ButtonContainer>
     </form>
   );
 }

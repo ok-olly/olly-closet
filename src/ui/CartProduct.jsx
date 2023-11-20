@@ -27,7 +27,7 @@ const StyledDiv = styled.div`
   }
 
   @media ${({ theme }) => theme.device.mobileLarge} {
-    grid-template-columns: min-content 1fr 7rem;
+    grid-template-columns: min-content 1fr 6rem;
     grid-template-areas: "image title button" "image quantity button" "image price button";
   }
 
@@ -50,6 +50,12 @@ const StyledDiv = styled.div`
       &:active {
         color: var(--color-neutral-400);
       }
+
+      @media ${({ theme }) => theme.device.mobileMedium} {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
     }
   }
 
@@ -60,6 +66,12 @@ const StyledDiv = styled.div`
     @media ${({ theme }) => theme.device.small} {
       grid-area: button;
     }
+  }
+`;
+
+const Hyphen = styled.span`
+  @media ${({ theme }) => theme.device.mobileMedium} {
+    display: none;
   }
 `;
 
@@ -110,8 +122,16 @@ function CartProduct({ item, handleRemove }) {
           as="h5"
           onClick={() => navigate(`/productdetail/${item.productId}`)}
         >
-          {item.brandTitle.toUpperCase()} - {item.title}
+          <span>{item.brandTitle.toUpperCase()}</span>
+          <Hyphen> - </Hyphen>
+          <span>{item.title}</span>
         </Heading>
+        {/* <Heading
+          as="h5"
+          onClick={() => navigate(`/productdetail/${item.productId}`)}
+        >
+          {item.brandTitle.toUpperCase()} - {item.title}
+        </Heading> */}
         <ToggleSpan1>{setCurrency(item.price)}</ToggleSpan1>
       </div>
       <div>

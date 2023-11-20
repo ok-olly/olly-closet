@@ -17,6 +17,10 @@ const Percentage = styled.span`
   color: var(--color-red-600);
 `;
 
+const FinalPrice = styled.span`
+  font-weight: 500;
+`;
+
 function Price({ discount, fullPrice, price }) {
   const percentage = Math.ceil((discount / fullPrice) * 100);
 
@@ -30,7 +34,7 @@ function Price({ discount, fullPrice, price }) {
       ) : (
         <br />
       )}
-      <p>{setCurrency(price)}</p>
+      <FinalPrice>{setCurrency(price)}</FinalPrice>
     </Container>
   );
 }

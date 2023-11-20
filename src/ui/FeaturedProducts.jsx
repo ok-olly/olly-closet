@@ -2,9 +2,7 @@ import styled from "styled-components";
 import Card from "./Card";
 
 const StyledFeaturedProducts = styled.div`
-  &:not(:last-child) {
-    margin-bottom: 10rem;
-  }
+  margin-top: 10rem;
 `;
 
 const Type = styled.p`

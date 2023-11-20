@@ -12,26 +12,77 @@ import Price from "../ui/Price";
 import Heading from "../components/Heading";
 import SquareButton from "../components/SquareButton";
 import SquareButtonContainer from "../components/SquaredButtonContainer";
+import Slider from "../ui/Slider";
 
 const Container = styled.div`
   display: flex;
   gap: 2rem;
+
+  @media ${({ theme }) => theme.device.small} {
+    flex-direction: column;
+  }
 `;
 
 const LeftSide = styled.div`
+  flex-basis: 70%;
+
+  @media ${({ theme }) => theme.device.medium} {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+
+  @media ${({ theme }) => theme.device.small} {
+    flex-basis: 20%;
+  }
+`;
+
+const ImageContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
 
+  @media ${({ theme }) => theme.device.medium} {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 15%;
+  }
+
+  @media ${({ theme }) => theme.device.small} {
+    display: none;
+  }
+
   img {
-    width: 42rem;
+    width: 100%;
     height: 100%;
     object-fit: cover;
   }
 `;
 
+const SelectedImg = styled.img`
+  display: none;
+
+  @media ${({ theme }) => theme.device.medium} {
+    display: block;
+    width: 82%;
+  }
+
+  @media ${({ theme }) => theme.device.small} {
+    display: none;
+  }
+`;
+
+const SliderContainer = styled.div`
+  display: none;
+
+  @media ${({ theme }) => theme.device.small} {
+    display: block;
+  }
+`;
+
 const RightSide = styled.div`
   flex: 1;
+
   background-color: var(--color-neutral-100);
   padding: 1rem;
   height: 100%;
@@ -42,12 +93,33 @@ const RightSide = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3rem;
+
+  @media ${({ theme }) => theme.device.small} {
+    top: 10rem;
+  }
+`;
+
+const TitleContainer = styled.div`
+  h4,
+  div {
+    text-align: center;
+  }
+`;
+
+const PriceContainer = styled.div`
+  margin: 0 auto;
+`;
+
+const SquareButtonFirstRow = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 `;
 
 const QuantityContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 1rem;
+  justify-content: center;
 `;
 
 const QuantityButton = styled.button`
@@ -77,6 +149,10 @@ const DescContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+
+  @media ${({ theme }) => theme.device.small} {
+    text-align: center;
+  }
 `;
 
 function ProductDetail() {
@@ -111,6 +187,8 @@ function ProductDetail() {
   const { isLoggedin } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [currentImg, setCurrentImg] = useState(img1);
+  const images = [img1, img2, img3, img4];
 
   function handleClick() {
     if (!isLoggedin) {
@@ -140,13 +218,18 @@ function ProductDetail() {
   return (
     <Container>
       <LeftSide>
-        <img src={img1} />
-        <img src={img2} />
-        <img src={img3} />
-        <img src={img4} />
+        <ImageContainer>
+          {images.map((img) => (
+            <img src={img} onMouseEnter={() => setCurrentImg(img)} />
+          ))}
+        </ImageContainer>
+        <SelectedImg src={currentImg} />
+        <SliderContainer>
+          <Slider images={images} autoSliding={false} />
+        </SliderContainer>
       </LeftSide>
       <RightSide>
-        <div>
+        <TitleContainer>
           {isNew ? (
             <Heading as="h4">New Season</Heading>
           ) : isTrending ? (
@@ -155,11 +238,13 @@ function ProductDetail() {
             <br />
           )}
           <Title brandTitle={brandTitle} productTitle={title} />
-        </div>
+        </TitleContainer>
 
-        <Price discount={discount} fullPrice={fullPrice} price={price} />
+        <PriceContainer>
+          <Price discount={discount} fullPrice={fullPrice} price={price} />
+        </PriceContainer>
 
-        <QuantityContainer>
+        {/* <QuantityContainer>
           <QuantityButton
             onClick={() => setQuantity((prev) => (prev === 1 ? 1 : prev - 1))}
           >
@@ -171,12 +256,31 @@ function ProductDetail() {
           >
             <AiOutlinePlus />
           </QuantityButton>
-        </QuantityContainer>
+        </QuantityContainer> */}
 
         <SquareButtonContainer>
-          <SquareButton onClick={handleClick}>장바구니에 담기</SquareButton>
-          <SquareButton color="white" onClick={handleOrderNow}>
-            바로 구매
+          <SquareButtonFirstRow>
+            <QuantityContainer>
+              <QuantityButton
+                onClick={() =>
+                  setQuantity((prev) => (prev === 1 ? 1 : prev - 1))
+                }
+              >
+                <AiOutlineMinus />
+              </QuantityButton>
+              <span>{quantity}</span>
+              <QuantityButton
+                onClick={() =>
+                  setQuantity((prev) => (prev === 3 ? 3 : prev + 1))
+                }
+              >
+                <AiOutlinePlus />
+              </QuantityButton>
+            </QuantityContainer>
+            <SquareButton onClick={handleOrderNow}>바로 구매</SquareButton>
+          </SquareButtonFirstRow>
+          <SquareButton color="white" onClick={handleClick}>
+            장바구니에 담기
           </SquareButton>
         </SquareButtonContainer>
 

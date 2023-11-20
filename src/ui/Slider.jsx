@@ -12,7 +12,6 @@ const StyledSlider = styled.div`
   overflow: hidden;
   position: relative;
   color: var(--color-neutral-50);
-  margin-bottom: 10rem;
 `;
 
 const ImgContainer = styled.div`
@@ -23,6 +22,7 @@ const ImgContainer = styled.div`
 
 const Img = styled.img`
   width: 100%;
+  object-fit: cover;
 `;
 
 const BtnContainer = styled.div`
@@ -57,14 +57,7 @@ const Progress = styled.div`
   }
 `;
 
-const images = [
-  "slider/nassim-boughazi-4frKet-PJss-unsplash.jpg",
-  "slider/laura-chouette-9gzSVDpyxPg-unsplash.jpg",
-  "slider/tamara-bellis-IwVRO3TLjLc-unsplash.jpg",
-  "slider/tamara-bellis-nOnT17lKYz8-unsplash.jpg",
-];
-
-function Slider() {
+function Slider({ images, autoSliding }) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   function handleClick() {
@@ -72,13 +65,15 @@ function Slider() {
   }
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      handleClick();
-    }, 3000);
+    if (autoSliding) {
+      const timer = setInterval(() => {
+        handleClick();
+      }, 3000);
 
-    return () => {
-      clearInterval(timer);
-    };
+      return () => {
+        clearInterval(timer);
+      };
+    }
   }, []);
 
   return (

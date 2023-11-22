@@ -88,7 +88,7 @@ function Footer() {
 
           <li>
             <a
-              href="https://www.linkedin.com/in/jeongok-olivia-lee/"
+              href="https://www.linkedin.com/in/olivia-jeongok-lee/"
               target="_blank"
             >
               <ImLinkedin2 />
@@ -105,7 +105,7 @@ function Footer() {
 
         <Ul type="gray">
           <li>상호명: Olivia</li>
-          <li>이메일: jeongoklee0108@gmail.com</li>
+          <li>이메일: olivia.jeongok.lee@gmail.com</li>
           <li>대표: 이정옥</li>
           <li>개인정보책임자: Jeongok Lee</li>
         </Ul>

@@ -16,6 +16,19 @@ const StyledDiv = styled.div`
 
   label {
     width: 30%;
+
+    @media ${({ theme }) => theme.device.small} {
+      width: 20%;
+    }
+
+    @media ${({ theme }) => theme.device.mobileLarge} {
+      width: 31%;
+    }
+
+    @media ${({ theme }) => theme.device.mobileMedium} {
+      width: 40%;
+      gap: 0.5rem;
+    }
   }
 `;
 
@@ -23,20 +36,17 @@ const InputContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   gap: 1rem;
 
   input {
-    width: 100%;
+    width: 50%;
     border: none;
     padding: 0.5rem;
 
     &:focus {
       outline: none;
     }
-  }
-
-  button {
-    width: 30%;
   }
 `;
 

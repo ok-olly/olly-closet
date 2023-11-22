@@ -20,6 +20,15 @@ const Container = styled.div`
   @media ${({ theme }) => theme.device.medium} {
     gap: 1rem;
   }
+
+  @media ${({ theme }) => theme.device.small} {
+    flex-direction: column;
+    max-width: 60rem;
+  }
+
+  @media ${({ theme }) => theme.device.small} {
+    padding: 1rem;
+  }
 `;
 
 const LeftSide = styled.div`
@@ -28,13 +37,26 @@ const LeftSide = styled.div`
   padding: 2rem;
   border-radius: 10px;
   height: 100%;
+
+  @media ${({ theme }) => theme.device.mobileMedium} {
+    padding: 1rem;
+  }
+
+  h3 {
+    text-align: center;
+  }
 `;
 
 const RightSide = styled.div`
   flex: 1;
   padding: 2rem;
 
+  @media ${({ theme }) => theme.device.mobileMedium} {
+    padding: 1rem;
+  }
+
   h3 {
+    text-align: center;
     margin-bottom: 1rem;
   }
 `;
@@ -44,6 +66,10 @@ const Product = styled.div`
   gap: 1rem;
   margin: 1rem 0;
   align-items: center;
+
+  @media ${({ theme }) => theme.device.small} {
+    justify-content: space-between;
+  }
 `;
 
 const Img = styled.img`
@@ -51,6 +77,11 @@ const Img = styled.img`
   height: 5.3rem;
   object-fit: cover;
   border-radius: 5px;
+
+  @media ${({ theme }) => theme.device.small} {
+    width: 8rem;
+    height: 10.6rem;
+  }
 `;
 
 const Desc = styled.div`
@@ -63,6 +94,10 @@ const Desc = styled.div`
 const Summary = styled.div`
   border-top: 1px solid var(--color-neutral-950);
   padding-top: 0.5rem;
+
+  @media ${({ theme }) => theme.device.small} {
+    text-align: center;
+  }
 `;
 
 function Order() {

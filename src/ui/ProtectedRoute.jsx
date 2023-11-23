@@ -5,9 +5,12 @@ import { getCurrentUserAsync } from "../redux/authReducer";
 import { store } from "../redux/store";
 import styled from "styled-components";
 
-const Div = styled.div`
-  width: 10rem;
-  height: 10rem;
+const Container = styled.div`
+  width: 100%;
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 function ProtectedRoute() {
@@ -19,7 +22,12 @@ function ProtectedRoute() {
     if (!isUserLoggedin && !isLoading) navigate("/login");
   }, [isUserLoggedin, isLoading]);
 
-  if (isLoading) return <Div className="loader"></Div>;
+  if (isLoading)
+    return (
+      <Container>
+        <div className="loader"></div>
+      </Container>
+    );
 
   if (isUserLoggedin) return <Outlet />;
 }

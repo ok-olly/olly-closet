@@ -1,8 +1,38 @@
-# React + Vite
+# Welcome to My Ecommerce Website Project!
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align='center'>
+<img src="public/readmeimg/screenshot-desktop01.png" height='400px'>
+</p>
 
-Currently, two official plugins are available:
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
+![React Hook Form](https://img.shields.io/badge/React%20Hook%20Form-%23EC5990.svg?style=for-the-badge&logo=reacthookform&logoColor=white)
+![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
+![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## https://ollys-closet.netlify.app
+
+lorem
+
+## How To Use
+
+To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+
+```bash
+# Clone this repository
+$ git clone https://github.com/ok-olly/olly-closet.git
+
+# Go into the repository
+$ cd olly-closet
+
+# Install dependencies
+$ npm install
+
+# Run the app
+$ npm run dev
+```
+
+<!-- > [olivia.jeongok.lee@gmail.com]() &nbsp;&middot;&nbsp; -->
+
+> olivia.jeongok.lee@gmail.com &nbsp;&middot;&nbsp;
+> GitHub [@ok-olly](https://github.com/ok-olly)

@@ -27,13 +27,12 @@ const Form = styled.form`
     }
 
     &.open {
-      display: block;
       position: absolute;
-      margin-bottom: 1rem;
-      width: 25rem;
-      z-index: 100;
       top: -1rem;
       left: 50%;
+      z-index: 100;
+      margin-bottom: 1rem;
+      width: 25rem;
       transform: translate(-50%, 0);
       background-color: var(--color-slate-200);
       box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.5);

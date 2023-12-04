@@ -1,12 +1,7 @@
-# Welcome to My Ecommerce Website Project!
+# Welcome to My E-commerce Store Project!
 
 <p align='center'>
-<!-- <img src="public/readmeimg/screenshot-desktop01.png" height='400px'> -->
-<!-- <img src="public/readmeimg/screenshot-desktop02.png" height='400px'> -->
-<!-- <img src="public/readmeimg/screenshot-desktop03.png" height='400px'> -->
-<img src="public/readmeimg/screenshot-mobile01.png" height='400px'>
-<img src="public/readmeimg/screenshot-mobile02.png" height='400px'>
-<img src="public/readmeimg/screenshot-mobile03.png" height='400px'>
+<img src="public/readmeimg/desktop01.png" height='300px'>
 </p>
 
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
@@ -56,7 +51,7 @@ $ npm install
 $ npm run dev
 ```
 
-<!-- > [olivia.jeongok.lee@gmail.com]() &nbsp;&middot;&nbsp; -->
+<!-- > [olivia.jeongok.lee@gmail.com](https://olivia-jeongok-lee.netlify.app) &nbsp;&middot;&nbsp; -->
 
 > olivia.jeongok.lee@gmail.com &nbsp;&middot;&nbsp;
 > GitHub [@ok-olly](https://github.com/ok-olly)

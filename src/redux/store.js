@@ -9,13 +9,13 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import storageSession from "redux-persist/lib/storage/session";
 import authReducer from "./authReducer";
 
 const persistAuthConfig = {
   key: "AuthRoot",
   version: 1,
-  storage,
+  storage: storageSession,
 };
 
 const persistedAuthReducer = persistReducer(persistAuthConfig, authReducer);

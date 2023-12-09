@@ -1,12 +1,15 @@
-import { useDispatch, useSelector } from "react-redux";
-import { setCurrency } from "../services/helper";
 import styled from "styled-components";
-import Heading from "../components/Heading";
+
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { removeCartItemAsync, resetCartAsync } from "../redux/authReducer";
+
+import { setCurrency } from "../services/helper";
+
+import Heading from "../components/Heading";
 import Button from "../components/Button";
 import toast from "react-hot-toast";
 import CartProduct from "../ui/CartProduct";
-import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
   background-color: var(--color-neutral-100);

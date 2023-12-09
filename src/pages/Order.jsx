@@ -1,9 +1,12 @@
 import { useSelector } from "react-redux";
-import styled from "styled-components";
-import Heading from "../components/Heading";
-import { setCurrency } from "../services/helper";
-import OrderForm from "../ui/OrderForm";
 import { useLocation } from "react-router-dom";
+
+import styled from "styled-components";
+
+import Heading from "../components/Heading";
+import OrderForm from "../ui/OrderForm";
+
+import { setCurrency } from "../services/helper";
 
 const Wrapper = styled.div`
   background-color: var(--color-neutral-100);

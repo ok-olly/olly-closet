@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
+
 import styled from "styled-components";
+
 import Price from "./Price";
 import Title from "./Title";
 

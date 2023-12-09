@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
+
+import styled from "styled-components";
+
 import { getProductsByFilters } from "../services/apiProducts";
 import { setCurrency } from "../services/helper";
-import styled from "styled-components";
+
 import Button from "../components/Button";
 
 const Form = styled.form`

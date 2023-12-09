@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+
 import { updateCurrentUserAsync } from "../redux/authReducer";
+
 import styled from "styled-components";
+
 import toast from "react-hot-toast";
+
 import FormInputContainer from "./FormInputContainer";
 import Button from "../components/Button";
 

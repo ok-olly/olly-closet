@@ -9,8 +9,9 @@ import UpdatePhoneNumberForm from "../ui/UpdatePhoneNumberForm";
 import UpdatePasswordForm from "../ui/UpdatePasswordForm";
 import Button from "../components/Button";
 import Nav from "../ui/Nav";
-import { getOrdersByUser } from "../services/apiOrders";
 import OrderList from "../ui/OrderList";
+
+import { getOrdersByUser } from "../services/apiOrders";
 
 const Wrapper = styled.div`
   background-color: var(--color-neutral-100);

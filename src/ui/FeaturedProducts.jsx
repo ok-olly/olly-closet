@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import Card from "./Card";
 
 const StyledFeaturedProducts = styled.div`

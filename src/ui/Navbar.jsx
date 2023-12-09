@@ -1,9 +1,11 @@
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
+
 import styled from "styled-components";
+
 import { FaBars } from "react-icons/fa6";
 import { FaTimes } from "react-icons/fa";
-import { useEffect, useState } from "react";
 
 const Nav = styled.nav`
   display: flex;

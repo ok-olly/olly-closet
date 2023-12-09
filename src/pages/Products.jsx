@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLoaderData, useParams } from "react-router-dom";
+
 import styled from "styled-components";
 
 import {
@@ -7,6 +8,7 @@ import {
   getProductsByCategory,
   getSubCategories,
 } from "../services/apiProducts";
+
 import Card from "../ui/Card";
 import Filter from "../ui/Filter";
 import Heading from "../components/Heading";

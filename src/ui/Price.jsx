@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import { setCurrency } from "../services/helper";
 
 const Container = styled.div`

@@ -1,7 +1,9 @@
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
+import styled from "styled-components";
+
 import { setCurrency } from "../services/helper";
+
 import Button from "../components/Button";
 import Heading from "../components/Heading";
 

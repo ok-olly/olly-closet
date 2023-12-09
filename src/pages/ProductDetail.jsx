@@ -1,8 +1,10 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import toast from "react-hot-toast";
+
+import styled from "styled-components";
 
 import { addToCartAsync } from "../redux/authReducer";
 import { getSingleProduct } from "../services/apiProducts";
@@ -243,20 +245,6 @@ function ProductDetail() {
         <PriceContainer>
           <Price discount={discount} fullPrice={fullPrice} price={price} />
         </PriceContainer>
-
-        {/* <QuantityContainer>
-          <QuantityButton
-            onClick={() => setQuantity((prev) => (prev === 1 ? 1 : prev - 1))}
-          >
-            <AiOutlineMinus />
-          </QuantityButton>
-          <span>{quantity}</span>
-          <QuantityButton
-            onClick={() => setQuantity((prev) => (prev === 3 ? 3 : prev + 1))}
-          >
-            <AiOutlinePlus />
-          </QuantityButton>
-        </QuantityContainer> */}
 
         <SquareButtonContainer>
           <SquareButtonFirstRow>

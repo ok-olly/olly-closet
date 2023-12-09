@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 import { getCurrentUserAsync } from "../redux/authReducer";
 import { store } from "../redux/store";
+
 import styled from "styled-components";
 
 const Container = styled.div`

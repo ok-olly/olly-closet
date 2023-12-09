@@ -1,7 +1,9 @@
+import { Outlet } from "react-router-dom";
+
+import styled from "styled-components";
+
 import Header from "./Header";
 import Footer from "./Footer";
-import { Outlet } from "react-router-dom";
-import styled from "styled-components";
 import ScrollToTop from "../components/ScrollToTop";
 
 const StyledAppLayout = styled.div`

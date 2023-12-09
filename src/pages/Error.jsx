@@ -1,6 +1,9 @@
 import { useNavigate } from "react-router-dom";
+
 import styled from "styled-components";
+
 import { RiArrowGoBackLine } from "react-icons/ri";
+
 import Heading from "../components/Heading";
 
 const Container = styled.div`

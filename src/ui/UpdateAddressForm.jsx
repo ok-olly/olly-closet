@@ -1,10 +1,14 @@
 import { useState } from "react";
-import Postcode from "./Postcode";
-import FormInputContainer from "./FormInputContainer";
 import { useDispatch, useSelector } from "react-redux";
-import { updateCurrentUserAsync } from "../redux/authReducer";
-import toast from "react-hot-toast";
+
 import styled from "styled-components";
+import toast from "react-hot-toast";
+
+import { updateCurrentUserAsync } from "../redux/authReducer";
+
+import Postcode from "./Postcode";
+
+import FormInputContainer from "./FormInputContainer";
 import Button from "../components/Button";
 
 const StyledForm = styled.form`

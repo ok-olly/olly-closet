@@ -111,7 +111,15 @@ h6 {
   height: 48px;
   border-radius: 50%;
   display: inline-block;
-  position: relative;
+  /* position: relative; */
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -24px; /* Half of the loader's height */
+  margin-left: -24px;
+
+
   border: 10px solid;
   border-color: rgba(120, 113, 108, 0.15) rgba(120, 113, 108, 0.25)
     rgba(120, 113, 108, 0.35) rgba(120, 113, 108, 0.5);

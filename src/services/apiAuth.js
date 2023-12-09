@@ -26,6 +26,9 @@ export async function signup({ fullName, email, password }) {
 
   if (error) throw new Error(error.message);
 
+  if (data.user.identities.length === 0)
+    throw new Error("이미 사용중인 이메일이에요!");
+
   console.log(data);
   return data;
 }

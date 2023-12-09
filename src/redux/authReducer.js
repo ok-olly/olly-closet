@@ -14,8 +14,7 @@ import {
 const initialState = {
   isLoading: false,
   userInfo: null,
-  // error: null,
-  isLoggedin: false,
+  isSignupOk: false,
   cart: [],
   loginError: null,
   signupError: null,
@@ -93,9 +92,9 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     clearError: (state) => {
-      // state.error = null;
       state.signupError = null;
       state.loginError = null;
+      state.isSignupOk = false;
     },
   },
   extraReducers: (builder) => {
@@ -105,11 +104,12 @@ export const authSlice = createSlice({
       })
       .addCase(signupAsync.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.userInfo = action.payload;
+        // state.userInfo = action.payload;
+        state.isSignupOk = true;
       })
       .addCase(signupAsync.rejected, (state, action) => {
         state.isLoading = false;
-        // state.error = action.error.message;
+        state.isSignupOk = false;
         state.signupError = action.error.message;
         console.log("signup rejected!", action.error);
       });
@@ -135,7 +135,7 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.userInfo = action.payload;
         state.cart = action.payload ? action.payload.user_metadata.cart : [];
-        state.isLoggedin = true;
+        // state.isLoggedin = true;
       })
       .addCase(getCurrentUserAsync.rejected, (state, action) => {
         state.isLoading = false;
@@ -148,8 +148,7 @@ export const authSlice = createSlice({
       .addCase(logoutAsync.fulfilled, (state) => {
         state.isLoading = false;
         state.userInfo = null;
-        state.isLoggedin = false;
-        state.error = null;
+        // state.isLoggedin = false;
         state.cart = [];
       })
       .addCase(logoutAsync.rejected, (state) => {

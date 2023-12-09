@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { clearError, loginAsync, signupAsync } from "../redux/authReducer";
 
 import toast from "react-hot-toast";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { clearError, loginAsync, signupAsync } from "../redux/authReducer";
 import { RiArrowGoBackLine } from "react-icons/ri";
+
 import Heading from "../components/Heading";
 import FormInputContainer from "../ui/FormInputContainer";
 import SquareButton from "../components/SquareButton";
@@ -23,21 +25,6 @@ const StyledForm = styled.form`
   gap: 2rem;
 `;
 
-// const ButtonContainer = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   gap: 1rem;
-// `;
-
-// const Button = styled.button`
-//   border: 1px solid var(--color-slate-700);
-//   background-color: var(--color-slate-700);
-//   color: var(--color-neutral-0);
-//   padding-top: 1.5rem;
-//   padding-bottom: 1.5rem;
-//   font-size: inherit;
-// `;
-
 function Login() {
   const [email, setEmail] = useState("demo@demo.com");
   const [password, setPassword] = useState("password");
@@ -45,9 +32,8 @@ function Login() {
   const [isSigningup, setIsSigningup] = useState(false);
   const navigate = useNavigate();
 
-  const { isLoading, userInfo, loginError, signupError } = useSelector(
-    (state) => state.auth
-  );
+  const { isLoading, userInfo, loginError, signupError, isSignupOk } =
+    useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -55,7 +41,6 @@ function Login() {
   }, [userInfo]);
 
   useEffect(() => {
-    // if (error) {
     if (loginError) {
       console.log(loginError);
       setEmail("");
@@ -63,18 +48,23 @@ function Login() {
       toast.error("이메일 또는 비밀번호를 잘못 입력했습니다.");
       dispatch(clearError());
     }
-  }, [
-    // error
-    loginError,
-  ]);
+  }, [loginError]);
 
   useEffect(() => {
     if (signupError) {
       console.log(signupError);
-      toast.error("이미 사용중인 이메일입니다.");
+      toast.error(signupError);
       dispatch(clearError());
     }
   }, [signupError]);
+
+  useEffect(() => {
+    if (isSignupOk) {
+      toast.success("인증 메일을 보내드렸어요! 메일함에서 확인해주세요 😊");
+      dispatch(clearError());
+      setIsSigningup(false);
+    }
+  }, [isSignupOk]);
 
   function handleSignup() {
     if (!email.match(/\S+@\S+\.\S+/)) {
@@ -103,65 +93,75 @@ function Login() {
   return (
     <>
       <Heading as="h2">로그인</Heading>
+
       <Container>
-        <StyledForm onSubmit={handleSubmit}>
-          <div>
-            <FormInputContainer>
-              <input
-                type="text"
-                placeholder="이메일"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </FormInputContainer>
-
-            <FormInputContainer>
-              <input
-                type="password"
-                placeholder="비밀번호"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </FormInputContainer>
-
-            {isSigningup && (
+        {isLoading ? (
+          <div className="loader"></div>
+        ) : (
+          <StyledForm onSubmit={handleSubmit}>
+            <div>
               <FormInputContainer>
                 <input
                   type="text"
-                  placeholder="이름"
-                  id="fullName"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
+                  placeholder="이메일"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </FormInputContainer>
-            )}
-          </div>
 
-          <SquareButtonContainer>
-            {!isSigningup && (
-              <>
-                <SquareButton type="submit">로그인</SquareButton>
-                <SquareButton
-                  type="button"
-                  color="white"
-                  onClick={() => setIsSigningup(true)}
-                >
-                  회원가입
-                </SquareButton>
-              </>
-            )}
-            {isSigningup && (
-              <>
-                <div onClick={() => setIsSigningup(false)}>
-                  <RiArrowGoBackLine />
-                </div>
-                <SquareButton type="submit">회원가입</SquareButton>
-              </>
-            )}
-          </SquareButtonContainer>
-        </StyledForm>
+              <FormInputContainer>
+                <input
+                  type="password"
+                  placeholder="비밀번호"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </FormInputContainer>
+
+              {isSigningup && (
+                <FormInputContainer>
+                  <input
+                    type="text"
+                    placeholder="이름"
+                    id="fullName"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                  />
+                </FormInputContainer>
+              )}
+            </div>
+
+            <SquareButtonContainer>
+              {!isSigningup && (
+                <>
+                  <SquareButton type="submit">로그인</SquareButton>
+                  <SquareButton
+                    type="button"
+                    color="white"
+                    onClick={() => setIsSigningup(true)}
+                  >
+                    회원가입
+                  </SquareButton>
+                </>
+              )}
+              {isSigningup && (
+                <>
+                  <div
+                    onClick={() => {
+                      setIsSigningup(false);
+                      setFullName("");
+                    }}
+                  >
+                    <RiArrowGoBackLine />
+                  </div>
+                  <SquareButton type="submit">회원가입</SquareButton>
+                </>
+              )}
+            </SquareButtonContainer>
+          </StyledForm>
+        )}
       </Container>
     </>
   );
